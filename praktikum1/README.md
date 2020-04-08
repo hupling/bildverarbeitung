@@ -1,9 +1,9 @@
 # Praktikum1
 
 ## Aufgabe1
-![orginal](docs/orginal.png)
+![orginal](docs/orginal.PNG)
 *Orginal*
-![bewmit](docs/BewMit.png)
+![bewmit](docs/BewMit.PNG)
 *Bew Mit Filter*
 
 Bei dem Filter "Bew Mit" Filter wird der Durchschnittsfarbwert von einem Pixel und die acht Nachbarn gebildet, dabei wird im bild eine leichte Unschärfe erzeugt.
