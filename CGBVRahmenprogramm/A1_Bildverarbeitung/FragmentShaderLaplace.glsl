@@ -30,6 +30,21 @@ uniform vec2 offsets[9] = vec2[](	vec2(-1,  1),
 void main()
 {
 
-    fragColor =		texture(textureMap, texCoords);
+
+   float factor[9] = float[](0,1,0,
+                             1,-4,1,
+							 0,1,0);
+    
+	vec4 texel = vec4(0.0, 0.0, 0.0, 1.0);
+
+    for (int i = 0; i < 9; i++)
+    {
+        texel += factor[i]* texture(textureMap, texCoords + offsets[i]);
+    }
+
+
+
+    fragColor =	(	texel+param1.x/10+0.5)*(param1.y+1);
+
 
 }
