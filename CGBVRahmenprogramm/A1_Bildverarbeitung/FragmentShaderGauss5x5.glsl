@@ -28,25 +28,38 @@ const float PI = 3.1415926535897932384626433832795;
 
 void main()
 {
-float ent00 = 1/(2*PI*(param1.x/10));
- float ent10 = ent00*exp(-0.5/(param1.x/10)); 
- float ent11=  ent00*exp(-1/(param1.x/10));
-float ent20=  ent00*exp(-2/(param1.x/10));
-float ent12 = ent00*exp(-2.5/(param1.x/10));
-float ent22= ent00*exp(-4/(param1.x/10));
+//float ent00 = 1/(2*PI*(param1.x/10));
+// float ent10 = ent00*exp(-0.5/(param1.x/10)); 
+// float ent11=  ent00*exp(-1/(param1.x/10));
+//float ent20=  ent00*exp(-2/(param1.x/10));
+//float ent12 = ent00*exp(-2.5/(param1.x/10));
+//float ent22= ent00*exp(-4/(param1.x/10));
 
 
-   float factor[25] = float[](ent22,ent12,ent20,ent12,ent22,
-                              ent12,ent11,ent10,ent11,ent12,
-							  ent20,ent10,ent00,ent10,ent20,
-							  ent12,ent11,ent10,ent11,ent12,
-							  ent22,ent12,ent20,ent12,ent22);
+ //  float factor[25] = float[](ent22,ent12,ent20,ent12,ent22,
+  //                            ent12,ent11,ent10,ent11,ent12,
+//							  ent20,ent10,ent00,ent10,ent20,
+//							  ent12,ent11,ent10,ent11,ent12,
+//							  ent22,ent12,ent20,ent12,ent22);
+
+
+float ent00 = sqrt( 1/(2*PI*(param1.x/10)));
+ float ent10 = ent00*exp(-1/4); 
+ float ent20=  ent00*exp(-4/4);
+ float ent30=  ent00*exp(-9/4);
+
+
+
+   float factor[7] = float[](ent30,ent20,ent10,ent00,ent10,ent20,ent30);
+
+
     
 	vec4 texel = vec4(0.0, 0.0, 0.0, 1.0);
    float sum= 0.0;
 
-    for (int i = 0; i < 25; i++)
-    {
+ //   for (int i = 0; i < 25; i++)
+   for (int i = 0; i < 7; i++)
+  {
         texel += factor[i]* texture(textureMap, texCoords + offsets[i]);
 		sum += factor[i];
     }
