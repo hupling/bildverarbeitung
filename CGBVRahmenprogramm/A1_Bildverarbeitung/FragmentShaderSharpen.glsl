@@ -44,6 +44,6 @@ void main()
 	(	texel+param1.x/10+0.5)*(param1.y+1);
 
 
-    fragColor =	texture(textureMap, texCoords)+param1.x/10*(	texel+param1.x/10+0.5)*(param1.y+1);
+    fragColor =	texture(textureMap, texCoords)+param1.x/10*(texel);
 
 }
