@@ -28,16 +28,11 @@ const float PI = 3.1415926535897932384626433832795;
 
 void main()
 {
-float ent00 = sqrt( 1/(2*PI*(param1.x/10)));
-
-// float ent10 = ent00*exp(-0.25/(param1.x/10)); 
- // float ent20=  ent00*exp(-2/(param1.x/10));
-// float ent30=  ent00*exp(-4.5/(param1.x/10));
- float ent10 = ent00*exp(-1/4); 
- float ent20=  ent00*exp(-4/4);
- float ent30=  ent00*exp(-9/4);
-
-
+float powerx =pow(param1.x/10,2);
+float ent00 = sqrt(1/(2*PI*powerx));
+ float ent10 = ent00*exp(-1/(4*powerx)); 
+ float ent20=  ent00*exp(-4/(4*powerx));
+ float ent30 = ent00*exp(-9/(4*powerx));
 
 
    float factor[7] = float[](ent30,ent20,ent10,ent00,ent10,ent20,ent30);
