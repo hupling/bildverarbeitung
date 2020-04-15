@@ -23,14 +23,36 @@ Bei dem Filter "Bew Mit" Filter wird der Durchschnittsfarbwert von einem Pixel u
 ![3gauss](docs/3x3.PNG)
    
 3. Gauss5x5:  param.x -> Faktor
+
+![5gauss](docs/5x5.PNG)
    
-4. Gauss7x7:  param.x -> Faktor  ??? Messen der Berechnungen
+4. Gauss7x7:  param.x -> Faktor
+
+![7gauss](docs/7x7.PNG)
    
 5. Laplace:
+
+![laplacex](docs/Laplace_X.PNG)
+*Laplace Filter mit param.x Faktor*
+
+![laplacey](docs/Laplace_Y.PNG)
+*Laplace Filter mit param.y Faktor*
    
 6. Sobel:
+
+![sobelx](docs/Sobel_X.PNG)
+*Sobel Filter mit param.x Faktor*
+
+![sobely](docs/Sobel_Y.PNG)
+*Sobel Filter mit param.y Faktor*
    
 7. Sharben:
+
+![sharpenPos](docs/Sharpen_Pos.PNG)
+*Sharpen Filter mit einem positiven param.x Faktor*
+
+![sharpenNeg](docs/Sharpen_Neg.PNG)
+*Sharpen Filter mit einem negitiven param.x Faktor*
    
 8. Dilation:
    
