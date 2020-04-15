@@ -1,19 +1,19 @@
 //
-// Fragment Shader für 5x5 Gauss Tiefpass-Filter
-// Angepasst für Core Profile
+// Fragment Shader fÃ¼r 5x5 Gauss Tiefpass-Filter
+// Angepasst fÃ¼r Core Profile
 // ---------------------------------
 //
 // @author: Prof. Dr. Alfred Nischwitz
 // @lecturer: Prof. Dr. Alfred Nischwitz
 //
-// (c)2017 Hochschule München, HM
+// (c)2017 Hochschule MÃ¼nchen, HM
 //
 // ---------------------------------
 #version 330
 
 smooth in vec2 texCoords;				// pixelbezogene Texturkoordinate
 out vec4 fragColor;					// Ausgabewert mit 4 Komponenten zwischen 0.0 und 1.0
-uniform sampler2DRect textureMap;		// Sampler für die Texture Map
+uniform sampler2DRect textureMap;		// Sampler fÃ¼r die Texture Map
 uniform vec4 param1;					// Param1 X,Y,Z,W in GUI
 
 //uniform vec2 offsets[25] = vec2[](	vec2(-2,  2), vec2(-1,  2), vec2(0,  2), vec2(1,  2), vec2(2,  2),
@@ -31,9 +31,9 @@ void main()
 
 float powerx =pow(param1.x/10,2);
 float ent00 = sqrt( 1/(2*PI*powerx));
- float ent10 = ent00*exp(-1/(4*powerx)); 
- float ent20=  ent00*exp(-4/(4*powerx));
- float ent30 = ent00*exp(-9/(4*powerx));
+ float ent10 = ent00*exp(-1/(2*powerx)); 
+ float ent20=  ent00*exp(-4/(2*powerx));
+ float ent30 = ent00*exp(-9/(2*powerx));
 
 
    float factor[7] = float[](ent30, ent20,ent10,ent00,ent10,ent20,ent30);
