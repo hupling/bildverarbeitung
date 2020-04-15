@@ -19,6 +19,8 @@ Bei dem Filter "Bew Mit" Filter wird der Durchschnittsfarbwert von einem Pixel u
 *Brightness Contrast Filter: Kontrast auf 3*
    
 2. Gauss3x3: param.x -> Faktor
+
+![3gauss](docs/3x3.PNG)
    
 3. Gauss5x5:  param.x -> Faktor
    
