@@ -1,4 +1,5 @@
 # Praktikum1
+## David Haupenthal und Nicole Gertz
 
 ## Aufgabe1
 ![orginal](docs/orginal.PNG)
