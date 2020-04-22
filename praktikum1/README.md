@@ -109,3 +109,7 @@ Erweiterung der dunklen Bereiche auf Kosten der Weißbereiche. Der horiontale un
 
 
 ## Aufgabe3
+
+![aufgabe3](docs/aufgabe3.PNG)
+
+
