@@ -29,7 +29,7 @@ void main()
     for (float i = -dist; i <= dist; i++)   {
 	for(float j = -dist; j <= dist; j++){
 
-        texel = min(texel, texture(textureMap, texCoords +vec2(i,j)));
+        texel = min(texel, texture(textureMap, texCoords + vec2(i,j)));
 
     }
 	}
