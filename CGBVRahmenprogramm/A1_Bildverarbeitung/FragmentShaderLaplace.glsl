@@ -31,9 +31,9 @@ void main()
 {
 
 
-   float factor[9] = float[](0,1,0,
-                             1,-4,1,
-							 0,1,0);
+   float factor[9] = float[](0,-1,0,
+                             -1,4,-1,
+							 0,-1,0);
     
 	vec4 texel = vec4(0.0, 0.0, 0.0, 1.0);
 

@@ -28,13 +28,10 @@ void main()
 		float dist= param1.x;
     for (float i = -dist; i <= dist; i++)   {
 	for(float j = -dist; j <= dist; j++){
-<<<<<<< HEAD
 
-        texel = min(texel, texture(textureMap, texCoords + vec2(i,j)));
-=======
 if(i!=0 && j!=0){
         texel = min(texel, texture(textureMap, texCoords +vec2(i,j)));
->>>>>>> d7ffcf4c0695ae110415613debfe8d62db718004
+
 
    } }
 	}
