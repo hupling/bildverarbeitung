@@ -10,7 +10,7 @@ Gibt das Bild unverändert aus.
 ![bewmit](docs/BewMit.PNG)
 *Bew Mit Filter*
 
-Bei dem Filter "Bew Mit" wird der Durchschnittsfarbwert von einem Pixel und die acht Nachbarn gebildet, dabei wird im bild eine leichte Unschärfe erzeugt.
+Bei dem Filter "Bew Mit" wird der Durchschnittsfarbwert von einem Pixel und die acht Nachbarn gebildet, dabei wird im Bild eine leichte Unschärfe erzeugt.
 
 
 ## Aufgabe2
@@ -53,7 +53,7 @@ HY-Teil (Gauss 5x5)
 
 Glätttet die Kanten --> kleiner Stukturen gehen verloren, gröberer bleiben erhalten, vermeidet Bildrauschen
 
-FpS haben sich halbiert. 49 Multiplikation + Addition --> 14 Multiplikation + Addition
+FpS haben sich halbiert. 49 (Multiplikation + Addition) --> 14 (Multiplikation + Addition)
 
 ![7gauss](docs/7x7.PNG)
 
