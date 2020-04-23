@@ -111,9 +111,9 @@ Erweiterung der dunklen Bereiche auf Kosten der Weißbereiche. Der horiontale un
 
 ## Aufgabe3
 
-![aufgabe3](docs/aufgabe3_final.PNG)
+![aufgabe3](docs/aufgabe3.PNG)
 
-Um mehrere Pixels an den Kanten des Objektes zu entfernen, ist der Erosion-Filter wichtig. Deswegen wird er zweimal benutzt. Der Filter hilft die Kanten der Knöpfe zu reduzieren. Der Bewegte-Mittwert-Filter ist für die Glättung des Bildes zuständig. Anschließlich wird der Laplace Filter benutzt, um ein kantenextrahiertes Bild (von den Wörter) zu liefern.
+Der Laplace Filter wird zuerst verwendet, um ein kantenextrahiertes Bild zu liefern. Mit einer Helligkeit (Param1.x) von -5 ist das Bild dunkler geworden während der Kontrast (Param1.y) auf 3 macht die Schrift heller und ausgeprägter. Mit den zwei Verwendungen vom Bewegte-Mittwert-Filter wird das Rauschen im Hintergrund reduziert.
 
 
 
