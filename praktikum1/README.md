@@ -38,7 +38,9 @@ Glätttet die Kanten --> kleiner Stukturen gehen verloren, gröberer bleiben erh
 * param1.x -> Glättungs-Faktor nur postive Werte
 * param1.y --> muss auf !=0 eingestellt sein
 
-Glätttet die Kanten --> kleiner Stukturen gehen verloren, gröberer bleiben erhalten, vermeidet Bildrauschen. Die Filterfunktion Gauss5x5 und Guass7x7 unterscheiden sich grundsätzlich von Gauss3x3 nur darin, dass die verwendete Offset-Matrix und der Filterkern jeweils größer sind und damit der Effekt verstärkt wird. 
+Glätttet die Kanten --> kleiner Stukturen gehen verloren, gröberer bleiben erhalten, vermeidet Bildrauschen. 
+
+Die Filterfunktion Gauss5x5 und Guass7x7 unterscheiden sich grundsätzlich von Gauss3x3 nur darin, dass die verwendete Offset-Matrix und der Filterkern jeweils größer sind und damit der Effekt verstärkt wird. 
 
 ![5gauss](docs/5x5.PNG)
    
