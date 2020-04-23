@@ -82,7 +82,7 @@ Kantenerkennung 2. diskrete Ableitung
 ![sobely](docs/Sobel_Y.PNG)
 *Sobel Filter mit param.y Faktor*
    
-7. Sharben:
+7. Sharpen:
 * param1.x: parameter für die Schärfe
 
 Stellt die Schärfe eines Bildes ein
