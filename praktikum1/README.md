@@ -111,7 +111,7 @@ Erweiterung der dunklen Bereiche auf Kosten der Weißbereiche. Die umliegenden N
 
 Können der Dilatation Filter und der Erosion Filter ebenfalls in einen horizontalen und vertikalen Anteil aufgespalten werden?
 
-Dilaation und Erosion sind beide jeweils separierbar. Das strukturierende Element dieser Filter sind hier Matrizen nur mit 1er Einträgen. Somit eine symmetrische Matrix, welche sich aufteilen lässt in x- und y-Komponente.
+Dilatation und Erosion sind beide jeweils separierbar. Das strukturierende Element dieser Filter sind hier Matrizen nur mit 1er Einträgen. Somit eine symmetrische Matrix, welche sich aufteilen lässt in x- und y-Komponente.
 
 
 
