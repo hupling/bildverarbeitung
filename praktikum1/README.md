@@ -55,7 +55,7 @@ HY-Teil (Gauss 5x5)
 
 Glätttet die Kanten --> kleiner Stukturen gehen verloren, gröberer bleiben erhalten, vermeidet Bildrauschen. Durch die speuielle Form des Filterkerns lässt sich die Funktion in x- und y-Richtung ausspelten. Den horizontalen und vertikalen Filter hintereinander angewendet ergibt dasselbe Ergebnis wie ein Durchlauf mit dem obigen Vorgehen, aber die Rechenzeit wird deutlich verbessert.
 
-FpS haben sich halbiert. 49 (Multiplikation + Addition) --> 14 (Multiplikation + Addition)
+FpS haben sich halbiert. 49 Multiplikation + 48 Addition = 97--> 14 Multiplikation + 12 Addition = 26
 
 ![7gauss](docs/7x7.PNG)
 
