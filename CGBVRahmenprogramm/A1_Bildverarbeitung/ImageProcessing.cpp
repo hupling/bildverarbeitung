@@ -125,21 +125,6 @@ void TW_CALL SetShader4CB(const void *value, void *clientData)
 TwBar *bar;
 void InitGUI()
 {
-
-
-	if (strstr((char*)glGetString(GL_EXTENSIONS), "WGL_EXT_swap_control") != NULL)
-
-	{
-		typedef BOOL(APIENTRY* PFNWGLSWAPINTERVALFARPROC)(int);
-		PFNWGLSWAPINTERVALFARPROC wglSwapIntervalEXT = 0;
-		wglSwapIntervalEXT = (PFNWGLSWAPINTERVALFARPROC)wglGetProcAddress("wglSwapIntervalEXT");
-		if (wglSwapIntervalEXT != NULL) wglSwapIntervalEXT(0);
-	}
-
-
-
-
-
 	std::string enumString;
 	for (int i = 0; i < TOTAL_SHADERS; i++)
 	{

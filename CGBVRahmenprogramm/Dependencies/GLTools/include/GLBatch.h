@@ -78,6 +78,9 @@ class GLBatch : public GLBatchBase
         
 		// Tell the batch you are done
 		void End(void);
+
+		// Clear GPU's memory and reset member variables of this batch.
+		void Free(void);
      
 		// Block Copy in vertex data
 		void CopyVertexData3f(M3DVector3f *vVerts);

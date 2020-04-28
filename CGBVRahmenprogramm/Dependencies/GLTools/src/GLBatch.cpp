@@ -86,6 +86,28 @@ GLBatch::~GLBatch(void)
 	delete [] pTexCoords;
 	}
 
+// Clear GPU's memory and reset member variables of this batch.
+void GLBatch::Free(void)
+	{
+		this->~GLBatch();
+		nNumTextureUnits = 0;
+		nNumVerts = 0;
+		pVerts = NULL;
+		pNormals = NULL;
+		pColors = NULL;
+		pTexCoords = NULL;
+		pBinormals = NULL;
+		pTangents = NULL;
+		uiVertexArray = 0;
+		uiNormalArray = 0;
+		uiTangentArray = 0;
+		uiBinormalArray = 0;
+		uiColorArray = 0;
+		vertexArrayObject = 0;
+		bBatchDone = false;
+		nVertsBuilding = 0;
+		uiTextureCoordArray = NULL;
+	}
 
 // Start the primitive batch.
 void GLBatch::Begin(GLenum primitive, GLuint nVerts, GLuint nTextureUnits)
