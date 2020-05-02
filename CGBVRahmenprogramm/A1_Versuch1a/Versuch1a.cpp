@@ -47,7 +47,7 @@ void InitGUI()
 	TwAddVarRW(bar, "Culling?", TW_TYPE_BOOLCPP, &bCull, "");
 	TwAddVarRW(bar, "Backface Wireframe?", TW_TYPE_BOOLCPP, &bOutline, "");
 	//Hier weitere GUI Variablen anlegen. Für Farbe z.B. den Typ TW_TYPE_COLOR4F benutzen
-	TwAddVarRW(bar, "Culling Face?", TW_TYPE_BOOLCPP, &bCullFace, "");
+	TwAddVarRW(bar, "FrontFace Face?", TW_TYPE_BOOLCPP, &bFront, "");
 }
 
 void CreateGeometry()
@@ -136,6 +136,13 @@ void RenderScene(void)
 		glPolygonMode(GL_BACK, GL_LINE);
 	else
 		glPolygonMode(GL_BACK, GL_FILL);
+
+	//neu Funktion 3.1 d
+	if (bFront)
+		glFrontFace(GL_CW);
+	else
+		glFrontFace(GL_CCW);
+
 
 	// Speichere den matrix state und führe die Rotation durch
 	modelViewMatrix.PushMatrix();
