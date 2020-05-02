@@ -33,6 +33,7 @@ static float rotation[] = { 0, 0, 0, 0 };
 bool bCull = false;
 bool bOutline = false;
 bool bDepth = true;
+bool bFront = false;
 
 
 //GUI
@@ -46,6 +47,7 @@ void InitGUI()
 	TwAddVarRW(bar, "Culling?", TW_TYPE_BOOLCPP, &bCull, "");
 	TwAddVarRW(bar, "Backface Wireframe?", TW_TYPE_BOOLCPP, &bOutline, "");
 	//Hier weitere GUI Variablen anlegen. Für Farbe z.B. den Typ TW_TYPE_COLOR4F benutzen
+	TwAddVarRW(bar, "Culling Face?", TW_TYPE_BOOLCPP, &bCullFace, "");
 }
 
 void CreateGeometry()
@@ -86,7 +88,8 @@ void CreateGeometry()
 	boden.Begin(GL_TRIANGLE_FAN, 18);
 	// Das Zentrum des Triangle_Fans ist im Ursprung
 	boden.Vertex3f(0.0f, 0.0f, 0.0f);
-	for (float angle = 0.0f; angle < (2.0f*GL_PI); angle += (GL_PI / 8.0f))
+	//for (float angle = 0.0f; angle < (2.0f*GL_PI); angle += (GL_PI / 8.0f))
+	for (float angle = (2.0f * GL_PI); angle > 0.0f; angle -= (GL_PI / 8.0f))
 	{
 		// Berechne x und y Positionen des naechsten Vertex
 		float x = 50.0f*sin(angle);
@@ -145,6 +148,7 @@ void RenderScene(void)
 	//Zeichne Konus und Boden
 	konus.Draw();
 	boden.Draw();
+	
 	//Auf fehler überprüfen
 	gltCheckErrors(0);
 	// Hole die im Stack gespeicherten Transformationsmatrizen wieder zurück
