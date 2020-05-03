@@ -369,10 +369,10 @@ void RenderScene(void)
 	//quarder.Draw();
 //	quader1.Draw();
 	//quarder2.Draw();
-	//kreis.Draw();
-//	kreis2.Draw();
+	kreis.Draw();
+	kreis2.Draw();
 	//kreis3.Draw();
-	kugel.Draw();
+	//kugel.Draw();
 
 	//Auf fehler überprüfen
 	gltCheckErrors(0);
