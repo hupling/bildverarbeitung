@@ -30,6 +30,8 @@ GLBatch kreis;
 GLBatch kreis2;
 GLBatch kreis3;
 GLBatch kugel;
+GLBatch kreis_t;
+GLBatch kugel_t;
 
 
 
@@ -330,6 +332,133 @@ void CreateGeometry()
 	kugel.Vertex3f(0, 0, 50);
 	kugel.End();
 
+
+
+	int test3 = 15;
+	kreis_t.Begin(GL_TRIANGLE_STRIP, test3 * 6);
+	// Das Zentrum des Triangle_Fans ist im Ursprung
+
+	for (int i = 0; i < test3; i++) {
+		float angle = i * 2.0f * GL_PI / test3;
+
+		float x = 50.0f * cos(angle);
+		float y = 50.0f * sin(angle);
+
+
+		kreis_t.Vertex3f(0, 0, 0);
+
+		if ((iPivot % 2) == 0)
+			kreis_t.Color4f(1, 0.8, 0.2, 1);
+		else
+			kreis_t.Color4f(0, 0.8, 0, 1);
+
+		iPivot++;
+
+		kreis_t.Vertex3f(x, y, 0);
+
+	}
+
+
+	for (int i = 0; i < test3; i++) {
+		float angle = i * 2.0f * GL_PI / test3;
+
+		float x = 50.0f * cos(angle);
+		float y = 50.0f * sin(angle);
+
+		if ((iPivot % 2) == 0)
+			kreis_t.Color4f(1, 0.8, 0.2, 1);
+		else
+			kreis_t.Color4f(0, 0.8, 0, 1);
+
+
+		kreis_t.Vertex3f(x, y, 0);
+
+		if ((iPivot % 2) == 0)
+			kreis_t.Color4f(1, 0.8, 0.2, 1);
+		else
+			kreis_t.Color4f(0, 0.8, 0, 1);
+
+
+		kreis_t.Vertex3f(x, y, 50);
+		iPivot++;
+
+	}
+
+	for (int i = 0; i < test3; i++) {
+		float angle = i * 2.0f * GL_PI / test3;
+
+		float x = 20.0f * cos(angle);
+		float y = 20.0f * sin(angle);
+
+		if ((iPivot % 2) == 0)
+			kreis_t.Color4f(1, 0.8, 0.2, 1);
+		else
+			kreis_t.Color4f(0, 0.8, 0, 1);
+
+		kreis_t.Vertex3f(x, y, 50);
+
+		if ((iPivot % 2) == 0)
+			kreis_t.Color4f(1, 0.8, 0.2, 1);
+		else
+			kreis_t.Color4f(0, 0.8, 0, 1);
+
+		kreis_t.Vertex3f(0, 0, 50);
+		iPivot++;
+
+	}
+
+
+
+	kreis_t.End();
+
+	int test4 = 10;
+	kugel_t.Begin(GL_TRIANGLE_STRIP, test4 * test4 * 2);
+	// Das Zentrum des Triangle_Fans ist im Ursprung
+	for (int j = 0; j < test4; j++) {
+		for (int i = 0; i < test4; i++) {
+
+			float angle = i * 2.0f * GL_PI / test4;
+			float angle1 = j * GL_PI / test4;
+			float angle2 = (j + 1) * GL_PI / test4;
+
+			float r1 = 50 * sin(angle1);
+			float r2 = 50 * sin(angle2);
+			float h1 = -50 * cos(angle1);
+			float h2 = -50 * cos(angle2);
+
+			float x1 = r1 * cos(angle);
+			float y1 = r1 * sin(angle);
+
+			float x2 = r2 * cos(angle);
+			float y2 = r2 * sin(angle);
+
+
+			if ((iPivot % 2) == 0)
+				kugel_t.Color4f(1, 0.8, 0.2, 1);
+			else
+				kugel_t.Color4f(0, 0.8, 0, 1);
+
+
+
+
+			kugel_t.Vertex3f(x1, y1, h1);
+
+			//			kugel_t.Color4f(0, 0.8, 0, 1);
+			if ((iPivot % 2) == 0)
+				kugel_t.Color4f(1, 0.8, 0.2, 1);
+			else
+				kugel_t.Color4f(0, 0.8, 0, 1);
+
+			kugel_t.Vertex3f(x2, y2, h2);
+			iPivot++;
+
+		}
+
+	}
+
+
+	kugel_t.End();
+
 }
 
 // Aufruf draw scene
@@ -370,10 +499,13 @@ void RenderScene(void)
 	//quarder.Draw();
 //	quader1.Draw();
 	//quarder2.Draw();
-	kreis.Draw();
-	kreis2.Draw();
-	kreis3.Draw();
-	//kugel.Draw();
+//	kreis.Draw();
+//	kreis2.Draw();
+//	kreis3.Draw();
+//	kugel.Draw();
+//	kreis_t.Draw();
+	kugel_t.Draw();
+
 
 	//Auf fehler überprüfen
 	gltCheckErrors(0);
