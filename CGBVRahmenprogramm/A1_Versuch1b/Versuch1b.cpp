@@ -26,13 +26,8 @@ GLBatch boden;
 GLBatch quarder;
 GLBatch quader1;
 GLBatch quarder2;
-GLBatch kreis;
-GLBatch kreis2;
-GLBatch kreis3;
-GLBatch kugel;
 GLBatch kreis_t;
 GLBatch kugel_t;
-
 
 
 // Definition der Kreiszahl 
@@ -147,11 +142,14 @@ void CreateGeometry()
 
 	// Fertig mit dem Bodens
 	boden.End();
+
+	
+
 	int x_q = 20;
 	int y_q = 10;
 	int z_q = 30;
 
-	quarder.Begin(GL_QUAD_STRIP, 10);
+	quarder.Begin(GL_TRIANGLE_STRIP, 10);
 	quarder.Color4f(1, 0, 0, 1);
 	quarder.Vertex3f(-x_q, y_q, z_q);
 
@@ -218,196 +216,40 @@ void CreateGeometry()
 
 	quarder2.End();
 
-	int test = 15;
-	kreis.Begin(GL_TRIANGLE_FAN, test + 2);
-	// Das Zentrum des Triangle_Fans ist im Ursprung
-	kreis.Vertex3f(0.0f, 0.0f, 0.0f);
-	for (float angle = (2.0f * GL_PI); angle >= 0.0f; angle -= (2.0f * GL_PI / test))
-	{
-		// Berechne x und y Positionen des naechsten Vertex
-		float x = 50.0f * sin(angle);
-		float y = 50.0f * cos(angle);
-
-		// Alterniere die Farbe zwischen Rot und Gruen
-		if ((iPivot % 2) == 0)
-			kreis.Color4f(1, 0.8, 0.2, 1);
-		else
-			kreis.Color4f(0, 0.8, 0, 1);
-
-		// Inkrementiere iPivot um die Farbe beim naechsten mal zu wechseln
-		iPivot++;
-
-		// Spezifiziere den naechsten Vertex des Triangle_Fans
-		kreis.Vertex3f(x, y, 0);
-	}
-
-	// Fertig mit dem Bodens
-	kreis.End();
-
-	kreis2.Begin(GL_TRIANGLE_FAN, test + 2);
-	// Das Zentrum des Triangle_Fans ist im Ursprung
-	kreis2.Vertex3f(0.0f, 0.0f, 75);
-	for (float angle = 0.0f; angle <= (2.0f * GL_PI); angle += (2.0f * GL_PI / test))
-
-	{
-		// Berechne x und y Positionen des naechsten Vertex
-		float x = 50.0f * sin(angle);
-		float y = 50.0f * cos(angle);
-
-		// Alterniere die Farbe zwischen Rot und Gruen
-		if ((iPivot % 2) == 0)
-			kreis2.Color4f(1, 0.8, 0.2, 1);
-		else
-			kreis2.Color4f(0, 0.8, 0, 1);
-
-		// Inkrementiere iPivot um die Farbe beim naechsten mal zu wechseln
-		iPivot++;
-
-		// Spezifiziere den naechsten Vertex des Triangle_Fans
-		kreis2.Vertex3f(x, y, 75);
-	}
-
-	// Fertig mit dem Bodens
-	kreis2.End();
 
 
-	kreis3.Begin(GL_QUAD_STRIP, 2 * test + 2);
-	// Das Zentrum des Triangle_Fans ist im Ursprung
-
-  //  for (float angle = 0.0f; angle <= (2.0f * GL_PI); angle += (2.0f * GL_PI / test)){
-	for (int angle1 = 0; angle1 <= test; angle1++) {
-
-		float angle = angle1 * 2.0f * GL_PI / test;
-		// Berechne x und y Positionen des naechsten Vertex
-		float x = 50.0f * sin(angle);
-		float y = 50.0f * cos(angle);
-		kreis3.Vertex3f(x, y, 75);
-		// Alterniere die Farbe zwischen Rot und Gruen
-
-		if ((iPivot % 2) == 0)
-			kreis3.Color4f(1, 0.8, 0.2, 1);
-		else
-			kreis3.Color4f(0, 0.8, 0, 1);
-
-		// Inkrementiere iPivot um die Farbe beim naechsten mal zu wechseln
-		iPivot++;
-
-		// Spezifiziere den naechsten Vertex des Triangle_Fans
-	 //   kreis3.Color4f(1, 0.8, 0.2, 1);
-
-
-	  //  kreis3.Color4f(1, 0.8, 0.2, 1);
-		kreis3.Vertex3f(x, y, 0);
-	}
-
-	// Fertig mit dem Bodens
-	kreis3.End();
-
-	int test1 = 15;
-	kugel.Begin(GL_TRIANGLE_STRIP, test1 * 2);
-	//0/0/0
-	//0/0/100
-	kugel.Color4f(1, 0.8, 0.2, 1);
-	kugel.Vertex3f(0, 0, -50);
-
-	for (int angle1 = 1; angle1 < test1; angle1++) {
-
-		float angle = angle1 * GL_PI / test1;
-		// Berechne x und y Positionen des naechsten Vertex
-		float y = 50.0f * sin(angle);
-		float x = -50.0f * cos(angle);
-
-
-		kugel.Color4f(1, 0.8, 0.2, 1);
-		kugel.Vertex3f(y * cos(0), y * sin(0), x);
-
-		kugel.Color4f(1, 0.8, 0.2, 1);
-		kugel.Vertex3f(y * cos(GL_PI / 4), y * sin(GL_PI / 4), x);
-
-
-	}
-
-
-	kugel.Color4f(1, 0.8, 0.2, 1);
-	kugel.Vertex3f(0, 0, 50);
-	kugel.End();
-
-
-
-	int test3 = 15;
+	int test3 = 10;
 	kreis_t.Begin(GL_TRIANGLE_STRIP, test3 * 6);
 	// Das Zentrum des Triangle_Fans ist im Ursprung
+	int ho[4] = { -50, -50,50,50 };
+	int ra[4] = { 0,1,1,0 };
 
-	for (int i = 0; i < test3; i++) {
-		float angle = i * 2.0f * GL_PI / test3;
+	for (int j = 0; j < 3; j++) {
+		for (int i = 0; i < test3; i++) {
+			float angle = i * 2.0f * GL_PI / test3;
 
-		float x = 50.0f * cos(angle);
-		float y = 50.0f * sin(angle);
+			float x = 50.0f * cos(angle);
+			float y = 50.0f * sin(angle);
+
+			if ((iPivot % 2) == 0)
+				kreis_t.Color4f(1, 0.8, 0.2, 1);
+			else
+				kreis_t.Color4f(0, 0.8, 0, 1);
 
 
-		kreis_t.Vertex3f(0, 0, 0);
+			kreis_t.Vertex3f(ra[j] * x, ra[j] * y, ho[j]);
 
-		if ((iPivot % 2) == 0)
-			kreis_t.Color4f(1, 0.8, 0.2, 1);
-		else
-			kreis_t.Color4f(0, 0.8, 0, 1);
+			if ((iPivot % 2) == 0)
+				kreis_t.Color4f(1, 0.8, 0.2, 1);
+			else
+				kreis_t.Color4f(0, 0.8, 0, 1);
 
-		iPivot++;
 
-		kreis_t.Vertex3f(x, y, 0);
+			kreis_t.Vertex3f(ra[j + 1] * x, ra[j + 1] * y, ho[j + 1]);
+			iPivot++;
 
+		}
 	}
-
-
-	for (int i = 0; i < test3; i++) {
-		float angle = i * 2.0f * GL_PI / test3;
-
-		float x = 50.0f * cos(angle);
-		float y = 50.0f * sin(angle);
-
-		if ((iPivot % 2) == 0)
-			kreis_t.Color4f(1, 0.8, 0.2, 1);
-		else
-			kreis_t.Color4f(0, 0.8, 0, 1);
-
-
-		kreis_t.Vertex3f(x, y, 0);
-
-		if ((iPivot % 2) == 0)
-			kreis_t.Color4f(1, 0.8, 0.2, 1);
-		else
-			kreis_t.Color4f(0, 0.8, 0, 1);
-
-
-		kreis_t.Vertex3f(x, y, 50);
-		iPivot++;
-
-	}
-
-	for (int i = 0; i < test3; i++) {
-		float angle = i * 2.0f * GL_PI / test3;
-
-		float x = 20.0f * cos(angle);
-		float y = 20.0f * sin(angle);
-
-		if ((iPivot % 2) == 0)
-			kreis_t.Color4f(1, 0.8, 0.2, 1);
-		else
-			kreis_t.Color4f(0, 0.8, 0, 1);
-
-		kreis_t.Vertex3f(x, y, 50);
-
-		if ((iPivot % 2) == 0)
-			kreis_t.Color4f(1, 0.8, 0.2, 1);
-		else
-			kreis_t.Color4f(0, 0.8, 0, 1);
-
-		kreis_t.Vertex3f(0, 0, 50);
-		iPivot++;
-
-	}
-
-
 
 	kreis_t.End();
 
@@ -417,7 +259,6 @@ void CreateGeometry()
 	for (int j = 0; j < test4; j++) {
 		for (int i = 0; i < test4; i++) {
 
-			float angle = i * 2.0f * GL_PI / test4;
 			float angle1 = j * GL_PI / test4;
 			float angle2 = (j + 1) * GL_PI / test4;
 
@@ -425,6 +266,8 @@ void CreateGeometry()
 			float r2 = 50 * sin(angle2);
 			float h1 = -50 * cos(angle1);
 			float h2 = -50 * cos(angle2);
+
+			float angle = i * 2.0f * GL_PI / test4;
 
 			float x1 = r1 * cos(angle);
 			float y1 = r1 * sin(angle);
@@ -438,12 +281,8 @@ void CreateGeometry()
 			else
 				kugel_t.Color4f(0, 0.8, 0, 1);
 
-
-
-
 			kugel_t.Vertex3f(x1, y1, h1);
 
-			//			kugel_t.Color4f(0, 0.8, 0, 1);
 			if ((iPivot % 2) == 0)
 				kugel_t.Color4f(1, 0.8, 0.2, 1);
 			else
@@ -453,9 +292,7 @@ void CreateGeometry()
 			iPivot++;
 
 		}
-
 	}
-
 
 	kugel_t.End();
 
@@ -496,18 +333,15 @@ void RenderScene(void)
 	//Zeichne Konus und Boden
 	//konus.Draw();
 //	boden.Draw();
-	//quarder.Draw();
-//	quader1.Draw();
-	//quarder2.Draw();
-//	kreis.Draw();
-//	kreis2.Draw();
-//	kreis3.Draw();
-//	kugel.Draw();
-//	kreis_t.Draw();
-	kugel_t.Draw();
+	quarder.Draw();
+	quader1.Draw();
+	quarder2.Draw();
 
+	//kreis_t.Draw();
+	//	kugel_t.Draw();
+	
 
-	//Auf fehler überprüfen
+		//Auf fehler überprüfen
 	gltCheckErrors(0);
 	// Hole die im Stack gespeicherten Transformationsmatrizen wieder zurück
 	modelViewMatrix.PopMatrix();
