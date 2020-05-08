@@ -23,11 +23,11 @@ GLGeometryTransform transformPipeline;
 GLFrustum viewFrustum;
 GLBatch konus;
 GLBatch boden;
-GLBatch quarder;
-GLBatch quader1;
-GLBatch quarder2;
 GLBatch kreis_t;
 GLBatch kugel_t;
+GLBatch quarder_t;
+GLBatch quarder_t1;
+
 
 
 // Definition der Kreiszahl 
@@ -81,6 +81,76 @@ void InitGUI()
 
 	//Tesselation Faktor als unsigned 32 bit integer definiert
 	TwAddVarCB(bar, "Tesselation", TW_TYPE_UINT32, SetTesselation, GetTesselation, NULL, "");
+}
+
+
+M3DVector3f* calculateQuarder(float x, float y, float z, int* step) {
+	M3DVector3f* Vertices = new M3DVector3f[14];
+
+
+	int x_t1[] = { -1, 1, -1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, 1 };
+	int y_t1[] = { 1,1,-1,-1,-1,1,1,1,1,-1,-1,-1,1,1 };
+	int z_t1[] = { 1,1,1,1,-1,1,-1,1,-1,1,-1,-1,-1,-1 };
+
+
+	for (int i = 0; i < 14; i++) {
+		Vertices[i][0] = x_t1[i] * x;
+		Vertices[i][1] = y_t1[i] * y;
+		Vertices[i][2] = z_t1[i] * z;
+	}
+	*step = 14;
+	return Vertices;
+}
+M3DVector3f* calculateCylinder(float r, float h, int* step) {
+	int count = *step;
+
+	M3DVector3f* Vertices = new M3DVector3f[count * 6];
+
+	int ho[4] = { -1, -1,1,1 };
+	int ra[4] = { 0,1,1,0 };
+	int counter = 0;
+	for (int j = 0; j < 3; j++) {
+		for (int i = 0; i < count; i++) {
+			float angle = i * 2.0f * GL_PI / count;
+			float x = r * cos(angle);
+			float y = r * sin(angle);
+
+			for (int c = 0; c < 2; c++) {
+
+				Vertices[counter][0] = ra[j + c] * x;
+				Vertices[counter][1] = ra[j + c] * y;
+				Vertices[counter][2] = ho[j + c] * h;
+
+				counter++;
+			}
+		}
+	}
+	*step = count * 6;
+	return Vertices;
+}
+M3DVector3f* calculateBall(float r, int* step) {
+	int count = *step;
+	M3DVector3f* Vertices = new M3DVector3f[count * count * 2];
+	int counter = 0;
+
+	for (int j = 0; j < count; j++) {
+		for (int i = 0; i < count; i++) {
+			for (int c = 0; c < 2; c++) {
+				float angle_horizontal = i * 2.0f * GL_PI / count;
+				float angle_vertical = (j + c) * GL_PI / count;
+
+				Vertices[counter][0] = r * sin(angle_vertical) * cos(angle_horizontal);
+				Vertices[counter][1] = r * sin(angle_vertical) * sin(angle_horizontal);
+				Vertices[counter][2] = -r * cos(angle_vertical);
+
+				counter++;
+			}
+		}
+	}
+
+	*step = count * count * 2;
+
+	return Vertices;
 }
 
 void CreateGeometry()
@@ -143,158 +213,36 @@ void CreateGeometry()
 	// Fertig mit dem Bodens
 	boden.End();
 
-	
-
-	int x_q = 20;
-	int y_q = 10;
-	int z_q = 30;
-
-	quarder.Begin(GL_TRIANGLE_STRIP, 10);
-	quarder.Color4f(1, 0, 0, 1);
-	quarder.Vertex3f(-x_q, y_q, z_q);
-
-	quarder.Vertex3f(x_q, y_q, z_q);
-
-	quarder.Color4f(0, 1, 0, 1);
-	quarder.Vertex3f(-x_q, -y_q, z_q);
-
-	quarder.Color4f(1, 0.8, 0.2, 1);
-	quarder.Vertex3f(x_q, -y_q, z_q);
-
-	quarder.Color4f(1, 0.8, 0.2, 1);
-	quarder.Vertex3f(-x_q, -y_q, -z_q);
-
-	quarder.Color4f(1, 0.8, 0.2, 1);
-	quarder.Vertex3f(x_q, -y_q, -z_q);
-
-	quarder.Color4f(1, 0.8, 0.2, 1);
-	quarder.Vertex3f(-x_q, y_q, -z_q);
-
-	quarder.Color4f(1, 0.8, 0.2, 1);
-	quarder.Vertex3f(x_q, y_q, -z_q);
-
-	quarder.Color4f(0, 0.8, 0, 1);
-	quarder.Vertex3f(-x_q, y_q, z_q);
-
-
-	quarder.Color4f(1, 0.8, 0.2, 1);
-	quarder.Vertex3f(x_q, y_q, z_q);
-
-	quarder.End();
-
-	quader1.Begin(GL_TRIANGLE_STRIP, 4);
-	quader1.Color4f(0, 0.8, 0, 1);
-
-	quader1.Vertex3f(x_q, y_q, z_q);
-	quader1.Color4f(0, 0.8, 0, 1);
-
-	quader1.Vertex3f(x_q, y_q, -z_q);
-	quader1.Color4f(0, 0.8, 0, 1);
-
-	quader1.Vertex3f(x_q, -y_q, z_q);
-
-	quader1.Color4f(0, 0.8, 0, 1);
-
-	quader1.Vertex3f(x_q, -y_q, -z_q);
-
-	quader1.End();
-
-	quarder2.Begin(GL_TRIANGLE_STRIP, 4);
-	quarder2.Color4f(0.8, 0, 0, 1);
-
-	quarder2.Vertex3f(-x_q, y_q, -z_q);
-	quarder2.Color4f(0.8, 0, 0, 1);
-
-	quarder2.Vertex3f(-x_q, y_q, z_q);
-	quarder2.Color4f(0.8, 0, 0, 1);
-
-	quarder2.Vertex3f(-x_q, -y_q, -z_q);
-
-	quarder2.Color4f(0.8, 0, 0, 1);
-
-	quarder2.Vertex3f(-x_q, -y_q, z_q);
-
-	quarder2.End();
 
 
 
-	int test3 = 10;
-	kreis_t.Begin(GL_TRIANGLE_STRIP, test3 * 6);
-	// Das Zentrum des Triangle_Fans ist im Ursprung
-	int ho[4] = { -50, -50,50,50 };
-	int ra[4] = { 0,1,1,0 };
+	int number = 8;
+	M3DVector3f* a = calculateQuarder(30,10,40, &number);
 
-	for (int j = 0; j < 3; j++) {
-		for (int i = 0; i < test3; i++) {
-			float angle = i * 2.0f * GL_PI / test3;
+	quarder_t1.Begin(GL_TRIANGLE_STRIP, number);
+	for (int i = 0; i < number; i++) {
+		switch (i % 4) {
+		case 0:
+			quarder_t1.Color4f(1, 0.8, 0.2, 1);
+			break;
+		case 1:
+			quarder_t1.Color4f(1, 0.8, 0.2, 1);
+			break;
+		case 2:
+			quarder_t1.Color4f(0, 0.8, 0, 1);
 
-			float x = 50.0f * cos(angle);
-			float y = 50.0f * sin(angle);
+			break;
+		case 3:
+			quarder_t1.Color4f(0, 0.8, 0, 1);
 
-			if ((iPivot % 2) == 0)
-				kreis_t.Color4f(1, 0.8, 0.2, 1);
-			else
-				kreis_t.Color4f(0, 0.8, 0, 1);
-
-
-			kreis_t.Vertex3f(ra[j] * x, ra[j] * y, ho[j]);
-
-			if ((iPivot % 2) == 0)
-				kreis_t.Color4f(1, 0.8, 0.2, 1);
-			else
-				kreis_t.Color4f(0, 0.8, 0, 1);
-
-
-			kreis_t.Vertex3f(ra[j + 1] * x, ra[j + 1] * y, ho[j + 1]);
-			iPivot++;
-
+			break;
 		}
+
+
+		quarder_t1.Vertex3fv(a[i]);
 	}
+	quarder_t1.End();
 
-	kreis_t.End();
-
-	int test4 = 10;
-	kugel_t.Begin(GL_TRIANGLE_STRIP, test4 * test4 * 2);
-	// Das Zentrum des Triangle_Fans ist im Ursprung
-	for (int j = 0; j < test4; j++) {
-		for (int i = 0; i < test4; i++) {
-
-			float angle1 = j * GL_PI / test4;
-			float angle2 = (j + 1) * GL_PI / test4;
-
-			float r1 = 50 * sin(angle1);
-			float r2 = 50 * sin(angle2);
-			float h1 = -50 * cos(angle1);
-			float h2 = -50 * cos(angle2);
-
-			float angle = i * 2.0f * GL_PI / test4;
-
-			float x1 = r1 * cos(angle);
-			float y1 = r1 * sin(angle);
-
-			float x2 = r2 * cos(angle);
-			float y2 = r2 * sin(angle);
-
-
-			if ((iPivot % 2) == 0)
-				kugel_t.Color4f(1, 0.8, 0.2, 1);
-			else
-				kugel_t.Color4f(0, 0.8, 0, 1);
-
-			kugel_t.Vertex3f(x1, y1, h1);
-
-			if ((iPivot % 2) == 0)
-				kugel_t.Color4f(1, 0.8, 0.2, 1);
-			else
-				kugel_t.Color4f(0, 0.8, 0, 1);
-
-			kugel_t.Vertex3f(x2, y2, h2);
-			iPivot++;
-
-		}
-	}
-
-	kugel_t.End();
 
 }
 
@@ -333,15 +281,12 @@ void RenderScene(void)
 	//Zeichne Konus und Boden
 	//konus.Draw();
 //	boden.Draw();
-	quarder.Draw();
-	quader1.Draw();
-	quarder2.Draw();
 
-	//kreis_t.Draw();
+//	kreis_t.Draw();
 	//	kugel_t.Draw();
-	
+	quarder_t1.Draw();
 
-		//Auf fehler überprüfen
+	//Auf fehler überprüfen
 	gltCheckErrors(0);
 	// Hole die im Stack gespeicherten Transformationsmatrizen wieder zurück
 	modelViewMatrix.PopMatrix();
