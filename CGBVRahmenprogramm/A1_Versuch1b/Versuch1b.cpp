@@ -16,6 +16,8 @@
 #include <GL/glut.h>
 #include <AntTweakBar.h>
 
+
+
 GLShaderManager shaderManager;
 GLMatrixStack modelViewMatrix;
 GLMatrixStack projectionMatrix;
@@ -42,46 +44,6 @@ bool bOutline = false;
 bool bDepth = true;
 
 unsigned int tesselation = 0;
-
-//Set Funktion für GUI, wird aufgerufen wenn Variable im GUI geändert wird
-void TW_CALL SetTesselation(const void* value, void* clientData)
-{
-	//Pointer auf gesetzten Typ casten (der Typ der bei TwAddVarCB angegeben wurde)
-	const unsigned int* uintptr = static_cast<const unsigned int*>(value);
-
-	//Setzen der Variable auf neuen Wert
-	tesselation = *uintptr;
-
-	//Hier kann nun der Aufruf gemacht werden um die Geometrie mit neuem Tesselationsfaktor zu erzeugen
-
-
-}
-
-//Get Funktion für GUI, damit GUI Variablen Wert zum anzeigen erhält
-void TW_CALL GetTesselation(void* value, void* clientData)
-{
-	//Pointer auf gesetzten Typ casten (der Typ der bei TwAddVarCB angegeben wurde)
-	unsigned int* uintptr = static_cast<unsigned int*>(value);
-
-	//Variablen Wert and GUI weiterreichen
-	*uintptr = tesselation;
-}
-
-//GUI
-TwBar* bar;
-void InitGUI()
-{
-	bar = TwNewBar("TweakBar");
-	TwDefine(" TweakBar size='200 400'");
-	TwAddVarRW(bar, "Model Rotation", TW_TYPE_QUAT4F, &rotation, "");
-	TwAddVarRW(bar, "Depth Test?", TW_TYPE_BOOLCPP, &bDepth, "");
-	TwAddVarRW(bar, "Culling?", TW_TYPE_BOOLCPP, &bCull, "");
-	TwAddVarRW(bar, "Backface Wireframe?", TW_TYPE_BOOLCPP, &bOutline, "");
-	//Hier weitere GUI Variablen anlegen. Für Farbe z.B. den Typ TW_TYPE_COLOR4F benutzen
-
-	//Tesselation Faktor als unsigned 32 bit integer definiert
-	TwAddVarCB(bar, "Tesselation", TW_TYPE_UINT32, SetTesselation, GetTesselation, NULL, "");
-}
 
 
 M3DVector3f* calculateQuarder(float x, float y, float z, int* step) {
@@ -128,8 +90,9 @@ M3DVector3f* calculateCylinder(float r, float h, int* step) {
 	*step = count * 6;
 	return Vertices;
 }
-M3DVector3f* calculateBall(float r, int* step) {
+M3DVector3f* calculateBall(float r, unsigned int* step) {
 	int count = *step;
+	
 	M3DVector3f* Vertices = new M3DVector3f[count * count * 2];
 	int counter = 0;
 
@@ -152,6 +115,79 @@ M3DVector3f* calculateBall(float r, int* step) {
 
 	return Vertices;
 }
+
+
+
+
+//Set Funktion für GUI, wird aufgerufen wenn Variable im GUI geändert wird
+void TW_CALL SetTesselation(const void* value, void* clientData)
+{
+	//Pointer auf gesetzten Typ casten (der Typ der bei TwAddVarCB angegeben wurde)
+	const unsigned int* uintptr = static_cast<const unsigned int*>(value);
+
+	//Setzen der Variable auf neuen Wert
+	tesselation = *uintptr;
+
+	//Hier kann nun der Aufruf gemacht werden um die Geometrie mit neuem Tesselationsfaktor zu erzeugen
+
+	quarder_t1.Free();
+unsigned	int number = tesselation;
+	
+	M3DVector3f* a = calculateBall( 40, &number);
+
+	quarder_t1.Begin(GL_TRIANGLE_STRIP, number);
+	for (int i = 0; i < number; i++) {
+		switch (i % 4) {
+		case 0:
+			quarder_t1.Color4f(1, 0.8, 0.2, 1);
+			break;
+		case 1:
+			quarder_t1.Color4f(1, 0.8, 0.2, 1);
+			break;
+		case 2:
+			quarder_t1.Color4f(0, 0.8, 0, 1);
+
+			break;
+		case 3:
+			quarder_t1.Color4f(0, 0.8, 0, 1);
+
+			break;
+		}
+
+
+		quarder_t1.Vertex3fv(a[i]);
+	}
+	quarder_t1.End();
+
+
+}
+
+//Get Funktion für GUI, damit GUI Variablen Wert zum anzeigen erhält
+void TW_CALL GetTesselation(void* value, void* clientData)
+{
+	//Pointer auf gesetzten Typ casten (der Typ der bei TwAddVarCB angegeben wurde)
+	unsigned int* uintptr = static_cast<unsigned int*>(value);
+
+	//Variablen Wert and GUI weiterreichen
+	*uintptr = tesselation;
+}
+
+//GUI
+TwBar* bar;
+void InitGUI()
+{
+	bar = TwNewBar("TweakBar");
+	TwDefine(" TweakBar size='200 400'");
+	TwAddVarRW(bar, "Model Rotation", TW_TYPE_QUAT4F, &rotation, "");
+	TwAddVarRW(bar, "Depth Test?", TW_TYPE_BOOLCPP, &bDepth, "");
+	TwAddVarRW(bar, "Culling?", TW_TYPE_BOOLCPP, &bCull, "");
+	TwAddVarRW(bar, "Backface Wireframe?", TW_TYPE_BOOLCPP, &bOutline, "");
+	//Hier weitere GUI Variablen anlegen. Für Farbe z.B. den Typ TW_TYPE_COLOR4F benutzen
+
+	//Tesselation Faktor als unsigned 32 bit integer definiert
+	TwAddVarCB(bar, "Tesselation", TW_TYPE_UINT32, SetTesselation, GetTesselation, NULL, "");
+}
+
 
 void CreateGeometry()
 {
@@ -213,35 +249,9 @@ void CreateGeometry()
 	// Fertig mit dem Bodens
 	boden.End();
 
+	
 
 
-
-	int number = 8;
-	M3DVector3f* a = calculateQuarder(30,10,40, &number);
-
-	quarder_t1.Begin(GL_TRIANGLE_STRIP, number);
-	for (int i = 0; i < number; i++) {
-		switch (i % 4) {
-		case 0:
-			quarder_t1.Color4f(1, 0.8, 0.2, 1);
-			break;
-		case 1:
-			quarder_t1.Color4f(1, 0.8, 0.2, 1);
-			break;
-		case 2:
-			quarder_t1.Color4f(0, 0.8, 0, 1);
-
-			break;
-		case 3:
-			quarder_t1.Color4f(0, 0.8, 0, 1);
-
-			break;
-		}
-
-
-		quarder_t1.Vertex3fv(a[i]);
-	}
-	quarder_t1.End();
 
 
 }
