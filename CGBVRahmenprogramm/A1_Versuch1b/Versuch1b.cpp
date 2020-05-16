@@ -63,7 +63,7 @@ M3DVector3f* calculateQuarder(float x, float y, float z, int* step) {
 	*step = 14;
 	return Vertices;
 }
-M3DVector3f* calculateCylinder(float r, float h, int* step) {
+M3DVector3f* calculateCylinder(float r, float h, unsigned int* step) {
 	int count = *step;
 
 	M3DVector3f* Vertices = new M3DVector3f[count * 6];
@@ -133,7 +133,7 @@ void TW_CALL SetTesselation(const void* value, void* clientData)
 	quarder_t1.Free();
 unsigned	int number = tesselation;
 	
-	M3DVector3f* a = calculateBall( 40, &number);
+	M3DVector3f* a = calculateCylinder( 40, 50, &number);
 
 	quarder_t1.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
