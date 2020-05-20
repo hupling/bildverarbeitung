@@ -116,24 +116,11 @@ M3DVector3f* calculateBall(float r, unsigned int* step) {
 	return Vertices;
 }
 
-
-
-
-//Set Funktion für GUI, wird aufgerufen wenn Variable im GUI geändert wird
-void TW_CALL SetTesselation(const void* value, void* clientData)
-{
-	//Pointer auf gesetzten Typ casten (der Typ der bei TwAddVarCB angegeben wurde)
-	const unsigned int* uintptr = static_cast<const unsigned int*>(value);
-
-	//Setzen der Variable auf neuen Wert
-	tesselation = *uintptr;
-
-	//Hier kann nun der Aufruf gemacht werden um die Geometrie mit neuem Tesselationsfaktor zu erzeugen
-
+void drawZ() {
 	quarder_t1.Free();
-unsigned	int number = tesselation;
-	
-	M3DVector3f* a = calculateCylinder( 40, 50, &number);
+	unsigned	int number = tesselation + 3;
+
+	M3DVector3f* a = calculateCylinder(40, 50, &number);
 
 	quarder_t1.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
@@ -158,6 +145,21 @@ unsigned	int number = tesselation;
 		quarder_t1.Vertex3fv(a[i]);
 	}
 	quarder_t1.End();
+}
+
+
+//Set Funktion für GUI, wird aufgerufen wenn Variable im GUI geändert wird
+void TW_CALL SetTesselation(const void* value, void* clientData)
+{
+	//Pointer auf gesetzten Typ casten (der Typ der bei TwAddVarCB angegeben wurde)
+	const unsigned int* uintptr = static_cast<const unsigned int*>(value);
+
+	//Setzen der Variable auf neuen Wert
+	tesselation = *uintptr;
+
+	//Hier kann nun der Aufruf gemacht werden um die Geometrie mit neuem Tesselationsfaktor zu erzeugen
+
+	drawZ();
 
 
 }
@@ -322,6 +324,8 @@ void SetupRC()
 	transformPipeline.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	//erzeuge die geometrie
 	CreateGeometry();
+	drawZ();
+
 	InitGUI();
 }
 
