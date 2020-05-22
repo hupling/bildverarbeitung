@@ -46,7 +46,7 @@ bool bDepth = true;
 unsigned int tesselation = 0;
 
 
-M3DVector3f* calculateQuarder(float x, float y, float z, int* step) {
+M3DVector3f* calculateQuarder(float x, float y, float z, unsigned int* step) {
 	M3DVector3f* Vertices = new M3DVector3f[14];
 
 
@@ -120,7 +120,7 @@ void drawZ() {
 	quarder_t1.Free();
 	unsigned	int number = tesselation + 3;
 
-	M3DVector3f* a = calculateCylinder(40, 50, &number);
+	M3DVector3f* a = calculateBall(40, &number);
 
 	quarder_t1.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
@@ -147,6 +147,37 @@ void drawZ() {
 	quarder_t1.End();
 }
 
+void drawY() {
+	quarder_t.Free();
+	unsigned	int number = tesselation + 3;
+
+	M3DVector3f* a = calculateQuarder(100, 100, 100,  &number);
+
+	quarder_t.Begin(GL_TRIANGLE_STRIP, number);
+	for (int i = 0; i < number; i++) {
+		switch (i % 4) {
+		case 0:
+			quarder_t.Color4f(1, 0.8, 0.2, 1);
+			break;
+		case 1:
+			quarder_t.Color4f(1, 0.8, 0.2, 1);
+			break;
+		case 2:
+			quarder_t.Color4f(0, 0.8, 0, 1);
+
+			break;
+		case 3:
+			quarder_t.Color4f(0, 0.8, 0, 1);
+
+			break;
+		}
+
+
+		quarder_t.Vertex3fv(a[i]);
+	}
+	quarder_t.End();
+}
+
 
 //Set Funktion für GUI, wird aufgerufen wenn Variable im GUI geändert wird
 void TW_CALL SetTesselation(const void* value, void* clientData)
@@ -160,6 +191,7 @@ void TW_CALL SetTesselation(const void* value, void* clientData)
 	//Hier kann nun der Aufruf gemacht werden um die Geometrie mit neuem Tesselationsfaktor zu erzeugen
 
 	drawZ();
+	//drawY();
 
 
 }
@@ -193,63 +225,7 @@ void InitGUI()
 
 void CreateGeometry()
 {
-	// Triangle Fan mit 18 Vertices anlegen
-	konus.Begin(GL_TRIANGLE_FAN, 18);
-	// Die Spitze des Konus ist ein Vertex, den alle Triangles gemeinsam haben;
-	// um einen Konus anstatt einen Kreis zu produzieren muss der Vertex einen positiven z-Wert haben
-	konus.Vertex3f(0, 0, 75);
-	konus.Color4f(0, 1, 0, 1);
-	// Kreise um den Mittelpunkt und spezifiziere Vertices entlang des Kreises
-	// um einen Triangle_Fan zu erzeugen
-	int iPivot = 1;
-	for (float angle = 0.0f; angle < (2.0f * GL_PI); angle += (GL_PI / 8.0f))
-	{
-		// Berechne x und y Positionen des naechsten Vertex
-		float x = 50.0f * sin(angle);
-		float y = 50.0f * cos(angle);
-
-		// Alterniere die Farbe zwischen Rot und Gruen
-		if ((iPivot % 2) == 0)
-			konus.Color4f(0.235, 0.235, 0.235, 1);
-		else
-			konus.Color4f(0, 0.6, 1, 1);
-
-		// Inkrementiere iPivot um die Farbe beim naechsten mal zu wechseln
-		iPivot++;
-
-		// Spezifiziere den naechsten Vertex des Triangle_Fans
-		konus.Vertex3f(x, y, 0);
-	}
-
-	// Fertig mit dem Konus
-	konus.End();
-
-
-	// Erzeuge einen weiteren Triangle_Fan um den Boden zu bedecken
-	boden.Begin(GL_TRIANGLE_FAN, 18);
-	// Das Zentrum des Triangle_Fans ist im Ursprung
-	boden.Vertex3f(0.0f, 0.0f, 0.0f);
-	for (float angle = 0.0f; angle < (2.0f * GL_PI); angle += (GL_PI / 8.0f))
-	{
-		// Berechne x und y Positionen des naechsten Vertex
-		float x = 50.0f * sin(angle);
-		float y = 50.0f * cos(angle);
-
-		// Alterniere die Farbe zwischen Rot und Gruen
-		if ((iPivot % 2) == 0)
-			boden.Color4f(1, 0.8, 0.2, 1);
-		else
-			boden.Color4f(0, 0.8, 0, 1);
-
-		// Inkrementiere iPivot um die Farbe beim naechsten mal zu wechseln
-		iPivot++;
-
-		// Spezifiziere den naechsten Vertex des Triangle_Fans
-		boden.Vertex3f(x, y, 0);
-	}
-
-	// Fertig mit dem Bodens
-	boden.End();
+	
 
 	
 
@@ -297,6 +273,7 @@ void RenderScene(void)
 //	kreis_t.Draw();
 	//	kugel_t.Draw();
 	quarder_t1.Draw();
+	//quarder_t.Draw();
 
 	//Auf fehler überprüfen
 	gltCheckErrors(0);
@@ -325,6 +302,7 @@ void SetupRC()
 	//erzeuge die geometrie
 	CreateGeometry();
 	drawZ();
+	drawY();
 
 	InitGUI();
 }
