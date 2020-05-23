@@ -26,9 +26,9 @@ GLFrustum viewFrustum;
 GLBatch konus;
 GLBatch boden;
 GLBatch kreis_t;
-GLBatch kugel_t;
+GLBatch cylinder_t;
 GLBatch quarder_t;
-GLBatch quarder_t1;
+GLBatch ball_t;
 
 
 
@@ -44,6 +44,8 @@ bool bOutline = false;
 bool bDepth = true;
 
 unsigned int tesselation = 0;
+
+unsigned int scale = 0;
 
 
 M3DVector3f* calculateQuarder(float x, float y, float z, unsigned int* step) {
@@ -116,42 +118,44 @@ M3DVector3f* calculateBall(float r, unsigned int* step) {
 	return Vertices;
 }
 
-void drawZ() {
-	quarder_t1.Free();
+void drawBall() {
+	ball_t.Free();
 	unsigned	int number = tesselation + 3;
+	unsigned int size = scale;
 
-	M3DVector3f* a = calculateBall(20, &number);
+	M3DVector3f* a = calculateBall(20 + scale, &number);
 
-	quarder_t1.Begin(GL_TRIANGLE_STRIP, number);
+	ball_t.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
 		switch (i % 4) {
 		case 0:
-			quarder_t1.Color4f(1, 0.8, 0.2, 1);
+			ball_t.Color4f(1, 0.8, 0.2, 1);
 			break;
 		case 1:
-			quarder_t1.Color4f(1, 0.8, 0.2, 1);
+			ball_t.Color4f(1, 0.8, 0.2, 1);
 			break;
 		case 2:
-			quarder_t1.Color4f(0, 0.8, 0, 1);
+			ball_t.Color4f(0, 0.8, 0, 1);
 
 			break;
 		case 3:
-			quarder_t1.Color4f(0, 0.8, 0, 1);
+			ball_t.Color4f(0, 0.8, 0, 1);
 
 			break;
 		}
 
 
-		quarder_t1.Vertex3fv(a[i]);
+		ball_t.Vertex3fv(a[i]);
 	}
-	quarder_t1.End();
+	ball_t.End();
 }
 
-void drawY() {
+void drawCube() {
 	quarder_t.Free();
 	unsigned	int number = tesselation + 3;
+	unsigned int size = scale;
 
-	M3DVector3f* a = calculateQuarder(20, 20, 20,  &number);
+	M3DVector3f* a = calculateQuarder(20 + scale, 20+ scale, 20 + scale, &number);
 
 	quarder_t.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
@@ -178,35 +182,36 @@ void drawY() {
 	quarder_t.End();
 }
 
-void drawX() {
-	kugel_t.Free();
+void drawCylinder() {
+	cylinder_t.Free();
 	unsigned	int number = tesselation + 3;
+	unsigned int size = scale;
 
-	M3DVector3f* a = calculateCylinder(10, 20, &number);
+	M3DVector3f* a = calculateCylinder(10 + scale, 20 + scale, &number);
 
-	kugel_t.Begin(GL_TRIANGLE_STRIP, number);
+	cylinder_t.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
 		switch (i % 4) {
 		case 0:
-			kugel_t.Color4f(1, 0.8, 0.2, 1);
+			cylinder_t.Color4f(1, 0.8, 0.2, 1);
 			break;
 		case 1:
-			kugel_t.Color4f(1, 0.8, 0.2, 1);
+			cylinder_t.Color4f(1, 0.8, 0.2, 1);
 			break;
 		case 2:
-			kugel_t.Color4f(0, 0.8, 0, 1);
+			cylinder_t.Color4f(0, 0.8, 0, 1);
 
 			break;
 		case 3:
-			kugel_t.Color4f(0, 0.8, 0, 1);
+			cylinder_t.Color4f(0, 0.8, 0, 1);
 
 			break;
 		}
 
 
-		kugel_t.Vertex3fv(a[i]);
+		cylinder_t.Vertex3fv(a[i]);
 	}
-	kugel_t.End();
+	cylinder_t.End();
 }
 
 
@@ -221,9 +226,9 @@ void TW_CALL SetTesselation(const void* value, void* clientData)
 
 	//Hier kann nun der Aufruf gemacht werden um die Geometrie mit neuem Tesselationsfaktor zu erzeugen
 
-	drawZ();
-	drawY();
-	drawX();
+	drawBall();
+	drawCube();
+	drawCylinder();
 
 
 }
@@ -238,6 +243,26 @@ void TW_CALL GetTesselation(void* value, void* clientData)
 	*uintptr = tesselation;
 }
 
+// Set Funtion for Gui, is called when the variable is changed in GUI
+void TW_CALL SetScale(const void* value, void* clientData) {
+	const unsigned int* uintptr = static_cast<const unsigned int*>(value);
+
+	scale = *uintptr;
+
+	//call all draw methods to make objects bigger
+	drawBall();
+	drawCube();
+	drawCylinder();
+
+}
+
+//Get function for Scale in GUI
+void TW_CALL GetScale(void* value, void* clientData) {
+	unsigned int* uintptr = static_cast<unsigned int*>(value);
+
+	*uintptr = scale;
+}
+
 //GUI
 TwBar* bar;
 void InitGUI()
@@ -248,17 +273,20 @@ void InitGUI()
 	TwAddVarRW(bar, "Depth Test?", TW_TYPE_BOOLCPP, &bDepth, "");
 	TwAddVarRW(bar, "Culling?", TW_TYPE_BOOLCPP, &bCull, "");
 	TwAddVarRW(bar, "Backface Wireframe?", TW_TYPE_BOOLCPP, &bOutline, "");
+	
 	//Hier weitere GUI Variablen anlegen. Für Farbe z.B. den Typ TW_TYPE_COLOR4F benutzen
 
 	//Tesselation Faktor als unsigned 32 bit integer definiert
 	TwAddVarCB(bar, "Tesselation", TW_TYPE_UINT32, SetTesselation, GetTesselation, NULL, "");
+	TwAddVarCB(bar, "Scale", TW_TYPE_UINT32, SetScale, GetScale, NULL, "");
 }
 
 
 void CreateGeometry() {
+
 	modelViewMatrix.PushMatrix();
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	quarder_t1.Draw();
+	ball_t.Draw();
 	modelViewMatrix.PopMatrix();
 
 	modelViewMatrix.PushMatrix();
@@ -268,12 +296,29 @@ void CreateGeometry() {
 
 	modelViewMatrix.PushMatrix();
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	kugel_t.Draw();
+	cylinder_t.Draw();
 	modelViewMatrix.PopMatrix();
 
 	
 
 
+
+
+}
+
+void moveCylinder() {
+	GLMatrixStack matrixStack;
+	M3DMatrix44f M;
+
+	matrixStack.LoadMatrix(M);
+	matrixStack.LoadIdentity();
+	matrixStack.MultMatrix(M);
+
+	modelViewMatrix.PushMatrix();
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+	matrixStack.Translate(0.0, 80.0, 80.0);
+	drawCylinder();
+	modelViewMatrix.PopMatrix();
 
 
 }
@@ -310,15 +355,12 @@ void RenderScene(void)
 
 	//setze den Shader für das Rendern und übergebe die Model-View-Projection Matrix
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	//Zeichne Konus und Boden
-	//konus.Draw();
-//	boden.Draw();
 
-//	kreis_t.Draw();
-	//	kugel_t.Draw();
-	//quarder_t1.Draw();
-	//quarder_t.Draw();
 	CreateGeometry();
+	modelViewMatrix.LoadIdentity();
+	modelViewMatrix.Translate(0.0, 80.0, 80.0);
+	moveCylinder();
+
 
 	//Auf fehler überprüfen
 	gltCheckErrors(0);
@@ -346,9 +388,10 @@ void SetupRC()
 	transformPipeline.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	//erzeuge die geometrie
 	CreateGeometry();
-	drawZ();
-	drawY();
-	drawX();
+	drawBall();
+	drawCube();
+	drawCylinder();
+	moveCylinder();
 
 	InitGUI();
 }
