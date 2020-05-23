@@ -56,9 +56,9 @@ M3DVector3f* calculateQuarder(float x, float y, float z, unsigned int* step) {
 
 
 	for (int i = 0; i < 14; i++) {
-		Vertices[i][0] = x_t1[i] * x;
-		Vertices[i][1] = y_t1[i] * y;
-		Vertices[i][2] = z_t1[i] * z;
+		Vertices[i][0] = x_t1[i] * x + 10;
+		Vertices[i][1] = y_t1[i] * y + 10;
+		Vertices[i][2] = z_t1[i] * z + 10;
 	}
 	*step = 14;
 	return Vertices;
@@ -80,7 +80,7 @@ M3DVector3f* calculateCylinder(float r, float h, unsigned int* step) {
 			for (int c = 0; c < 2; c++) {
 
 				Vertices[counter][0] = ra[j + c] * x;
-				Vertices[counter][1] = ra[j + c] * y;
+				Vertices[counter][1] = ra[j + c] * y + 80;
 				Vertices[counter][2] = ho[j + c] * h;
 
 				counter++;
@@ -102,7 +102,7 @@ M3DVector3f* calculateBall(float r, unsigned int* step) {
 				float angle_horizontal = i * 2.0f * GL_PI / count;
 				float angle_vertical = (j + c) * GL_PI / count;
 
-				Vertices[counter][0] = r * sin(angle_vertical) * cos(angle_horizontal);
+				Vertices[counter][0] = r * sin(angle_vertical) * cos(angle_horizontal) + 80;
 				Vertices[counter][1] = r * sin(angle_vertical) * sin(angle_horizontal);
 				Vertices[counter][2] = -r * cos(angle_vertical);
 
@@ -120,7 +120,7 @@ void drawZ() {
 	quarder_t1.Free();
 	unsigned	int number = tesselation + 3;
 
-	M3DVector3f* a = calculateBall(40, &number);
+	M3DVector3f* a = calculateBall(20, &number);
 
 	quarder_t1.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
@@ -151,7 +151,7 @@ void drawY() {
 	quarder_t.Free();
 	unsigned	int number = tesselation + 3;
 
-	M3DVector3f* a = calculateQuarder(100, 100, 100,  &number);
+	M3DVector3f* a = calculateQuarder(20, 20, 20,  &number);
 
 	quarder_t.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
@@ -178,6 +178,37 @@ void drawY() {
 	quarder_t.End();
 }
 
+void drawX() {
+	kugel_t.Free();
+	unsigned	int number = tesselation + 3;
+
+	M3DVector3f* a = calculateCylinder(10, 20, &number);
+
+	kugel_t.Begin(GL_TRIANGLE_STRIP, number);
+	for (int i = 0; i < number; i++) {
+		switch (i % 4) {
+		case 0:
+			kugel_t.Color4f(1, 0.8, 0.2, 1);
+			break;
+		case 1:
+			kugel_t.Color4f(1, 0.8, 0.2, 1);
+			break;
+		case 2:
+			kugel_t.Color4f(0, 0.8, 0, 1);
+
+			break;
+		case 3:
+			kugel_t.Color4f(0, 0.8, 0, 1);
+
+			break;
+		}
+
+
+		kugel_t.Vertex3fv(a[i]);
+	}
+	kugel_t.End();
+}
+
 
 //Set Funktion für GUI, wird aufgerufen wenn Variable im GUI geändert wird
 void TW_CALL SetTesselation(const void* value, void* clientData)
@@ -191,7 +222,8 @@ void TW_CALL SetTesselation(const void* value, void* clientData)
 	//Hier kann nun der Aufruf gemacht werden um die Geometrie mit neuem Tesselationsfaktor zu erzeugen
 
 	drawZ();
-	//drawY();
+	drawY();
+	drawX();
 
 
 }
@@ -223,9 +255,21 @@ void InitGUI()
 }
 
 
-void CreateGeometry()
-{
-	
+void CreateGeometry() {
+	modelViewMatrix.PushMatrix();
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+	quarder_t1.Draw();
+	modelViewMatrix.PopMatrix();
+
+	modelViewMatrix.PushMatrix();
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+	quarder_t.Draw();
+	modelViewMatrix.PopMatrix();
+
+	modelViewMatrix.PushMatrix();
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+	kugel_t.Draw();
+	modelViewMatrix.PopMatrix();
 
 	
 
@@ -272,8 +316,9 @@ void RenderScene(void)
 
 //	kreis_t.Draw();
 	//	kugel_t.Draw();
-	quarder_t1.Draw();
+	//quarder_t1.Draw();
 	//quarder_t.Draw();
+	CreateGeometry();
 
 	//Auf fehler überprüfen
 	gltCheckErrors(0);
@@ -303,6 +348,7 @@ void SetupRC()
 	CreateGeometry();
 	drawZ();
 	drawY();
+	drawX();
 
 	InitGUI();
 }
