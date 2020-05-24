@@ -283,29 +283,6 @@ void InitGUI()
 }
 
 
-void CreateGeometry() {
-
-	//modelViewMatrix.PushMatrix();
-	//shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	//ball_t.Draw();
-	//modelViewMatrix.PopMatrix();
-
-//	modelViewMatrix.PushMatrix();
-	//shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	//quarder_t.Draw();
-	//modelViewMatrix.PopMatrix();
-
-	//modelViewMatrix.PushMatrix();
-	//shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	//cylinder_t.Draw();
-	//modelViewMatrix.PopMatrix();
-
-	
-
-
-
-
-}
 
 void move() {
 	GLfloat i, j;
@@ -460,7 +437,6 @@ void SetupRC()
 	//Matrix stacks für die Transformationspipeline setzen, damit werden dann automatisch die Matrizen multipliziert
 	transformPipeline.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	//erzeuge die geometrie
-	//CreateGeometry();
 	
 	drawCube();
 	drawCylinder();
