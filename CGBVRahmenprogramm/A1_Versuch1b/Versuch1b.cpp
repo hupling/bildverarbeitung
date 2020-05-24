@@ -43,9 +43,9 @@ bool bCull = false;
 bool bOutline = false;
 bool bDepth = true;
 
-unsigned int tesselation = 0;
+unsigned int tesselation = 10;
 
-unsigned int scale = 0;
+unsigned int dimension = 0;
 
 
 M3DVector3f* calculateQuarder(float x, float y, float z, unsigned int* step) {
@@ -82,7 +82,7 @@ M3DVector3f* calculateCylinder(float r, float h, unsigned int* step) {
 			for (int c = 0; c < 2; c++) {
 
 				Vertices[counter][0] = ra[j + c] * x;
-				Vertices[counter][1] = ra[j + c] * y + 80;
+				Vertices[counter][1] = ra[j + c] * y;
 				Vertices[counter][2] = ho[j + c] * h;
 
 				counter++;
@@ -104,7 +104,7 @@ M3DVector3f* calculateBall(float r, unsigned int* step) {
 				float angle_horizontal = i * 2.0f * GL_PI / count;
 				float angle_vertical = (j + c) * GL_PI / count;
 
-				Vertices[counter][0] = r * sin(angle_vertical) * cos(angle_horizontal) + 80;
+				Vertices[counter][0] = r * sin(angle_vertical) * cos(angle_horizontal);
 				Vertices[counter][1] = r * sin(angle_vertical) * sin(angle_horizontal);
 				Vertices[counter][2] = -r * cos(angle_vertical);
 
@@ -121,9 +121,9 @@ M3DVector3f* calculateBall(float r, unsigned int* step) {
 void drawBall() {
 	ball_t.Free();
 	unsigned	int number = tesselation + 3;
-	unsigned int size = scale;
+	unsigned int size = dimension;
 
-	M3DVector3f* a = calculateBall(20 + scale, &number);
+	M3DVector3f* a = calculateBall(18 + dimension, &number);
 
 	ball_t.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
@@ -153,9 +153,9 @@ void drawBall() {
 void drawCube() {
 	quarder_t.Free();
 	unsigned	int number = tesselation + 3;
-	unsigned int size = scale;
+	unsigned int size = dimension;
 
-	M3DVector3f* a = calculateQuarder(20 + scale, 20+ scale, 20 + scale, &number);
+	M3DVector3f* a = calculateQuarder(3 + dimension, 3 + dimension, 2 + dimension, &number);
 
 	quarder_t.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
@@ -185,9 +185,9 @@ void drawCube() {
 void drawCylinder() {
 	cylinder_t.Free();
 	unsigned	int number = tesselation + 3;
-	unsigned int size = scale;
+	unsigned int size = dimension;
 
-	M3DVector3f* a = calculateCylinder(10 + scale, 20 + scale, &number);
+	M3DVector3f* a = calculateCylinder(17 + dimension, 27 + dimension, &number);
 
 	cylinder_t.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
@@ -226,9 +226,10 @@ void TW_CALL SetTesselation(const void* value, void* clientData)
 
 	//Hier kann nun der Aufruf gemacht werden um die Geometrie mit neuem Tesselationsfaktor zu erzeugen
 
-	drawBall();
+	
 	drawCube();
 	drawCylinder();
+	drawBall();
 
 
 }
@@ -244,23 +245,23 @@ void TW_CALL GetTesselation(void* value, void* clientData)
 }
 
 // Set Funtion for Gui, is called when the variable is changed in GUI
-void TW_CALL SetScale(const void* value, void* clientData) {
+void TW_CALL SetDimension(const void* value, void* clientData) {
 	const unsigned int* uintptr = static_cast<const unsigned int*>(value);
 
-	scale = *uintptr;
+	dimension = *uintptr;
 
 	//call all draw methods to make objects bigger
-	drawBall();
 	drawCube();
 	drawCylinder();
+	drawBall();
 
 }
 
 //Get function for Scale in GUI
-void TW_CALL GetScale(void* value, void* clientData) {
+void TW_CALL GetDimension(void* value, void* clientData) {
 	unsigned int* uintptr = static_cast<unsigned int*>(value);
 
-	*uintptr = scale;
+	*uintptr = dimension;
 }
 
 //GUI
@@ -278,26 +279,26 @@ void InitGUI()
 
 	//Tesselation Faktor als unsigned 32 bit integer definiert
 	TwAddVarCB(bar, "Tesselation", TW_TYPE_UINT32, SetTesselation, GetTesselation, NULL, "");
-	TwAddVarCB(bar, "Scale", TW_TYPE_UINT32, SetScale, GetScale, NULL, "");
+	TwAddVarCB(bar, "Dimension", TW_TYPE_UINT32, SetDimension, GetDimension, NULL, "");
 }
 
 
 void CreateGeometry() {
 
-	modelViewMatrix.PushMatrix();
-	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	ball_t.Draw();
-	modelViewMatrix.PopMatrix();
+	//modelViewMatrix.PushMatrix();
+	//shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+	//ball_t.Draw();
+	//modelViewMatrix.PopMatrix();
 
-	modelViewMatrix.PushMatrix();
-	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	quarder_t.Draw();
-	modelViewMatrix.PopMatrix();
+//	modelViewMatrix.PushMatrix();
+	//shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+	//quarder_t.Draw();
+	//modelViewMatrix.PopMatrix();
 
-	modelViewMatrix.PushMatrix();
-	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	cylinder_t.Draw();
-	modelViewMatrix.PopMatrix();
+	//modelViewMatrix.PushMatrix();
+	//shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+	//cylinder_t.Draw();
+	//modelViewMatrix.PopMatrix();
 
 	
 
@@ -306,19 +307,93 @@ void CreateGeometry() {
 
 }
 
-void moveCylinder() {
-	GLMatrixStack matrixStack;
-	M3DMatrix44f M;
+void move() {
+	GLfloat i, j;
 
-	matrixStack.LoadMatrix(M);
-	matrixStack.LoadIdentity();
-	matrixStack.MultMatrix(M);
-
+	//Lower Arm
 	modelViewMatrix.PushMatrix();
+	modelViewMatrix.Translate(45, 0, 0);
+	modelViewMatrix.Rotate(270, -1, 1, 0);
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	matrixStack.Translate(0.0, 80.0, 80.0);
-	drawCylinder();
+
+	cylinder_t.Draw();
 	modelViewMatrix.PopMatrix();
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+	//Upper Arm
+	modelViewMatrix.PushMatrix();
+	modelViewMatrix.Translate(-20, 0, 0);
+	modelViewMatrix.Rotate(90, 1, 1, 0);
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+	cylinder_t.Draw();
+	modelViewMatrix.PopMatrix();
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+	//Elbow
+	modelViewMatrix.PushMatrix();
+	modelViewMatrix.Translate(13, -30, 0);
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+	ball_t.Draw();
+	modelViewMatrix.PopMatrix();
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+	//wrist
+	modelViewMatrix.PushMatrix();
+	modelViewMatrix.Translate(78, 30, 0);
+	modelViewMatrix.Scale(1, 1, .5);
+	//modelViewMatrix.Rotate(45, 45, 1, 0);
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+	ball_t.Draw();
+	modelViewMatrix.PopMatrix();
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+	//Fingers
+	for (i = 0; i < 17; i += 9.0) {
+		for (j = 0; j < 17; j += 6.0) {
+			modelViewMatrix.PushMatrix();
+
+			modelViewMatrix.Translate(76 + j + i, 39 + j - i, -10);
+			shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+			quarder_t.Draw();
+			modelViewMatrix.PopMatrix();
+			shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+		}
+}
+	//small finger
+		modelViewMatrix.PushMatrix();
+		modelViewMatrix.Translate(85, 27, -10);
+		modelViewMatrix.Rotate(30, 0, 0, -1);
+		shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+		quarder_t.Draw();
+		modelViewMatrix.PopMatrix();
+		shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+		modelViewMatrix.PushMatrix();
+		modelViewMatrix.Translate(93, 29, -10);
+		modelViewMatrix.Rotate(30, 0, 0, -1);
+		shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+		quarder_t.Draw();
+		modelViewMatrix.PopMatrix();
+		shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+	
+
+	//thumb
+	for (i = 0; i > -11; i -= 6) {
+		modelViewMatrix.PushMatrix();
+
+		modelViewMatrix.Translate(55 + i, 37 - i, -10);
+		shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+		quarder_t.Draw();
+		modelViewMatrix.PopMatrix();
+		shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+	}
 
 
 }
@@ -356,10 +431,8 @@ void RenderScene(void)
 	//setze den Shader für das Rendern und übergebe die Model-View-Projection Matrix
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
-	CreateGeometry();
-	modelViewMatrix.LoadIdentity();
-	modelViewMatrix.Translate(0.0, 80.0, 80.0);
-	moveCylinder();
+
+	move();
 
 
 	//Auf fehler überprüfen
@@ -387,11 +460,13 @@ void SetupRC()
 	//Matrix stacks für die Transformationspipeline setzen, damit werden dann automatisch die Matrizen multipliziert
 	transformPipeline.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	//erzeuge die geometrie
-	CreateGeometry();
-	drawBall();
+	//CreateGeometry();
+	
 	drawCube();
 	drawCylinder();
-	moveCylinder();
+
+	drawBall();
+	move();
 
 	InitGUI();
 }
