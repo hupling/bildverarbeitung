@@ -29,3 +29,7 @@ _A1_Versuch1b_: Die Rendertechnik in diesem Versuch benutzt den effizientieren "
 
 ## Aufgabe 3.2 b) Komplexe Szene
 
+![szene1](docs/KomplexeSzene_1.PNG)
+
+![szene2](docs/KomplexeSzene_2.PNG)
+
