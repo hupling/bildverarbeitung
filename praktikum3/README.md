@@ -17,6 +17,8 @@ _A1_Versuch1b_: Die Rendertechnik in diesem Versuch benutzt den effizientieren "
 
 ## Aufgabe 3.2 a) Quader
 
+![quader](docs/QuaderBild.PNG)
+
 ## Aufgabe 3.2 a) Kugel
 
 ## Aufgabe 3.2 a) Zylinder
