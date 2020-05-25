@@ -33,6 +33,8 @@ Alle Objekte sind aus _GL_TRIANGLE_STRIP_, dass heisst verbundene Dreiecken, ger
 
 ## Aufgabe 3.2 b) Komplexe Szene
 
+Um die komplexe Szene zu rendern sind alle 3 Objekte und die 3 Modell-Transformationen (Translate(), Rotate() und Scale()) benutzt. Die Objekte befinden sich dabei jeweils auf seperaten Hierarchieebenen. Diese Hierarchie wird im Code mit Hilfe der GLMatrixStack Klasse hergestellt. Diese Klasse speichert Matrizen indem sie durch Push- und Pop-Befehle auf einen Stack gelegt und von diesem heruntergenommen werden.
+
 ![szene1](docs/KomplexeSzene_1.PNG)
 
 ![szene2](docs/KomplexeSzene_2.PNG)
