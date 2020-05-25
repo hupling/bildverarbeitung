@@ -21,6 +21,8 @@ _A1_Versuch1b_: Die Rendertechnik in diesem Versuch benutzt den effizientieren "
 
 ## Aufgabe 3.2 a) Kugel
 
+![kugel](docs/KugelBild.PNG)
+
 ## Aufgabe 3.2 a) Zylinder
 
 ## Aufgabe 3.2 b) Komplexe Szene
