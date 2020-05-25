@@ -25,5 +25,7 @@ _A1_Versuch1b_: Die Rendertechnik in diesem Versuch benutzt den effizientieren "
 
 ## Aufgabe 3.2 a) Zylinder
 
+![zylinder](docs/ZylinderBild.PNG)
+
 ## Aufgabe 3.2 b) Komplexe Szene
 
