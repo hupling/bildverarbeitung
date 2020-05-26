@@ -17,7 +17,7 @@ _A1_Versuch1b_: Die Rendertechnik in diesem Versuch benutzt den effizientieren "
 
 ## Aufgabe 3.2 a) 
 
-Alle Objekte sind aus _GL_TRIANGLE_STRIP_, dass heisst verbundene Dreiecken, gerendert. Verbundene Dreiecke sind die an häufigsten verwendeten Grafik-Primitive in der Interaktiven 3D-Computergrafik, weil es das einfachste Grafik-Primitiv zum Zeichnen komplexer Oberflächen ist, es das speichersparendste (teil.planare) Grafik-Primitiv zum Zeichnen komplexer Oberflächen ist und alle Oberflächen durch einen Satz von Triangle-Strips beliebig genau approximiert können. In unserem Program rechnen wir für jedes Objekt (Quadar, Kugel und Zylinder) wie viele Vertices, gebraucht werden und wo sie sein soll. Diese Berechnung hängt auch von der Anzahl der Tesselation ab. Die Anzahl der Tesselation und auch der Ausmaßen lässt sich über die GUI einstellen. 
+Alle Objekte sind aus _GL_TRIANGLE_STRIP_, dass heißt verbundene Dreiecken, gerendert. Verbundene Dreiecke sind die am häufigsten verwendete Grafik-Primitive in der Interaktiven 3D-Computergrafik, weil es das einfachste Grafik-Primitiv zum Zeichnen komplexer Oberflächen ist, die Grafik-Primitiv zum Zeichnen komplexer Oberflächen den meisten Speicher einspart (teil-planare) und alle Oberflächen durch einen Satz von Triangle-Strips beliebig genau approximiert werden können. In unserem Programm rechnen wir für jedes Objekt (Quadar, Kugel und Zylinder) wie viele Vertices gebraucht werden und wo sie sein sollen. Diese Berechnung hängt auch von der Anzahl der Tesselation ab. Die Anzahl der Tesselation und auch der Ausmaßen lässt sich über die GUI einstellen. 
 
 # Quader
 
