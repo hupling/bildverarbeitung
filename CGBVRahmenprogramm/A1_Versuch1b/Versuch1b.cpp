@@ -2,7 +2,7 @@
 // Ausgangssoftware des 1. Praktikumsversuchs 
 // zur Vorlesung Echtzeit-3D-Computergrahpik
 // von Prof. Dr. Alfred Nischwitz
-// Programm umgesetzt mit der GLTools Library
+// Programm umgesetzt mit der GLTools Library und Vertex-Arrays
 #include <iostream>
 #ifdef WIN32
 #include <windows.h>
@@ -13,23 +13,17 @@
 #include <GLFrustum.h>
 #include <math.h>
 #include <math3d.h>
-#include <GL/glut.h>
+#include <GL/freeglut.h>
 #include <AntTweakBar.h>
-
-
 
 GLShaderManager shaderManager;
 GLMatrixStack modelViewMatrix;
 GLMatrixStack projectionMatrix;
 GLGeometryTransform transformPipeline;
 GLFrustum viewFrustum;
+
 GLBatch konus;
 GLBatch boden;
-GLBatch kreis_t;
-GLBatch kugel_t;
-GLBatch quarder_t;
-GLBatch quarder_t1;
-
 
 
 // Definition der Kreiszahl 
@@ -43,139 +37,9 @@ bool bCull = false;
 bool bOutline = false;
 bool bDepth = true;
 
-unsigned int tesselation = 0;
-
-
-M3DVector3f* calculateQuarder(float x, float y, float z, int* step) {
-	M3DVector3f* Vertices = new M3DVector3f[14];
-
-
-	int x_t1[] = { -1, 1, -1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, 1 };
-	int y_t1[] = { 1,1,-1,-1,-1,1,1,1,1,-1,-1,-1,1,1 };
-	int z_t1[] = { 1,1,1,1,-1,1,-1,1,-1,1,-1,-1,-1,-1 };
-
-
-	for (int i = 0; i < 14; i++) {
-		Vertices[i][0] = x_t1[i] * x;
-		Vertices[i][1] = y_t1[i] * y;
-		Vertices[i][2] = z_t1[i] * z;
-	}
-	*step = 14;
-	return Vertices;
-}
-M3DVector3f* calculateCylinder(float r, float h, unsigned int* step) {
-	int count = *step;
-
-	M3DVector3f* Vertices = new M3DVector3f[count * 6];
-
-	int ho[4] = { -1, -1,1,1 };
-	int ra[4] = { 0,1,1,0 };
-	int counter = 0;
-	for (int j = 0; j < 3; j++) {
-		for (int i = 0; i < count; i++) {
-			float angle = i * 2.0f * GL_PI / count;
-			float x = r * cos(angle);
-			float y = r * sin(angle);
-
-			for (int c = 0; c < 2; c++) {
-
-				Vertices[counter][0] = ra[j + c] * x;
-				Vertices[counter][1] = ra[j + c] * y;
-				Vertices[counter][2] = ho[j + c] * h;
-
-				counter++;
-			}
-		}
-	}
-	*step = count * 6;
-	return Vertices;
-}
-M3DVector3f* calculateBall(float r, unsigned int* step) {
-	int count = *step;
-	
-	M3DVector3f* Vertices = new M3DVector3f[count * count * 2];
-	int counter = 0;
-
-	for (int j = 0; j < count; j++) {
-		for (int i = 0; i < count; i++) {
-			for (int c = 0; c < 2; c++) {
-				float angle_horizontal = i * 2.0f * GL_PI / count;
-				float angle_vertical = (j + c) * GL_PI / count;
-
-				Vertices[counter][0] = r * sin(angle_vertical) * cos(angle_horizontal);
-				Vertices[counter][1] = r * sin(angle_vertical) * sin(angle_horizontal);
-				Vertices[counter][2] = -r * cos(angle_vertical);
-
-				counter++;
-			}
-		}
-	}
-
-	*step = count * count * 2;
-
-	return Vertices;
-}
-
-void drawZ() {
-	quarder_t1.Free();
-	unsigned	int number = tesselation + 3;
-
-	M3DVector3f* a = calculateCylinder(40, 50, &number);
-
-	quarder_t1.Begin(GL_TRIANGLE_STRIP, number);
-	for (int i = 0; i < number; i++) {
-		switch (i % 4) {
-		case 0:
-			quarder_t1.Color4f(1, 0.8, 0.2, 1);
-			break;
-		case 1:
-			quarder_t1.Color4f(1, 0.8, 0.2, 1);
-			break;
-		case 2:
-			quarder_t1.Color4f(0, 0.8, 0, 1);
-
-			break;
-		case 3:
-			quarder_t1.Color4f(0, 0.8, 0, 1);
-
-			break;
-		}
-
-
-		quarder_t1.Vertex3fv(a[i]);
-	}
-	quarder_t1.End();
-}
-
-
-//Set Funktion für GUI, wird aufgerufen wenn Variable im GUI geändert wird
-void TW_CALL SetTesselation(const void* value, void* clientData)
-{
-	//Pointer auf gesetzten Typ casten (der Typ der bei TwAddVarCB angegeben wurde)
-	const unsigned int* uintptr = static_cast<const unsigned int*>(value);
-
-	//Setzen der Variable auf neuen Wert
-	tesselation = *uintptr;
-
-	//Hier kann nun der Aufruf gemacht werden um die Geometrie mit neuem Tesselationsfaktor zu erzeugen
-
-	drawZ();
-
-
-}
-
-//Get Funktion für GUI, damit GUI Variablen Wert zum anzeigen erhält
-void TW_CALL GetTesselation(void* value, void* clientData)
-{
-	//Pointer auf gesetzten Typ casten (der Typ der bei TwAddVarCB angegeben wurde)
-	unsigned int* uintptr = static_cast<unsigned int*>(value);
-
-	//Variablen Wert and GUI weiterreichen
-	*uintptr = tesselation;
-}
 
 //GUI
-TwBar* bar;
+TwBar *bar;
 void InitGUI()
 {
 	bar = TwNewBar("TweakBar");
@@ -185,77 +49,83 @@ void InitGUI()
 	TwAddVarRW(bar, "Culling?", TW_TYPE_BOOLCPP, &bCull, "");
 	TwAddVarRW(bar, "Backface Wireframe?", TW_TYPE_BOOLCPP, &bOutline, "");
 	//Hier weitere GUI Variablen anlegen. Für Farbe z.B. den Typ TW_TYPE_COLOR4F benutzen
-
-	//Tesselation Faktor als unsigned 32 bit integer definiert
-	TwAddVarCB(bar, "Tesselation", TW_TYPE_UINT32, SetTesselation, GetTesselation, NULL, "");
 }
-
 
 void CreateGeometry()
 {
-	// Triangle Fan mit 18 Vertices anlegen
-	konus.Begin(GL_TRIANGLE_FAN, 18);
+	//shaderManager.UseStockShader(GLT_SHADER_DEFAULT_LIGHT, modelViewMatrix.GetMatrix(),		projectionMatrix.GetMatrix());
+	//modelViewMatrix.PushMatrix();
+	//modelViewMatrix.Translate(0, 50, 50);
+	//18 Vertices anlegen
+	M3DVector3f konusVertices[18];
+	M3DVector4f konusColors[18];
 	// Die Spitze des Konus ist ein Vertex, den alle Triangles gemeinsam haben;
 	// um einen Konus anstatt einen Kreis zu produzieren muss der Vertex einen positiven z-Wert haben
-	konus.Vertex3f(0, 0, 75);
-	konus.Color4f(0, 1, 0, 1);
+	m3dLoadVector3(konusVertices[0], 0, 0, 75);
+	m3dLoadVector4(konusColors[0], 0, 1, 0, 1);
 	// Kreise um den Mittelpunkt und spezifiziere Vertices entlang des Kreises
 	// um einen Triangle_Fan zu erzeugen
 	int iPivot = 1;
-	for (float angle = 0.0f; angle < (2.0f * GL_PI); angle += (GL_PI / 8.0f))
+	int i = 1;
+	for (float angle = 0.0f; angle < (2.0f*GL_PI); angle += (GL_PI / 8.0f))
 	{
 		// Berechne x und y Positionen des naechsten Vertex
-		float x = 50.0f * sin(angle);
-		float y = 50.0f * cos(angle);
+		float x = 50.0f*sin(angle);
+		float y = 50.0f*cos(angle);
 
 		// Alterniere die Farbe zwischen Rot und Gruen
 		if ((iPivot % 2) == 0)
-			konus.Color4f(0.235, 0.235, 0.235, 1);
+			m3dLoadVector4(konusColors[i], 0.235, 0.235, 0.235, 1);
 		else
-			konus.Color4f(0, 0.6, 1, 1);
+			m3dLoadVector4(konusColors[i], 0, 0.6, 1, 1);
 
 		// Inkrementiere iPivot um die Farbe beim naechsten mal zu wechseln
 		iPivot++;
 
 		// Spezifiziere den naechsten Vertex des Triangle_Fans
-		konus.Vertex3f(x, y, 0);
+		m3dLoadVector3(konusVertices[i], x, y, 0);
+		i++;
 	}
 
-	// Fertig mit dem Konus
+	konus.Begin(GL_TRIANGLE_FAN, 18);
+	konus.CopyVertexData3f(konusVertices);
+	konus.CopyColorData4f(konusColors);
 	konus.End();
+
+//	modelViewMatrix.PopMatrix();
 
 
 	// Erzeuge einen weiteren Triangle_Fan um den Boden zu bedecken
-	boden.Begin(GL_TRIANGLE_FAN, 18);
+	M3DVector3f bodenVertices[18];
+	M3DVector4f bodenColors[18];
 	// Das Zentrum des Triangle_Fans ist im Ursprung
-	boden.Vertex3f(0.0f, 0.0f, 0.0f);
-	for (float angle = 0.0f; angle < (2.0f * GL_PI); angle += (GL_PI / 8.0f))
+	m3dLoadVector3(bodenVertices[0], 0, 0, 0);
+	m3dLoadVector4(bodenColors[0], 1, 0, 0, 1);
+	i = 1;
+	for (float angle = 0.0f; angle < (2.0f*GL_PI); angle += (GL_PI / 8.0f))
 	{
 		// Berechne x und y Positionen des naechsten Vertex
-		float x = 50.0f * sin(angle);
-		float y = 50.0f * cos(angle);
+		float x = 50.0f*sin(angle);
+		float y = 50.0f*cos(angle);
 
 		// Alterniere die Farbe zwischen Rot und Gruen
 		if ((iPivot % 2) == 0)
-			boden.Color4f(1, 0.8, 0.2, 1);
+			m3dLoadVector4(bodenColors[i], 1, 0.8, 0.2, 1);
 		else
-			boden.Color4f(0, 0.8, 0, 1);
-
+			m3dLoadVector4(bodenColors[i], 0, 0.8, 0, 1);
+		
 		// Inkrementiere iPivot um die Farbe beim naechsten mal zu wechseln
 		iPivot++;
 
 		// Spezifiziere den naechsten Vertex des Triangle_Fans
-		boden.Vertex3f(x, y, 0);
+		m3dLoadVector3(bodenVertices[i], x, y, 0);
+		i++;
 	}
 
-	// Fertig mit dem Bodens
+	boden.Begin(GL_TRIANGLE_FAN, 18);
+	boden.CopyVertexData3f(bodenVertices);
+	boden.CopyColorData4f(bodenColors);
 	boden.End();
-
-	
-
-
-
-
 }
 
 // Aufruf draw scene
@@ -286,18 +156,34 @@ void RenderScene(void)
 	modelViewMatrix.PushMatrix();
 	M3DMatrix44f rot;
 	m3dQuatToRotationMatrix(rot, rotation);
+
 	modelViewMatrix.MultMatrix(rot);
+	//modelViewMatrix.Translate(100, 100, 0);
 
-	//setze den Shader für das Rendern und übergebe die Model-View-Projection Matrix
+	//setze den Shader für das Rendern
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	//Zeichne Konus und Boden
-	//konus.Draw();
-//	boden.Draw();
+	M3DVector4f Vertices = { 1, 0.8, 0.2, 1 };
 
-//	kreis_t.Draw();
-	//	kugel_t.Draw();
-	quarder_t1.Draw();
+	
+	
+	//Zeichne Konus
+	modelViewMatrix.PushMatrix();
+	//modelViewMatrix.Translate(100, 100, 0);
+	//shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
+	//shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+//	modelViewMatrix.Translate(100, 100, 0);
+	modelViewMatrix.Translate(100, 100, 0);
+
+	//shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES,	modelViewMatrix.GetMatrix(),	projectionMatrix.GetMatrix(), Vertices);
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+	konus.Draw();
+	
+	modelViewMatrix.PopMatrix();
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+	boden.Draw();
 	//Auf fehler überprüfen
 	gltCheckErrors(0);
 	// Hole die im Stack gespeicherten Transformationsmatrizen wieder zurück
@@ -320,12 +206,10 @@ void SetupRC()
 
 	//initialisiert die standard shader
 	shaderManager.InitializeStockShaders();
-	//Matrix stacks für die Transformationspipeline setzen, damit werden dann automatisch die Matrizen multipliziert
 	transformPipeline.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	//erzeuge die geometrie
-	CreateGeometry();
-	drawZ();
 
+	CreateGeometry();
 	InitGUI();
 }
 
@@ -351,9 +235,9 @@ void ChangeSize(int w, int h)
 
 	// Definiere das viewing volume (left, right, bottom, top, near, far)
 	if (w <= h)
-		viewFrustum.SetOrthographic(-nRange, nRange, -nRange * h / w, nRange * h / w, -nRange, nRange);
+		viewFrustum.SetOrthographic(-nRange, nRange, -nRange * float(h) / float(w), nRange * float(h) / float(w), -nRange, nRange);
 	else
-		viewFrustum.SetOrthographic(-nRange * w / h, nRange * w / h, -nRange, nRange, -nRange, nRange);
+		viewFrustum.SetOrthographic(-nRange * float(w) / float(h), nRange * float(w) / float(h), -nRange, nRange, -nRange, nRange);
 	projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 	// Ruecksetzung des Model view matrix stack
 	modelViewMatrix.LoadIdentity();
@@ -363,6 +247,7 @@ void ChangeSize(int w, int h)
 
 void ShutDownRC()
 {
+	//GUI aufräumen
 	TwTerminate();
 }
 
@@ -372,6 +257,7 @@ int main(int argc, char* argv[])
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(800, 600);
 	glutCreateWindow("Versuch1");
+	glutCloseFunc(ShutDownRC);
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
@@ -390,10 +276,9 @@ int main(int argc, char* argv[])
 	glutSpecialFunc(SpecialKeys);
 	glutDisplayFunc(RenderScene);
 
-	TwInit(TW_OPENGL, NULL);
+	TwInit(TW_OPENGL_CORE, NULL);
 	SetupRC();
 	glutMainLoop();
-	ShutDownRC();
 
 	return 0;
 }
