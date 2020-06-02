@@ -293,7 +293,7 @@ void move() {
 	modelViewMatrix.PushMatrix();
 	modelViewMatrix.Translate(-20*sin(t/10), 0, 0);
 
-	modelViewMatrix.Rotate(45, 1, 1, 0);
+	//modelViewMatrix.Rotate(45, 1, 1, 0);
 
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
@@ -303,22 +303,25 @@ void move() {
 	
 	//Elbow
 	modelViewMatrix.PushMatrix();
+	modelViewMatrix.Rotate(45 * t/10, 1, 0, 0);
+
 	modelViewMatrix.Translate(0, 0, 45);
+
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
 	ball_t.Draw();
 
-
+	
 	//Lower Arm
 	modelViewMatrix.PushMatrix();
 
-	modelViewMatrix.Translate(0, 20, 20);
-    modelViewMatrix.Rotate(-t,1, 0, 0);
-
+	modelViewMatrix.Translate(5, 0, 0);
+	modelViewMatrix.Scale(5*sin(t/10), 5*sin(t/10), sin(t/10));
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
-	cylinder_t.Draw();
+	quarder_t.Draw();
 	modelViewMatrix.PopMatrix();
+	
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
 	modelViewMatrix.PopMatrix();
