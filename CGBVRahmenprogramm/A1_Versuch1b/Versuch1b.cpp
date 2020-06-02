@@ -16,7 +16,6 @@
 #include <GL/glut.h>
 #include <AntTweakBar.h>
 
-int abc = 0;
 static GLfloat t = 0.0;
 
 
@@ -39,6 +38,8 @@ GLBatch ball_t;
 
 // Rotationsgroessen
 static float rotation[] = { 0, 0, 0, 0 };
+
+static float position = 0;
 
 // Flags fuer Schalter
 bool bCull = false;
@@ -289,9 +290,9 @@ void InitGUI()
 void move() {
 	GLfloat i, j;
 	//Upper Arm
-	
+
 	modelViewMatrix.PushMatrix();
-	modelViewMatrix.Translate(-20*sin(t/10), 0, 0);
+	modelViewMatrix.Translate(-20 * sin(t / 10), 0, 0);
 
 	//modelViewMatrix.Rotate(45, 1, 1, 0);
 
@@ -300,10 +301,10 @@ void move() {
 	cylinder_t.Draw();
 	//modelViewMatrix.PopMatrix();
 	//shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	
+
 	//Elbow
 	modelViewMatrix.PushMatrix();
-	modelViewMatrix.Rotate(45 * t/10, 1, 0, 0);
+	modelViewMatrix.Rotate(45 * t / 10, 1, 0, 0);
 
 	modelViewMatrix.Translate(0, 0, 45);
 
@@ -311,23 +312,23 @@ void move() {
 
 	ball_t.Draw();
 
-	
+
 	//Lower Arm
 	modelViewMatrix.PushMatrix();
 
 	modelViewMatrix.Translate(5, 0, 0);
-	modelViewMatrix.Scale(5*sin(t/10), 5*sin(t/10), sin(t/10));
+	modelViewMatrix.Scale(5 * sin(t / 10), 5 * sin(t / 10), sin(t / 10));
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
 	quarder_t.Draw();
 	modelViewMatrix.PopMatrix();
-	
+
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
 	modelViewMatrix.PopMatrix();
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 	modelViewMatrix.PopMatrix();
-	
+
 
 }
 
@@ -360,7 +361,7 @@ void RenderScene(void)
 	M3DMatrix44f rot;
 	m3dQuatToRotationMatrix(rot, rotation);
 	modelViewMatrix.MultMatrix(rot);
-
+	modelViewMatrix.Translate(position, 0, 0);
 	//setze den Shader für das Rendern und übergebe die Model-View-Projection Matrix
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
@@ -404,7 +405,17 @@ void SetupRC()
 
 void SpecialKeys(int key, int x, int y)
 {
+	
+
 	TwEventKeyboardGLUT(key, x, y);
+	switch (key) {
+	case GLUT_KEY_LEFT:
+		position--;
+		break;
+	case GLUT_KEY_RIGHT:
+		position++;
+		break;
+	}
 	// Zeichne das Window neu
 	glutPostRedisplay();
 }
@@ -438,13 +449,15 @@ void ShutDownRC()
 {
 	TwTerminate();
 }
-void Loopa(int value){
+void Timer(int value) {
 	t += 1.0;
-	
+
 
 	glutPostRedisplay();
-	glutTimerFunc(20, Loopa, 0);
+	glutTimerFunc(20, Timer, 0);
 }
+
+
 int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
@@ -465,16 +478,17 @@ int main(int argc, char* argv[])
 	glutPassiveMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT); // same as MouseMotion
 	glutKeyboardFunc((GLUTkeyboardfun)TwEventKeyboardGLUT);
 
+
 	glutReshapeFunc(ChangeSize);
 	glutSpecialFunc(SpecialKeys);
 	glutDisplayFunc(RenderScene);
 
 	TwInit(TW_OPENGL, NULL);
 	SetupRC();
-	Loopa(1);
+	//Timer(1);
 
 	glutMainLoop();
-ShutDownRC();
+	ShutDownRC();
 
 	return 0;
 }
