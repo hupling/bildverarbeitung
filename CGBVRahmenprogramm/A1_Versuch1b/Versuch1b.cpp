@@ -39,7 +39,11 @@ GLBatch ball_t;
 // Rotationsgroessen
 static float rotation[] = { 0, 0, 0, 0 };
 
-static float position = 0;
+static float xPosition = 0;
+static float yPosition = 0;
+static float zPosition = 0;
+
+
 
 // Flags fuer Schalter
 bool bCull = false;
@@ -361,7 +365,10 @@ void RenderScene(void)
 	M3DMatrix44f rot;
 	m3dQuatToRotationMatrix(rot, rotation);
 	modelViewMatrix.MultMatrix(rot);
-	modelViewMatrix.Translate(position, 0, 0);
+	modelViewMatrix.Translate(xPosition, yPosition,zPosition);
+
+
+
 	//setze den Shader für das Rendern und übergebe die Model-View-Projection Matrix
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
@@ -409,15 +416,54 @@ void SpecialKeys(int key, int x, int y)
 
 	TwEventKeyboardGLUT(key, x, y);
 	switch (key) {
+	case GLUT_KEY_UP:
+		yPosition++;
+		break;
+	case GLUT_KEY_DOWN:
+		yPosition--;
+		break;
 	case GLUT_KEY_LEFT:
-		position--;
+		xPosition--;
 		break;
 	case GLUT_KEY_RIGHT:
-		position++;
+		xPosition++;
 		break;
 	}
 	// Zeichne das Window neu
 	glutPostRedisplay();
+}
+void
+Mouse(int button, /* I - Button that changed */
+	int state,  /* I - Current button states */
+	int x,      /* I - Current mouse X position */
+	int y)      /* I - Current mouse Y position */
+{
+	
+	TwEventMouseButtonGLUT(button,state,x,y);
+	if (state == GLUT_DOWN)
+	{
+	}
+	//tesselation++;
+
+	switch (button)
+	{
+	case GLUT_LEFT_BUTTON:
+
+	    zPosition=-5;
+		break;
+
+	case GLUT_RIGHT_BUTTON:
+		zPosition=+5;
+
+		break;
+
+	}
+	tesselation=zPosition;
+
+
+	glutPostRedisplay();
+
+
 }
 
 
@@ -472,12 +518,12 @@ int main(int argc, char* argv[])
 		std::cerr << "Error: " << glewGetErrorString(err) << "\n";
 		return 1;
 	}
+	glutMouseFunc(Mouse);
 
-	glutMouseFunc((GLUTmousebuttonfun)TwEventMouseButtonGLUT);
+//	glutMouseFunc((GLUTmousebuttonfun)TwEventMouseButtonGLUT);
 	glutMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT);
 	glutPassiveMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT); // same as MouseMotion
 	glutKeyboardFunc((GLUTkeyboardfun)TwEventKeyboardGLUT);
-
 
 	glutReshapeFunc(ChangeSize);
 	glutSpecialFunc(SpecialKeys);
@@ -485,7 +531,7 @@ int main(int argc, char* argv[])
 
 	TwInit(TW_OPENGL, NULL);
 	SetupRC();
-	//Timer(1);
+	Timer(1);
 
 	glutMainLoop();
 	ShutDownRC();
