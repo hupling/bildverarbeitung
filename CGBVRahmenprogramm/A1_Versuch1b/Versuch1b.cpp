@@ -156,18 +156,24 @@ void drawCube() {
 	unsigned int size = dimension;
 
 	M3DVector3f* a = calculateQuarder(3 + dimension, 3 + dimension, 2 + dimension, &number);
+	
 
 	quarder_t.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
 		switch (i % 4) {
 		case 0:
 			quarder_t.Color4f(1, 0.8, 0.2, 1);
+			
 			break;
 		case 1:
 			quarder_t.Color4f(1, 0.8, 0.2, 1);
+			
+			
 			break;
 		case 2:
 			quarder_t.Color4f(0, 0.8, 0, 1);
+		
+
 
 			break;
 		case 3:
@@ -194,6 +200,7 @@ void drawCylinder() {
 		switch (i % 4) {
 		case 0:
 			cylinder_t.Color4f(1, 0.8, 0.2, 1);
+			
 			break;
 		case 1:
 			cylinder_t.Color4f(1, 0.8, 0.2, 1);
@@ -270,7 +277,7 @@ void InitGUI()
 {
 	bar = TwNewBar("TweakBar");
 	TwDefine(" TweakBar size='200 400'");
-	TwAddVarRW(bar, "Model Rotation", TW_TYPE_QUAT4F, &rotation, "");
+	TwAddVarRW(bar, "Rotation", TW_TYPE_QUAT4F, &rotation, "");
 	TwAddVarRW(bar, "Depth Test?", TW_TYPE_BOOLCPP, &bDepth, "");
 	TwAddVarRW(bar, "Culling?", TW_TYPE_BOOLCPP, &bCull, "");
 	TwAddVarRW(bar, "Backface Wireframe?", TW_TYPE_BOOLCPP, &bOutline, "");
@@ -286,16 +293,6 @@ void InitGUI()
 
 void move() {
 	GLfloat i, j;
-
-	//Lower Arm
-	modelViewMatrix.PushMatrix();
-	modelViewMatrix.Translate(45, 0, 0);
-	modelViewMatrix.Rotate(270, -1, 1, 0);
-	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-
-	cylinder_t.Draw();
-	modelViewMatrix.PopMatrix();
-	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
 	//Upper Arm
 	modelViewMatrix.PushMatrix();
@@ -316,11 +313,22 @@ void move() {
 	modelViewMatrix.PopMatrix();
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
+	//Lower Arm
+	modelViewMatrix.PushMatrix();
+	modelViewMatrix.Translate(45, 0, 0);
+	modelViewMatrix.Rotate(270, -1, 1, 0);
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+	cylinder_t.Draw();
+	modelViewMatrix.PopMatrix();
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
+
+
 	//wrist
 	modelViewMatrix.PushMatrix();
 	modelViewMatrix.Translate(78, 30, 0);
 	modelViewMatrix.Scale(1, 1, .5);
-	//modelViewMatrix.Rotate(45, 45, 1, 0);
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
 	ball_t.Draw();
@@ -407,7 +415,7 @@ void RenderScene(void)
 
 	//setze den Shader für das Rendern und übergebe die Model-View-Projection Matrix
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-
+	
 
 	move();
 
