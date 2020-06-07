@@ -16,6 +16,7 @@
 #include <GL/glut.h>
 #include <AntTweakBar.h>
 
+static GLfloat t = 0.0;
 
 
 GLShaderManager shaderManager;
@@ -37,6 +38,12 @@ GLBatch ball_t;
 
 // Rotationsgroessen
 static float rotation[] = { 0, 0, 0, 0 };
+
+static float xPosition = 0;
+static float yPosition = 0;
+static float zPosition = 0;
+
+
 
 // Flags fuer Schalter
 bool bCull = false;
@@ -94,7 +101,7 @@ M3DVector3f* calculateCylinder(float r, float h, unsigned int* step) {
 }
 M3DVector3f* calculateBall(float r, unsigned int* step) {
 	int count = *step;
-	
+
 	M3DVector3f* Vertices = new M3DVector3f[count * count * 2];
 	int counter = 0;
 
@@ -233,7 +240,7 @@ void TW_CALL SetTesselation(const void* value, void* clientData)
 
 	//Hier kann nun der Aufruf gemacht werden um die Geometrie mit neuem Tesselationsfaktor zu erzeugen
 
-	
+
 	drawCube();
 	drawCylinder();
 	drawBall();
@@ -281,7 +288,7 @@ void InitGUI()
 	TwAddVarRW(bar, "Depth Test?", TW_TYPE_BOOLCPP, &bDepth, "");
 	TwAddVarRW(bar, "Culling?", TW_TYPE_BOOLCPP, &bCull, "");
 	TwAddVarRW(bar, "Backface Wireframe?", TW_TYPE_BOOLCPP, &bOutline, "");
-	
+
 	//Hier weitere GUI Variablen anlegen. Für Farbe z.B. den Typ TW_TYPE_COLOR4F benutzen
 
 	//Tesselation Faktor als unsigned 32 bit integer definiert
@@ -293,92 +300,40 @@ void InitGUI()
 
 void move() {
 	GLfloat i, j;
-
 	//Upper Arm
 	modelViewMatrix.PushMatrix();
-	modelViewMatrix.Translate(-20, 0, 0);
-	modelViewMatrix.Rotate(90, 1, 1, 0);
+	modelViewMatrix.Translate(-20 * sin(t / 10), 0, 0);
+
+	//modelViewMatrix.Rotate(45, 1, 1, 0);
+
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
 	cylinder_t.Draw();
-	modelViewMatrix.PopMatrix();
-	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+	//modelViewMatrix.PopMatrix();
+	//shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
 	//Elbow
 	modelViewMatrix.PushMatrix();
-	modelViewMatrix.Translate(13, -30, 0);
-	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+	modelViewMatrix.Rotate(45 * t / 10, 1, 0, 0);
 
-	ball_t.Draw();
-	modelViewMatrix.PopMatrix();
-	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+	modelViewMatrix.Translate(0, 0, 45);
+
 
 	//Lower Arm
 	modelViewMatrix.PushMatrix();
-	modelViewMatrix.Translate(45, 0, 0);
-	modelViewMatrix.Rotate(270, -1, 1, 0);
+
+	modelViewMatrix.Translate(5, 0, 0);
+	modelViewMatrix.Scale(5 * sin(t / 10), 5 * sin(t / 10), sin(t / 10));
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
-	cylinder_t.Draw();
+	quarder_t.Draw();
+	modelViewMatrix.PopMatrix();
+
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
+
 	modelViewMatrix.PopMatrix();
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-
-
-
-	//wrist
-	modelViewMatrix.PushMatrix();
-	modelViewMatrix.Translate(78, 30, 0);
-	modelViewMatrix.Scale(1, 1, .5);
-	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-
-	ball_t.Draw();
 	modelViewMatrix.PopMatrix();
-	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-
-	//Fingers
-	for (i = 0; i < 17; i += 9.0) {
-		for (j = 0; j < 17; j += 6.0) {
-			modelViewMatrix.PushMatrix();
-
-			modelViewMatrix.Translate(76 + j + i, 39 + j - i, -10);
-			shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-
-			quarder_t.Draw();
-			modelViewMatrix.PopMatrix();
-			shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-		}
-}
-	//small finger
-		modelViewMatrix.PushMatrix();
-		modelViewMatrix.Translate(85, 27, -10);
-		modelViewMatrix.Rotate(30, 0, 0, -1);
-		shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-
-		quarder_t.Draw();
-		modelViewMatrix.PopMatrix();
-		shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-
-		modelViewMatrix.PushMatrix();
-		modelViewMatrix.Translate(93, 29, -10);
-		modelViewMatrix.Rotate(30, 0, 0, -1);
-		shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-
-		quarder_t.Draw();
-		modelViewMatrix.PopMatrix();
-		shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	
-
-	//thumb
-	for (i = 0; i > -11; i -= 6) {
-		modelViewMatrix.PushMatrix();
-
-		modelViewMatrix.Translate(55 + i, 37 - i, -10);
-		shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-
-		quarder_t.Draw();
-		modelViewMatrix.PopMatrix();
-		shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	}
 
 
 }
@@ -412,6 +367,9 @@ void RenderScene(void)
 	M3DMatrix44f rot;
 	m3dQuatToRotationMatrix(rot, rotation);
 	modelViewMatrix.MultMatrix(rot);
+	modelViewMatrix.Translate(xPosition, yPosition,zPosition);
+
+
 
 	//setze den Shader für das Rendern und übergebe die Model-View-Projection Matrix
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
@@ -445,21 +403,69 @@ void SetupRC()
 	//Matrix stacks für die Transformationspipeline setzen, damit werden dann automatisch die Matrizen multipliziert
 	transformPipeline.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	//erzeuge die geometrie
-	
+
 	drawCube();
 	drawCylinder();
 
 	drawBall();
-	move();
 
 	InitGUI();
 }
 
 void SpecialKeys(int key, int x, int y)
 {
+	
+
 	TwEventKeyboardGLUT(key, x, y);
+	switch (key) {
+	case GLUT_KEY_UP:
+		yPosition++;
+		break;
+	case GLUT_KEY_DOWN:
+		yPosition--;
+		break;
+	case GLUT_KEY_LEFT:
+		xPosition--;
+		break;
+	case GLUT_KEY_RIGHT:
+		xPosition++;
+		break;
+	}
 	// Zeichne das Window neu
 	glutPostRedisplay();
+}
+void
+Mouse(int button, /* I - Button that changed */
+	int state,  /* I - Current button states */
+	int x,      /* I - Current mouse X position */
+	int y)      /* I - Current mouse Y position */
+{
+	
+	TwEventMouseButtonGLUT(button,state,x,y);
+	if (state == GLUT_DOWN)
+	{
+	}
+	//tesselation++;
+
+	switch (button)
+	{
+	case GLUT_LEFT_BUTTON:
+
+	    zPosition=-5;
+		break;
+
+	case GLUT_RIGHT_BUTTON:
+		zPosition=+5;
+
+		break;
+
+	}
+	tesselation=zPosition;
+
+
+	glutPostRedisplay();
+
+
 }
 
 
@@ -491,6 +497,14 @@ void ShutDownRC()
 {
 	TwTerminate();
 }
+void Timer(int value) {
+	t += 1.0;
+
+
+	glutPostRedisplay();
+	glutTimerFunc(20, Timer, 0);
+}
+
 
 int main(int argc, char* argv[])
 {
@@ -506,8 +520,9 @@ int main(int argc, char* argv[])
 		std::cerr << "Error: " << glewGetErrorString(err) << "\n";
 		return 1;
 	}
+	glutMouseFunc(Mouse);
 
-	glutMouseFunc((GLUTmousebuttonfun)TwEventMouseButtonGLUT);
+//	glutMouseFunc((GLUTmousebuttonfun)TwEventMouseButtonGLUT);
 	glutMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT);
 	glutPassiveMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT); // same as MouseMotion
 	glutKeyboardFunc((GLUTkeyboardfun)TwEventKeyboardGLUT);
@@ -518,6 +533,8 @@ int main(int argc, char* argv[])
 
 	TwInit(TW_OPENGL, NULL);
 	SetupRC();
+	Timer(1);
+
 	glutMainLoop();
 	ShutDownRC();
 
