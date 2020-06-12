@@ -1,0 +1,423 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						7,
+						8,
+						9,
+						10,
+						11
+					],
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "Dependencies",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5,
+						6
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "Dependencies"
+				},
+				{
+					"build" : "Dependencies/freeglut",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "Dependencies/freeglut",
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"build" : "Dependencies/glew",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 3,
+					"source" : "Dependencies/glew",
+					"targetIndexes" : 
+					[
+						9
+					]
+				},
+				{
+					"build" : "Dependencies/AntTweakBar",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 4,
+					"source" : "Dependencies/AntTweakBar",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "Dependencies/FreeImage",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 5,
+					"source" : "Dependencies/FreeImage",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"build" : "Dependencies/GLTools",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 6,
+					"source" : "Dependencies/GLTools",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "ImageLoader",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "ImageLoader",
+					"targetIndexes" : 
+					[
+						7
+					]
+				},
+				{
+					"build" : "A1_Versuch1a",
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 7,
+					"source" : "A1_Versuch1a",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "A1_Versuch1b",
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 8,
+					"source" : "A1_Versuch1b",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "A1_Bildverarbeitung",
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 9,
+					"source" : "A1_Bildverarbeitung",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "A3_Normalenvektoren",
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 10,
+					"source" : "A3_Normalenvektoren",
+					"targetIndexes" : 
+					[
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						7,
+						8,
+						9,
+						10
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						7
+					],
+					"name" : "Computergrafik",
+					"targetIndexes" : 
+					[
+						7
+					]
+				},
+				{
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5,
+						6
+					],
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "Dependencies",
+					"parentIndex" : 0
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "freeglut",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "glew",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						9
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						4
+					],
+					"name" : "AntTweakBar",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "FreeImage",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						6
+					],
+					"name" : "GLTools",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						8
+					],
+					"name" : "A1_Versuch1a",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						9
+					],
+					"name" : "A1_Versuch1b",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						10
+					],
+					"name" : "A1_Bildverarbeitung",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						11
+					],
+					"name" : "A3_Normalenvektoren",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 10,
+					"id" : "A1_Bildverarbeitung::@6e80945bb0db63a697d4",
+					"jsonFile" : "target-A1_Bildverarbeitung-Debug-6024e8ed6cd3edb73815.json",
+					"name" : "A1_Bildverarbeitung",
+					"projectIndex" : 9
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "A1_Versuch1a::@46a140e675cd16fa3292",
+					"jsonFile" : "target-A1_Versuch1a-Debug-343fc62efc513cb9fe5f.json",
+					"name" : "A1_Versuch1a",
+					"projectIndex" : 7
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "A1_Versuch1b::@fa9c681e54282f930565",
+					"jsonFile" : "target-A1_Versuch1b-Debug-dae7ccd79338e9dbc04b.json",
+					"name" : "A1_Versuch1b",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "A3_Normalenvektoren::@2a4502aff52f6eb1ec5c",
+					"jsonFile" : "target-A3_Normalenvektoren-Debug-893a24d0cf7ac1a35ac8.json",
+					"name" : "A3_Normalenvektoren",
+					"projectIndex" : 10
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "AntTweakBar::@f4d185ee0ec014fc627b",
+					"jsonFile" : "target-AntTweakBar-Debug-59c84b00a3a8ce1b214e.json",
+					"name" : "AntTweakBar",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "FreeImage::@02bba8e3370073ce1d64",
+					"jsonFile" : "target-FreeImage-Debug-f0a251fd4dbdd7cf6709.json",
+					"name" : "FreeImage",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "GLTools::@003c958ab94b63648d4e",
+					"jsonFile" : "target-GLTools-Debug-1cd84b7c9960bee9499c.json",
+					"name" : "GLTools",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "ImageLoader::@daebab860cecb4e16e15",
+					"jsonFile" : "target-ImageLoader-Debug-a22220b27696d49a3c07.json",
+					"name" : "ImageLoader",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "freeglut::@737654e07e88c873dbc5",
+					"jsonFile" : "target-freeglut-Debug-f87b3c203218dc35934e.json",
+					"name" : "freeglut",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "glew::@ea58d00f43181ccd9e59",
+					"jsonFile" : "target-glew-Debug-b37ed39cbbced4661342.json",
+					"name" : "glew",
+					"projectIndex" : 3
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/out/build/x64-Debug",
+		"source" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

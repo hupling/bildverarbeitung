@@ -1,0 +1,2716 @@
+{
+	"archive" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "/machine:x64",
+				"role" : "flags"
+			}
+		]
+	},
+	"artifacts" : 
+	[
+		{
+			"path" : "Dependencies/FreeImage/FreeImage.lib"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"add_definitions",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"Dependencies/FreeImage/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 341,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 340,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 2,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 325,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 326,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 327,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 328,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 329,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 330,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 331,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 332,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 333,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 334,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 335,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 336,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 337,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 338,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1  "
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 2,
+					"define" : "FREEIMAGE_LIB"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "NO_LCMS"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "OPJ_STATIC"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_CRT_SECURE_NO_WARNINGS"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/FreeImageToolkit"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/LibJPEG"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/LibMNG"
+				},
+				{
+					"backtrace" : 8,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/LibOpenJPEG"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/LibPNG"
+				},
+				{
+					"backtrace" : 10,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/LibTIFF"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/OpenEXR"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/OpenEXR/Half"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/OpenEXR/Iex"
+				},
+				{
+					"backtrace" : 14,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/OpenEXR/IlmImf"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/OpenEXR/IlmThread"
+				},
+				{
+					"backtrace" : 16,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/OpenEXR/Imath"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/ZLib"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				1,
+				2,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59,
+				60,
+				61,
+				62,
+				63,
+				65,
+				66,
+				67,
+				68,
+				69,
+				70,
+				71,
+				73,
+				74,
+				75,
+				76,
+				77,
+				282,
+				283,
+				285,
+				287,
+				288,
+				289,
+				290
+			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1  "
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 2,
+					"define" : "FREEIMAGE_LIB"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "NO_LCMS"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "OPJ_STATIC"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_CRT_SECURE_NO_WARNINGS"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/FreeImageToolkit"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/LibJPEG"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/LibMNG"
+				},
+				{
+					"backtrace" : 8,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/LibOpenJPEG"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/LibPNG"
+				},
+				{
+					"backtrace" : 10,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/LibTIFF"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/OpenEXR"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/OpenEXR/Half"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/OpenEXR/Iex"
+				},
+				{
+					"backtrace" : 14,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/OpenEXR/IlmImf"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/OpenEXR/IlmThread"
+				},
+				{
+					"backtrace" : 16,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/OpenEXR/Imath"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source/ZLib"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				79,
+				80,
+				81,
+				82,
+				83,
+				84,
+				85,
+				86,
+				87,
+				88,
+				89,
+				90,
+				91,
+				93,
+				94,
+				95,
+				96,
+				97,
+				98,
+				99,
+				100,
+				101,
+				102,
+				103,
+				105,
+				106,
+				107,
+				108,
+				109,
+				110,
+				111,
+				112,
+				113,
+				114,
+				115,
+				117,
+				118,
+				119,
+				120,
+				121,
+				122,
+				124,
+				125,
+				130,
+				131,
+				132,
+				134,
+				137,
+				138,
+				140,
+				142,
+				144,
+				146,
+				150,
+				152,
+				154,
+				156,
+				158,
+				159,
+				162,
+				165,
+				167,
+				168,
+				170,
+				173,
+				175,
+				177,
+				179,
+				181,
+				183,
+				186,
+				189,
+				191,
+				193,
+				195,
+				197,
+				199,
+				201,
+				205,
+				207,
+				209,
+				212,
+				214,
+				216,
+				218,
+				221,
+				222,
+				223,
+				224,
+				225,
+				226,
+				227,
+				228,
+				229,
+				230,
+				231,
+				232,
+				233,
+				234,
+				235,
+				236,
+				238,
+				239,
+				240,
+				241,
+				242,
+				244,
+				246,
+				247,
+				248,
+				249,
+				250,
+				251,
+				252,
+				254,
+				255,
+				256,
+				257,
+				258,
+				259,
+				260,
+				261,
+				262,
+				263,
+				264,
+				265,
+				267,
+				268,
+				269,
+				270,
+				271,
+				272,
+				273,
+				274,
+				275,
+				276,
+				295,
+				296,
+				297,
+				299,
+				301,
+				302,
+				303,
+				306,
+				308,
+				310,
+				312,
+				316
+			]
+		}
+	],
+	"folder" : 
+	{
+		"name" : "Libraries"
+	},
+	"id" : "FreeImage::@02bba8e3370073ce1d64",
+	"name" : "FreeImage",
+	"nameOnDisk" : "FreeImage.lib",
+	"paths" : 
+	{
+		"build" : "Dependencies/FreeImage",
+		"source" : "Dependencies/FreeImage"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				0,
+				3,
+				4,
+				26,
+				64,
+				72,
+				78,
+				92,
+				104,
+				116,
+				123,
+				126,
+				127,
+				128,
+				129,
+				133,
+				135,
+				136,
+				139,
+				141,
+				143,
+				145,
+				147,
+				148,
+				149,
+				151,
+				153,
+				155,
+				157,
+				160,
+				161,
+				163,
+				164,
+				166,
+				169,
+				171,
+				172,
+				174,
+				176,
+				178,
+				180,
+				182,
+				184,
+				185,
+				187,
+				188,
+				190,
+				192,
+				194,
+				196,
+				198,
+				200,
+				202,
+				203,
+				204,
+				206,
+				208,
+				210,
+				211,
+				213,
+				215,
+				217,
+				219,
+				220,
+				237,
+				243,
+				245,
+				253,
+				266,
+				277,
+				278,
+				279,
+				280,
+				281,
+				284,
+				286,
+				291,
+				292,
+				293,
+				294,
+				298,
+				300,
+				304,
+				305,
+				307,
+				309,
+				311,
+				313,
+				314,
+				315,
+				317
+			]
+		},
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				1,
+				2,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59,
+				60,
+				61,
+				62,
+				63,
+				65,
+				66,
+				67,
+				68,
+				69,
+				70,
+				71,
+				73,
+				74,
+				75,
+				76,
+				77,
+				79,
+				80,
+				81,
+				82,
+				83,
+				84,
+				85,
+				86,
+				87,
+				88,
+				89,
+				90,
+				91,
+				93,
+				94,
+				95,
+				96,
+				97,
+				98,
+				99,
+				100,
+				101,
+				102,
+				103,
+				105,
+				106,
+				107,
+				108,
+				109,
+				110,
+				111,
+				112,
+				113,
+				114,
+				115,
+				117,
+				118,
+				119,
+				120,
+				121,
+				122,
+				124,
+				125,
+				130,
+				131,
+				132,
+				134,
+				137,
+				138,
+				140,
+				142,
+				144,
+				146,
+				150,
+				152,
+				154,
+				156,
+				158,
+				159,
+				162,
+				165,
+				167,
+				168,
+				170,
+				173,
+				175,
+				177,
+				179,
+				181,
+				183,
+				186,
+				189,
+				191,
+				193,
+				195,
+				197,
+				199,
+				201,
+				205,
+				207,
+				209,
+				212,
+				214,
+				216,
+				218,
+				221,
+				222,
+				223,
+				224,
+				225,
+				226,
+				227,
+				228,
+				229,
+				230,
+				231,
+				232,
+				233,
+				234,
+				235,
+				236,
+				238,
+				239,
+				240,
+				241,
+				242,
+				244,
+				246,
+				247,
+				248,
+				249,
+				250,
+				251,
+				252,
+				254,
+				255,
+				256,
+				257,
+				258,
+				259,
+				260,
+				261,
+				262,
+				263,
+				264,
+				265,
+				267,
+				268,
+				269,
+				270,
+				271,
+				272,
+				273,
+				274,
+				275,
+				276,
+				282,
+				283,
+				285,
+				287,
+				288,
+				289,
+				290,
+				295,
+				296,
+				297,
+				299,
+				301,
+				302,
+				303,
+				306,
+				308,
+				310,
+				312,
+				316
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/CacheFile.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/DeprecationManager/Deprecated.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/DeprecationManager/DeprecationMgr.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/DeprecationManager/DeprecationMgr.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/FreeImage.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/BitmapAccess.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/CacheFile.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/ColorLookup.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/Conversion.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/Conversion16_555.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/Conversion16_565.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/Conversion24.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/Conversion32.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/Conversion4.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/Conversion8.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/ConversionRGBF.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/ConversionType.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/FreeImage.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/FreeImageIO.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/GetType.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/Halftoning.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/J2KHelper.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/MemoryIO.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/MultiPage.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/NNQuantizer.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PSDParser.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PSDParser.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PixelAccess.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/Plugin.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginBMP.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginCUT.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginDDS.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginG3.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginGIF.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginHDR.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginICO.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginIFF.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginJ2K.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginJP2.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginJPEG.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginKOALA.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginMNG.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginPCD.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginPCX.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginPFM.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginPICT.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginPNG.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginPNM.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginPSD.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginRAS.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginSGI.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginTARGA.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginTIFF.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginWBMP.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginXBM.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/PluginXPM.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/TIFFLogLuv.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/ToneMapping.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/WuQuantizer.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/ZLibInterface.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/tmoColorConvert.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/tmoDrago03.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/tmoFattal02.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImage/tmoReinhard05.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/FreeImageIO.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/BSplineRotate.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/Background.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/Channels.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/ClassicRotate.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/Colors.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/CopyPaste.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/Display.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/Filters.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/Flip.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/JPEGTransform.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/MultigridPoissonSolver.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/Rescale.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/Resize.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/FreeImageToolkit/Resize.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jaricom.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jcapimin.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jcapistd.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jcarith.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jccoefct.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jccolor.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jcdctmgr.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jchuff.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jcinit.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jcmainct.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jcmarker.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jcmaster.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jcomapi.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jconfig.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jcparam.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jcprepct.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jcsample.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jctrans.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdapimin.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdapistd.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdarith.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdatadst.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdatasrc.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdcoefct.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdcolor.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdct.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jddctmgr.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdhuff.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdinput.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdmainct.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdmarker.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdmaster.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdmerge.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdpostct.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdsample.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jdtrans.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jerror.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jerror.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jfdctflt.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jfdctfst.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jfdctint.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jidctflt.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jidctfst.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jidctint.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jinclude.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jmemmgr.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jmemnobs.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jmemsys.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jmorecfg.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jpegint.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jpeglib.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jquant1.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jquant2.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jutils.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/jversion.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/transupp.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibJPEG/transupp.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_callback_xs.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_chunk_descr.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_chunk_descr.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_chunk_io.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_chunk_io.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_chunk_prc.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_chunk_prc.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_chunk_xs.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_chunks.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_cms.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_cms.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_conf.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_data.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_display.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_display.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_dither.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_dither.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_error.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_error.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_filter.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_filter.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_hlapi.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_jpeg.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_jpeg.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_memory.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_object_prc.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_object_prc.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_objects.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_pixels.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_pixels.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_prop_xs.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_read.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_read.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_trace.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_trace.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_types.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_write.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_write.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_zlib.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibMNG/libmng_zlib.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/bio.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/bio.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/cio.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/cio.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/dwt.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/dwt.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/event.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/event.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/fix.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/image.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/image.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/int.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/j2k.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/j2k.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/j2k_lib.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/j2k_lib.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/jp2.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/jp2.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/jpt.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/jpt.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/mct.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/mct.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/mqc.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/mqc.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/openjpeg.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/openjpeg.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/opj_includes.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/opj_malloc.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/pi.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/pi.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/raw.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/raw.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/t1.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/t1.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/t1_luts.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/t2.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/t2.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/tcd.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/tcd.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/tgt.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibOpenJPEG/tgt.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/png.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/png.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngconf.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngerror.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pnggccrd.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngget.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngmem.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngpread.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngread.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngrio.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngrtran.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngrutil.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngset.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngtrans.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngvcrd.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngwio.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngwrite.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngwtran.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibPNG/pngwutil.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/t4.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_aux.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_close.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_codec.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_color.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_compress.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_config.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_dir.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_dir.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_dirinfo.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_dirread.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_dirwrite.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_dumpmode.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_error.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_extension.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_fax3.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_fax3.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_fax3sm.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_flush.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_getimage.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_jpeg.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_luv.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_lzw.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_next.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_ojpeg.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_open.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_packbits.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_pixarlog.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_predict.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_predict.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_print.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_read.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_strip.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_swab.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_thunder.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_tile.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_version.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_warning.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_write.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tif_zip.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tiff.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tiffio.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tiffiop.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/tiffvers.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/LibTIFF/uvcode.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/Metadata/Exif.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/Metadata/FIRational.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/Metadata/FIRational.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/Metadata/FreeImageTag.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/Metadata/FreeImageTag.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/Metadata/IPTC.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/Metadata/TagConversion.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/Metadata/TagLib.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Dependencies/FreeImage/Source/Metadata/XTIFF.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/Plugin.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/Quantizers.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/ToneMapping.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/Utilities.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/adler32.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/compress.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/crc32.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/crc32.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/deflate.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/deflate.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/gzio.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/infback.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/inffast.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/inffast.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/inffixed.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/inflate.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/inflate.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/inftrees.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/inftrees.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/trees.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/trees.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/uncompr.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/zconf.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/zconf.in.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/zlib.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/zutil.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Dependencies/FreeImage/Source/ZLib/zutil.h",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

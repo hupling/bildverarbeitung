@@ -1,0 +1,310 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "A3_Normalenvektoren/A3_Normalenvektoren.exe"
+		},
+		{
+			"path" : "A3_Normalenvektoren/A3_Normalenvektoren.pdb"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"install",
+			"install_sample",
+			"target_link_libraries",
+			"include_directories",
+			"include"
+		],
+		"files" : 
+		[
+			"A3_Normalenvektoren/CMakeLists.txt",
+			"cmake/Install.cmake",
+			"cmake/Dependencies.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 11,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 16,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 2,
+				"parent" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 8,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 14,
+				"parent" : 0
+			},
+			{
+				"file" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 3,
+				"line" : 28,
+				"parent" : 6
+			},
+			{
+				"file" : 2,
+				"parent" : 7
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 17,
+				"parent" : 8
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 33,
+				"parent" : 6
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1  "
+				}
+			],
+			"defines" : 
+			[
+				{
+					"define" : "FREEGLUT_LIB_PRAGMAS=0"
+				},
+				{
+					"define" : "FREEGLUT_STATIC"
+				},
+				{
+					"define" : "FREEIMAGE_LIB"
+				},
+				{
+					"define" : "TW_NO_LIB_PRAGMA"
+				},
+				{
+					"define" : "TW_STATIC"
+				},
+				{
+					"define" : "_CRT_SECURE_NO_WARNINGS"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 9,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/FreeImage/Source"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/freeglut/include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/GLTools/include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/AntTweakBar/include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/Dependencies/glew/include"
+				},
+				{
+					"backtrace" : 10,
+					"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 5,
+			"id" : "AntTweakBar::@f4d185ee0ec014fc627b"
+		},
+		{
+			"backtrace" : 5,
+			"id" : "glew::@ea58d00f43181ccd9e59"
+		},
+		{
+			"backtrace" : 5,
+			"id" : "freeglut::@737654e07e88c873dbc5"
+		},
+		{
+			"backtrace" : 5,
+			"id" : "FreeImage::@02bba8e3370073ce1d64"
+		},
+		{
+			"backtrace" : 5,
+			"id" : "ImageLoader::@daebab860cecb4e16e15"
+		},
+		{
+			"backtrace" : 5,
+			"id" : "GLTools::@003c958ab94b63648d4e"
+		}
+	],
+	"folder" : 
+	{
+		"name" : "Aufgaben"
+	},
+	"id" : "A3_Normalenvektoren::@2a4502aff52f6eb1ec5c",
+	"install" : 
+	{
+		"destinations" : 
+		[
+			{
+				"backtrace" : 3,
+				"path" : "A3_Normalenvektoren"
+			},
+			{
+				"backtrace" : 4,
+				"path" : "A3_Normalenvektoren"
+			}
+		],
+		"prefix" : 
+		{
+			"path" : "D:/EigeneDateien/Documents/Uni/6.Semester/Bildverarbeitung/repo/CGBVRahmenprogramm/out/install/x64-Debug"
+		}
+	},
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "/machine:x64 /debug /INCREMENTAL /subsystem:console",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "..\\Dependencies\\GLTools\\GLTools.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "..\\Dependencies\\AntTweakBar\\AntTweakBar.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "..\\Dependencies\\freeglut\\freeglut.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "..\\ImageLoader\\ImageLoader.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "..\\Dependencies\\glew\\glew.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "winmm.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "opengl32.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "glu32.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "..\\Dependencies\\FreeImage\\FreeImage.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "A3_Normalenvektoren",
+	"nameOnDisk" : "A3_Normalenvektoren.exe",
+	"paths" : 
+	{
+		"build" : "A3_Normalenvektoren",
+		"source" : "A3_Normalenvektoren"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				1,
+				2
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "A3_Normalenvektoren/Aufgabe3.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "A3_Normalenvektoren/VertexShader.glsl",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "A3_Normalenvektoren/FragmentShader.glsl",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "EXECUTABLE"
+}

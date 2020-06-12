@@ -24,6 +24,7 @@ GLMatrixStack modelViewMatrix;
 GLMatrixStack projectionMatrix;
 GLGeometryTransform transformPipeline;
 GLFrustum viewFrustum;
+GLFrustum viewFrustumPers;
 GLBatch konus;
 GLBatch boden;
 GLBatch kreis_t;
@@ -49,6 +50,8 @@ static float zPosition = 0;
 bool bCull = false;
 bool bOutline = false;
 bool bDepth = true;
+bool bOrth = true;
+bool bPers = false;
 
 unsigned int tesselation = 10;
 
@@ -278,6 +281,32 @@ void TW_CALL GetDimension(void* value, void* clientData) {
 	*uintptr = dimension;
 }
 
+//Set function for orth projection
+void TW_CALL SetOrth(const void* value, void* clientData) {
+	const bool* boolptr = static_cast<const bool*>(value);
+	bOrth = *boolptr;
+	bPers = !*boolptr;
+}
+
+//Get function for orth projection
+void TW_CALL GetOrth(void* value, void* clientData) {
+	bool* boolptr = static_cast<bool*>(value);
+	*boolptr = bOrth;
+}
+
+//Set function for pers projection
+void TW_CALL SetPers(const void* value, void* clientData) {
+	const bool* boolptr = static_cast<const bool*>(value);
+	bOrth = !*boolptr;
+	bPers = *boolptr;
+}
+
+//Get function for pers projection
+void TW_CALL GetPers(void* value, void* clientData) {
+	bool* boolptr = static_cast<bool*>(value);
+	*boolptr = bPers;
+}
+
 //GUI
 TwBar* bar;
 void InitGUI()
@@ -294,32 +323,34 @@ void InitGUI()
 	//Tesselation Faktor als unsigned 32 bit integer definiert
 	TwAddVarCB(bar, "Tesselation", TW_TYPE_UINT32, SetTesselation, GetTesselation, NULL, "");
 	TwAddVarCB(bar, "Dimension", TW_TYPE_UINT32, SetDimension, GetDimension, NULL, "");
+
+	//projection
+	TwAddVarCB(bar, "Orthographic Projection", TW_TYPE_BOOLCPP, SetOrth, GetOrth, NULL, "");
+	TwAddVarCB(bar, "Perspective Projection", TW_TYPE_BOOLCPP, SetPers, GetPers, NULL, "");
 }
 
 
 
 void move() {
 	GLfloat i, j;
-	//Upper Arm
+
 	modelViewMatrix.PushMatrix();
 	modelViewMatrix.Translate(-20 * sin(t / 10), 0, 0);
-
-	//modelViewMatrix.Rotate(45, 1, 1, 0);
 
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
 	cylinder_t.Draw();
-	//modelViewMatrix.PopMatrix();
-	//shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
-	//Elbow
 	modelViewMatrix.PushMatrix();
 	modelViewMatrix.Rotate(45 * t / 10, 1, 0, 0);
 
 	modelViewMatrix.Translate(0, 0, 45);
 
+	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 
-	//Lower Arm
+	ball_t.Draw();
+
+
 	modelViewMatrix.PushMatrix();
 
 	modelViewMatrix.Translate(5, 0, 0);
@@ -334,7 +365,6 @@ void move() {
 	modelViewMatrix.PopMatrix();
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 	modelViewMatrix.PopMatrix();
-
 
 }
 
@@ -363,12 +393,21 @@ void RenderScene(void)
 		glPolygonMode(GL_BACK, GL_FILL);
 
 	// Speichere den matrix state und führe die Rotation durch
+	if (bOrth) {
+		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
+	}
+	else {
+
+		projectionMatrix.LoadMatrix(viewFrustumPers.GetProjectionMatrix());
+		modelViewMatrix.Translate(xPosition, yPosition, -500);
+	}
+
+	
 	modelViewMatrix.PushMatrix();
 	M3DMatrix44f rot;
 	m3dQuatToRotationMatrix(rot, rotation);
 	modelViewMatrix.MultMatrix(rot);
-	modelViewMatrix.Translate(xPosition, yPosition,zPosition);
-
+	modelViewMatrix.Translate(xPosition, yPosition, zPosition);
 
 
 	//setze den Shader für das Rendern und übergebe die Model-View-Projection Matrix
@@ -480,13 +519,23 @@ void ChangeSize(int w, int h)
 	glViewport(0, 0, w, h);
 	// Ruecksetzung des Projection matrix stack
 	projectionMatrix.LoadIdentity();
-
+	
 	// Definiere das viewing volume (left, right, bottom, top, near, far)
-	if (w <= h)
-		viewFrustum.SetOrthographic(-nRange, nRange, -nRange * h / w, nRange * h / w, -nRange, nRange);
-	else
-		viewFrustum.SetOrthographic(-nRange * w / h, nRange * w / h, -nRange, nRange, -nRange, nRange);
-	projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
+	if (bOrth) {
+		if (w <= h) {
+			viewFrustum.SetOrthographic(-nRange, nRange, -nRange * h / w, nRange * h / w, -nRange, nRange);
+		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
+	}
+		else
+			viewFrustum.SetOrthographic(-nRange * w / h, nRange * w / h, -nRange, nRange, -nRange, nRange);
+		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
+	}
+	else {
+
+		viewFrustumPers.SetPerspective(60.0f, nRange * w / h, 0.1f, 3 *nRange);
+
+		projectionMatrix.LoadMatrix(viewFrustumPers.GetProjectionMatrix());
+	}
 	// Ruecksetzung des Model view matrix stack
 	modelViewMatrix.LoadIdentity();
 
