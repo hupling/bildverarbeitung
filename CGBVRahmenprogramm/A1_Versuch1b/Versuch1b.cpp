@@ -399,15 +399,21 @@ void RenderScene(void)
 	else {
 
 		projectionMatrix.LoadMatrix(viewFrustumPers.GetProjectionMatrix());
-		modelViewMatrix.Translate(xPosition, yPosition, -500);
+		
 	}
 
 	
 	modelViewMatrix.PushMatrix();
 	M3DMatrix44f rot;
 	m3dQuatToRotationMatrix(rot, rotation);
+	if (bOrth) {
+		modelViewMatrix.Translate(xPosition, yPosition, zPosition);
+	}
+	else {
+		modelViewMatrix.Translate(xPosition, yPosition, -500);
+	}
+	
 	modelViewMatrix.MultMatrix(rot);
-	modelViewMatrix.Translate(xPosition, yPosition, zPosition);
 
 
 	//setze den Shader für das Rendern und übergebe die Model-View-Projection Matrix
@@ -551,7 +557,7 @@ void Timer(int value) {
 
 
 	glutPostRedisplay();
-	glutTimerFunc(20, Timer, 0);
+	//glutTimerFunc(20, Timer, 0);
 }
 
 
