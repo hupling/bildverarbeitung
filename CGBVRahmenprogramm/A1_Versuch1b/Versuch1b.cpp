@@ -393,14 +393,9 @@ void RenderScene(void)
 		glPolygonMode(GL_BACK, GL_FILL);
 
 	// Speichere den matrix state und führe die Rotation durch
-	if (bOrth) {
-		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
-	}
-	else {
 
-		projectionMatrix.LoadMatrix(viewFrustumPers.GetProjectionMatrix());
-		
-	}
+		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
+
 
 	
 	modelViewMatrix.PushMatrix();
@@ -410,7 +405,7 @@ void RenderScene(void)
 		modelViewMatrix.Translate(xPosition, yPosition, zPosition);
 	}
 	else {
-		modelViewMatrix.Translate(xPosition, yPosition, -500);
+		modelViewMatrix.Translate(xPosition, yPosition, -10);
 	}
 	
 	modelViewMatrix.MultMatrix(rot);
@@ -530,7 +525,7 @@ void ChangeSize(int w, int h)
 	if (bOrth) {
 		if (w <= h) {
 			viewFrustum.SetOrthographic(-nRange, nRange, -nRange * h / w, nRange * h / w, -nRange, nRange);
-		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
+		//projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 	}
 		else
 			viewFrustum.SetOrthographic(-nRange * w / h, nRange * w / h, -nRange, nRange, -nRange, nRange);
@@ -538,9 +533,9 @@ void ChangeSize(int w, int h)
 	}
 	else {
 
-		viewFrustumPers.SetPerspective(60.0f, nRange * w / h, 0.1f, 3 *nRange);
+		viewFrustum.SetPerspective(120.0f, nRange * w / h, 100.0f, 3 *nRange);
 
-		projectionMatrix.LoadMatrix(viewFrustumPers.GetProjectionMatrix());
+		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 	}
 	// Ruecksetzung des Model view matrix stack
 	modelViewMatrix.LoadIdentity();
@@ -557,7 +552,7 @@ void Timer(int value) {
 
 
 	glutPostRedisplay();
-	//glutTimerFunc(20, Timer, 0);
+	glutTimerFunc(20, Timer, 0);
 }
 
 
