@@ -364,9 +364,8 @@ void RenderScene(void)
 	modelViewMatrix.PushMatrix();
 	M3DMatrix44f rot;
 	m3dQuatToRotationMatrix(rot, rotation);
+	modelViewMatrix.Translate(xPosition, yPosition, zPosition);
 	modelViewMatrix.MultMatrix(rot);
-	modelViewMatrix.Translate(xPosition, yPosition,zPosition);
-
 
 
 	//setze den Shader für das Rendern und übergebe die Model-View-Projection Matrix
@@ -500,7 +499,7 @@ void Timer(int value) {
 
 
 	glutPostRedisplay();
-	glutTimerFunc(20, Timer, 0);
+	//glutTimerFunc(20, Timer, 0);
 }
 
 
