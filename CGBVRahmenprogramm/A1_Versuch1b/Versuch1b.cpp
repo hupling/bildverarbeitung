@@ -44,6 +44,12 @@ static float xPosition = 0;
 static float yPosition = 0;
 static float zPosition = 0;
 
+// CameraPostion[0] -> Right and left. Camerapostion[1] -> up and down
+static float CameraPosition[] = { 0, 0, 0 };
+
+//0 um X. 1 um Y
+static float ViewAngle[] = { 0.0, 0.0 };
+
 
 
 // Flags fuer Schalter
@@ -371,6 +377,9 @@ void move() {
 // Aufruf draw scene
 void RenderScene(void)
 {
+
+	M3DMatrix44f rot;
+
 	// Clearbefehle für den color buffer und den depth buffer
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -392,22 +401,23 @@ void RenderScene(void)
 	else
 		glPolygonMode(GL_BACK, GL_FILL);
 
+	glMatrixMode(GL_MODELVIEW);
+	modelViewMatrix.LoadIdentity();
+	modelViewMatrix.Rotate(ViewAngle[0], 0, 1, 0);
+	modelViewMatrix.Rotate(ViewAngle[1], 1, 0, 0);
+	modelViewMatrix.Translate(CameraPosition[0], CameraPosition[1], CameraPosition[2]);
+
 	// Speichere den matrix state und führe die Rotation durch
-
-		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
-
-
-	
-	modelViewMatrix.PushMatrix();
-	M3DMatrix44f rot;
-	m3dQuatToRotationMatrix(rot, rotation);
 	if (bOrth) {
-		modelViewMatrix.Translate(xPosition, yPosition, zPosition);
+		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 	}
 	else {
-		modelViewMatrix.Translate(xPosition, yPosition, -10);
+		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
+		modelViewMatrix.Translate(0, 0, 0);
 	}
 	
+	modelViewMatrix.PushMatrix();
+	m3dQuatToRotationMatrix(rot, rotation);
 	modelViewMatrix.MultMatrix(rot);
 
 
@@ -454,26 +464,58 @@ void SetupRC()
 
 void SpecialKeys(int key, int x, int y)
 {
-	
-
-	TwEventKeyboardGLUT(key, x, y);
-	switch (key) {
+	switch (key)
+	{
 	case GLUT_KEY_UP:
-		yPosition++;
+		CameraPosition[1] = CameraPosition[1]++;
+		glutPostRedisplay();
 		break;
 	case GLUT_KEY_DOWN:
-		yPosition--;
+		CameraPosition[1] = CameraPosition[1]--;
+		glutPostRedisplay();
 		break;
 	case GLUT_KEY_LEFT:
-		xPosition--;
+		CameraPosition[0] = CameraPosition[0]--;
+		glutPostRedisplay();
 		break;
 	case GLUT_KEY_RIGHT:
-		xPosition++;
+		CameraPosition[0] = CameraPosition[0]++;
+		glutPostRedisplay();
 		break;
 	}
-	// Zeichne das Window neu
-	glutPostRedisplay();
 }
+
+void Keyboard(unsigned char key, int x, int y) {
+	switch (key)
+	{
+	case 'q':
+		CameraPosition[2] = CameraPosition[2] + 1;
+		glutPostRedisplay();
+		break;
+	case 'e':
+		CameraPosition[2] = CameraPosition[2] - 1;
+		glutPostRedisplay();
+		break;
+	case 'a':
+		ViewAngle[0] = ViewAngle[0]--;
+		glutPostRedisplay();
+		break;
+	case 'd':
+		ViewAngle[0] = ViewAngle[0]++;
+		glutPostRedisplay();
+		break;
+	case 'w':
+		ViewAngle[1] = ViewAngle[1]--;
+		glutPostRedisplay();
+		break;
+	case 's':
+		ViewAngle[1] = ViewAngle[1]++;
+		glutPostRedisplay();
+		break;
+
+	}
+}
+
 void
 Mouse(int button, /* I - Button that changed */
 	int state,  /* I - Current button states */
@@ -533,7 +575,7 @@ void ChangeSize(int w, int h)
 	}
 	else {
 
-		viewFrustum.SetPerspective(120.0f, nRange * w / h, 100.0f, 3 *nRange);
+		viewFrustum.SetPerspective(120.0f, w / h, 100.0f, 200.0f);
 
 		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 	}
@@ -576,7 +618,7 @@ int main(int argc, char* argv[])
 	glutMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT);
 	glutPassiveMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT); // same as MouseMotion
 	glutKeyboardFunc((GLUTkeyboardfun)TwEventKeyboardGLUT);
-
+	glutKeyboardFunc(Keyboard);
 	glutReshapeFunc(ChangeSize);
 	glutSpecialFunc(SpecialKeys);
 	glutDisplayFunc(RenderScene);
