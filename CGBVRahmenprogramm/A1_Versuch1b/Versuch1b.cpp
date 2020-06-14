@@ -381,7 +381,6 @@ void RenderScene(void)
 {
 
 	M3DMatrix44f rot;
-	M3DMatrix44f M;
 
 	// Clearbefehle für den color buffer und den depth buffer
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -406,8 +405,7 @@ void RenderScene(void)
 
 	glMatrixMode(GL_MODELVIEW);
 	modelViewMatrix.LoadIdentity();
-	cameraFrame.GetCameraMatrix(M);
-	modelViewMatrix.MultMatrix(M);
+
 
 	// Speichere den matrix state und führe die Rotation durch
 	if (bOrth) {
@@ -417,6 +415,11 @@ void RenderScene(void)
 		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 		modelViewMatrix.Translate(0, 0, 0);
 	}
+	M3DMatrix44f M;
+
+	
+		cameraFrame.GetCameraMatrix(M);
+	modelViewMatrix.MultMatrix(M);
 	
 	modelViewMatrix.PushMatrix();
 	m3dQuatToRotationMatrix(rot, rotation);
@@ -516,44 +519,14 @@ void Keyboard(unsigned char key, int x, int y) {
 		cameraFrame.MoveForward(-1);
 		glutPostRedisplay();
 		break;
-
-	}
-}
-
-void
-Mouse(int button, /* I - Button that changed */
-	int state,  /* I - Current button states */
-	int x,      /* I - Current mouse X position */
-	int y)      /* I - Current mouse Y position */
-{
-	
-	TwEventMouseButtonGLUT(button,state,x,y);
-	if (state == GLUT_DOWN)
-	{
-	}
-	//tesselation++;
-
-	switch (button)
-	{
-	case GLUT_LEFT_BUTTON:
-
-	    zPosition=-5;
-		break;
-
-	case GLUT_RIGHT_BUTTON:
-		zPosition=+5;
+	case 'w' :
+		cameraFrame.RotateWorld(0.1, 1, 0, 0);
+		glutPostRedisplay();
 
 		break;
 
 	}
-	tesselation=zPosition;
-
-
-	glutPostRedisplay();
-
-
 }
-
 
 void ChangeSize(int w, int h)
 {
@@ -606,7 +579,7 @@ void Timer(int value) {
 
 
 	glutPostRedisplay();
-	glutTimerFunc(20, Timer, 0);
+//	glutTimerFunc(20, Timer, 0);
 }
 
 
@@ -624,7 +597,8 @@ int main(int argc, char* argv[])
 		std::cerr << "Error: " << glewGetErrorString(err) << "\n";
 		return 1;
 	}
-	glutMouseFunc(Mouse);
+
+	glutMouseFunc((GLUTmousebuttonfun)TwEventMouseButtonGLUT);
 
 	glutMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT);
 	glutPassiveMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT); // same as MouseMotion
@@ -633,7 +607,6 @@ int main(int argc, char* argv[])
 	glutReshapeFunc(ChangeSize);
 	glutSpecialFunc(SpecialKeys);
 	glutDisplayFunc(RenderScene);
-	glutMouseFunc(MouseButtons);
 
 	TwInit(TW_OPENGL, NULL);
 	SetupRC();
