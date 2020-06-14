@@ -31,7 +31,7 @@ GLBatch kreis_t;
 GLBatch cylinder_t;
 GLBatch quarder_t;
 GLBatch ball_t;
-
+GLFrame cameraFrame;
 
 
 // Definition der Kreiszahl 
@@ -58,6 +58,7 @@ bool bOutline = false;
 bool bDepth = true;
 bool bOrth = true;
 bool bPers = false;
+bool bMouseUsage = false;
 
 unsigned int tesselation = 10;
 
@@ -323,6 +324,7 @@ void InitGUI()
 	TwAddVarRW(bar, "Depth Test?", TW_TYPE_BOOLCPP, &bDepth, "");
 	TwAddVarRW(bar, "Culling?", TW_TYPE_BOOLCPP, &bCull, "");
 	TwAddVarRW(bar, "Backface Wireframe?", TW_TYPE_BOOLCPP, &bOutline, "");
+	TwAddVarRW(bar, "Use Mouse for Movement?", TW_TYPE_BOOLCPP, &bMouseUsage, "");
 
 	//Hier weitere GUI Variablen anlegen. Für Farbe z.B. den Typ TW_TYPE_COLOR4F benutzen
 
@@ -379,6 +381,7 @@ void RenderScene(void)
 {
 
 	M3DMatrix44f rot;
+	M3DMatrix44f M;
 
 	// Clearbefehle für den color buffer und den depth buffer
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -403,9 +406,8 @@ void RenderScene(void)
 
 	glMatrixMode(GL_MODELVIEW);
 	modelViewMatrix.LoadIdentity();
-	modelViewMatrix.Rotate(ViewAngle[0], 0, 1, 0);
-	modelViewMatrix.Rotate(ViewAngle[1], 1, 0, 0);
-	modelViewMatrix.Translate(CameraPosition[0], CameraPosition[1], CameraPosition[2]);
+	cameraFrame.GetCameraMatrix(M);
+	modelViewMatrix.MultMatrix(M);
 
 	// Speichere den matrix state und führe die Rotation durch
 	if (bOrth) {
@@ -468,53 +470,68 @@ void SpecialKeys(int key, int x, int y)
 	{
 		// if camera is moving left then the animation has to move right
 	case GLUT_KEY_LEFT:
-		CameraPosition[0] = CameraPosition[0]++;
+		cameraFrame.MoveRight(1);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_RIGHT:
-		CameraPosition[0] = CameraPosition[0]--;
+		cameraFrame.MoveRight(-1);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_UP:
-		CameraPosition[1] = CameraPosition[1]++;
+		cameraFrame.MoveUp(1);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_DOWN:
-		CameraPosition[1] = CameraPosition[1]--;
+		cameraFrame.MoveUp(-1);
 		glutPostRedisplay();
 		break;
 	}
+}
+
+void MouseButtons(int button, int state, int x, int y) {
+	if (bMouseUsage)
+		if (state == GLUT_DOWN)
+			switch (button) {
+			case GLUT_LEFT_BUTTON:
+				CameraPosition[1]++;
+				break;
+			case GLUT_RIGHT_BUTTON:
+				CameraPosition[1]--;
+				break;
+			}
+	TwEventMouseButtonGLUT(button, state, x, y);
+	glutPostRedisplay();
 }
 
 void Keyboard(unsigned char key, int x, int y) {
 	switch (key)
 	{
 	case 'q':
-		CameraPosition[2] = CameraPosition[2] + 1;
+		cameraFrame.MoveForward(1);
 		glutPostRedisplay();
 		break;
 	case 'e':
-		CameraPosition[2] = CameraPosition[2] - 1;
+		cameraFrame.MoveForward(-1);
 		glutPostRedisplay();
 		break;
 		//if view moves left then animation angles to the right
 	case 'a':
-		ViewAngle[0] = ViewAngle[0]++;
+		ViewAngle[0]++;
 		glutPostRedisplay();
 		break;
 		//move view to the right and the animation angles to the left
 	case 'd':
-		ViewAngle[0] = ViewAngle[0]--;
+		ViewAngle[0]--;
 		glutPostRedisplay();
 		break;
 		//view move up so animation angles down
 	case 'w':
-		ViewAngle[1] = ViewAngle[1]++;
+		ViewAngle[1]++;
 		glutPostRedisplay();
 		break;
 		//view moves down so animation angles up
 	case 's':
-		ViewAngle[1] = ViewAngle[1]--;
+		ViewAngle[1]--;
 		glutPostRedisplay();
 		break;
 
@@ -579,9 +596,9 @@ void ChangeSize(int w, int h)
 		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 	}
 	else {
+	
+		viewFrustum.SetPerspective(100.0f, 1.0f, 5.0f, 200.0f);
 		/*
-		viewFrustum.SetPerspective(120.0f, w / h, 100.0f, 200.0f);*/
-
 		if (w <= h) {
 			viewFrustum.SetFrustum(-nRange, nRange, -nRange * h / w, nRange * h / w, -nRange, nRange);
 		
@@ -589,7 +606,7 @@ void ChangeSize(int w, int h)
 		else{
 			viewFrustum.SetFrustum(-nRange * w / h, nRange * w / h, -nRange, nRange, -nRange, nRange);
 		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
-	}
+	}*/
   }
 	
 	// Ruecksetzung des Model view matrix stack
@@ -627,7 +644,6 @@ int main(int argc, char* argv[])
 	}
 	glutMouseFunc(Mouse);
 
-//	glutMouseFunc((GLUTmousebuttonfun)TwEventMouseButtonGLUT);
 	glutMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT);
 	glutPassiveMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT); // same as MouseMotion
 	glutKeyboardFunc((GLUTkeyboardfun)TwEventKeyboardGLUT);
@@ -635,6 +651,7 @@ int main(int argc, char* argv[])
 	glutReshapeFunc(ChangeSize);
 	glutSpecialFunc(SpecialKeys);
 	glutDisplayFunc(RenderScene);
+	glutMouseFunc(MouseButtons);
 
 	TwInit(TW_OPENGL, NULL);
 	SetupRC();
