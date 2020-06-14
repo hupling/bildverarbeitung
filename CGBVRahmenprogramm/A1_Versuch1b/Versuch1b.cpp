@@ -466,20 +466,21 @@ void SpecialKeys(int key, int x, int y)
 {
 	switch (key)
 	{
+		// if camera is moving left then the animation has to move right
+	case GLUT_KEY_LEFT:
+		CameraPosition[0] = CameraPosition[0]++;
+		glutPostRedisplay();
+		break;
+	case GLUT_KEY_RIGHT:
+		CameraPosition[0] = CameraPosition[0]--;
+		glutPostRedisplay();
+		break;
 	case GLUT_KEY_UP:
 		CameraPosition[1] = CameraPosition[1]++;
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_DOWN:
 		CameraPosition[1] = CameraPosition[1]--;
-		glutPostRedisplay();
-		break;
-	case GLUT_KEY_LEFT:
-		CameraPosition[0] = CameraPosition[0]--;
-		glutPostRedisplay();
-		break;
-	case GLUT_KEY_RIGHT:
-		CameraPosition[0] = CameraPosition[0]++;
 		glutPostRedisplay();
 		break;
 	}
@@ -496,20 +497,24 @@ void Keyboard(unsigned char key, int x, int y) {
 		CameraPosition[2] = CameraPosition[2] - 1;
 		glutPostRedisplay();
 		break;
+		//if view moves left then animation angles to the right
 	case 'a':
-		ViewAngle[0] = ViewAngle[0]--;
-		glutPostRedisplay();
-		break;
-	case 'd':
 		ViewAngle[0] = ViewAngle[0]++;
 		glutPostRedisplay();
 		break;
-	case 'w':
-		ViewAngle[1] = ViewAngle[1]--;
+		//move view to the right and the animation angles to the left
+	case 'd':
+		ViewAngle[0] = ViewAngle[0]--;
 		glutPostRedisplay();
 		break;
-	case 's':
+		//view move up so animation angles down
+	case 'w':
 		ViewAngle[1] = ViewAngle[1]++;
+		glutPostRedisplay();
+		break;
+		//view moves down so animation angles up
+	case 's':
+		ViewAngle[1] = ViewAngle[1]--;
 		glutPostRedisplay();
 		break;
 
@@ -562,23 +567,31 @@ void ChangeSize(int w, int h)
 	glViewport(0, 0, w, h);
 	// Ruecksetzung des Projection matrix stack
 	projectionMatrix.LoadIdentity();
-	
+
 	// Definiere das viewing volume (left, right, bottom, top, near, far)
 	if (bOrth) {
 		if (w <= h) {
 			viewFrustum.SetOrthographic(-nRange, nRange, -nRange * h / w, nRange * h / w, -nRange, nRange);
-		//projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
-	}
+	
+		}
 		else
 			viewFrustum.SetOrthographic(-nRange * w / h, nRange * w / h, -nRange, nRange, -nRange, nRange);
 		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 	}
 	else {
+		/*
+		viewFrustum.SetPerspective(120.0f, w / h, 100.0f, 200.0f);*/
 
-		viewFrustum.SetPerspective(120.0f, w / h, 100.0f, 200.0f);
-
+		if (w <= h) {
+			viewFrustum.SetFrustum(-nRange, nRange, -nRange * h / w, nRange * h / w, -nRange, nRange);
+		
+		}
+		else{
+			viewFrustum.SetFrustum(-nRange * w / h, nRange * w / h, -nRange, nRange, -nRange, nRange);
 		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 	}
+  }
+	
 	// Ruecksetzung des Model view matrix stack
 	modelViewMatrix.LoadIdentity();
 
