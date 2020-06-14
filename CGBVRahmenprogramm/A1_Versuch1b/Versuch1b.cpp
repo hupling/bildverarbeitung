@@ -506,32 +506,14 @@ void MouseButtons(int button, int state, int x, int y) {
 void Keyboard(unsigned char key, int x, int y) {
 	switch (key)
 	{
-	case 'q':
+		//n for near
+	case 'n':
 		cameraFrame.MoveForward(1);
 		glutPostRedisplay();
 		break;
-	case 'e':
+		//f for far
+	case 'f':
 		cameraFrame.MoveForward(-1);
-		glutPostRedisplay();
-		break;
-		//if view moves left then animation angles to the right
-	case 'a':
-		ViewAngle[0]++;
-		glutPostRedisplay();
-		break;
-		//move view to the right and the animation angles to the left
-	case 'd':
-		ViewAngle[0]--;
-		glutPostRedisplay();
-		break;
-		//view move up so animation angles down
-	case 'w':
-		ViewAngle[1]++;
-		glutPostRedisplay();
-		break;
-		//view moves down so animation angles up
-	case 's':
-		ViewAngle[1]--;
 		glutPostRedisplay();
 		break;
 
