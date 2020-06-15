@@ -466,34 +466,31 @@ void RenderScene(void)
 	m3dQuatToRotationMatrix(rot, rotation);
 	M3DMatrix44f M;
 
-	cameraFrame.GetCameraMatrix(M);
+	//cameraFrame.GetCameraMatrix(M);
 	//cameraFrame.SetOrigin(0, 0, 0);
-	modelViewMatrix.MultMatrix(M);
+//	modelViewMatrix.MultMatrix(M);
 
 	// Speichere den matrix state und führe die Rotation durch
-	/*if (bOrth) {
-	
+	if (bOrth) {
+
 		modelViewMatrix.Translate(0, 0, 100);
-		//modelViewMatrix.Translate(xPosition, yPosition, zPosition);
+		modelViewMatrix.Translate(xPosition, yPosition, zPosition);
 		modelViewMatrix.Rotate(xAngle, 1, 0, 0);
 		modelViewMatrix.Rotate(yAngle, 0, 1, 0);
 		modelViewMatrix.Translate(0, 0, -100);
 	}
 	else {
 
-		modelViewMatrix.Translate(0, 0, 100);
-		//modelViewMatrix.Translate(xPosition, yPosition, zPosition);
+		//modelViewMatrix.Translate(0, 0, 100);
+		modelViewMatrix.Translate(xPosition, yPosition, zPosition);
 		modelViewMatrix.Rotate(xAngle, 1, 0, 0);
 		modelViewMatrix.Rotate(yAngle, 0, 1, 0);
-		modelViewMatrix.Translate(0, 0, -100);
+		//	modelViewMatrix.Translate(0, 0, -100);
 
 
 		modelViewMatrix.Translate(0, 0, -150);
-//	modelViewMatrix.Translate(xPosition, yPosition, zPosition);
-	//	modelViewMatrix.Rotate(xAngle, 1, 0, 0);
-		//modelViewMatrix.Rotate(yAngle, 0, 1, 0);
-		//modelViewMatrix.Translate(0, 0, -100);
-	}*/
+
+	}
 	GLfloat nRange = 100.0f;
 
 	//cameraFrame.GetCameraMatrix();
@@ -502,7 +499,7 @@ void RenderScene(void)
 
 
 
-	
+
 	modelViewMatrix.MultMatrix(rot);
 
 
@@ -553,8 +550,8 @@ void SpecialKeys(int key, int x, int y)
 	{
 		// if camera is moving left then the animation has to move right
 	case GLUT_KEY_LEFT:
-		//xPosition++;
-		cameraFrame.MoveRight(1);
+		xPosition++;
+		//	cameraFrame.MoveRight(1);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_RIGHT:
@@ -589,7 +586,7 @@ void Keyboard(unsigned char key, int x, int y) {
 	case 'h':
 		xAngle++;
 		glutPostRedisplay();
-				break;
+		break;
 	case 'j':
 		xAngle--;
 		glutPostRedisplay();
@@ -615,7 +612,7 @@ void Timer(int value) {
 
 
 	glutPostRedisplay();
-	//	glutTimerFunc(20, Timer, 0);
+	glutTimerFunc(20, Timer, 0);
 }
 
 
