@@ -418,14 +418,12 @@ void RenderScene(void)
 	M3DMatrix44f M;
 
 	
-		cameraFrame.GetCameraMatrix(M);
+	cameraFrame.GetCameraMatrix(M);
 	modelViewMatrix.MultMatrix(M);
 	
 	modelViewMatrix.PushMatrix();
 	m3dQuatToRotationMatrix(rot, rotation);
 	modelViewMatrix.MultMatrix(rot);
-	cameraFrame.TranslateLocal(xPosition,yPosition,zPosition);
-	cameraFrame.RotateLocal(45, 0, 0, 0);
 
 
 	//setze den Shader für das Rendern und übergebe die Model-View-Projection Matrix
