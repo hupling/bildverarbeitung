@@ -7,7 +7,7 @@ Um die Szene zu animieren, muss die RenderScene-Funktion regelmäßig mit neuen 
 
 ## Aufgabe 4.1 b)
 
-Die Bewegung des Augenpunktes ist durch die Augenpunkt-Transformation durchgefüht worden. Das bedeutet, dass die Position sich ändert und die Blickrichtung des Augenpunkts, von dem aus die Szene betrachtet wird. Wenn die Tasten "h" und "j" gedrückt werden, wird die Rotation um die x-Achse ausgeführt und bei den "k" und "l" wird die Rotation um die y-Achse ausgeführt. Die Tasten "n" und "m" bewegt die Kamera auf der z-Achse. Die Pfeil-Tasten bewegt die Kamera auf der x- und y-Achse. 
+Die Bewegung des Augenpunktes ist durch die Augenpunkt-Transformation durchgefüht worden. Das bedeutet, dass die Position sich ändert und die Blickrichtung des Augenpunkts, von dem aus die Szene betrachtet wird. Wenn die Tasten 'h' und 'j' gedrückt werden, wird die Rotation um die x-Achse ausgeführt und bei den 'k' und 'l' wird die Rotation um die y-Achse ausgeführt. Die Tasten 'n' und 'm' bewegt die Kamera auf der z-Achse. Die Pfeil-Tasten bewegt die Kamera auf der x- und y-Achse. 
 
 ## Aufgabe 4.2
 
