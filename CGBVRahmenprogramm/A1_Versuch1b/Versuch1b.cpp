@@ -471,15 +471,15 @@ void RenderScene(void)
 
 	// Speichere den matrix state und führe die Rotation durch
 	if (bOrth) {
-/*
-		modelViewMatrix.Translate(0, 0, 100);
-		//modelViewMatrix.MultMatrix(M);
+		/*
+				modelViewMatrix.Translate(0, 0, 100);
+				//modelViewMatrix.MultMatrix(M);
 
-		modelViewMatrix.Translate(xPosition, yPosition, zPosition);
-		modelViewMatrix.Rotate(xAngle, 1, 0, 0);
-		modelViewMatrix.Rotate(yAngle, 0, 1, 0);
-		modelViewMatrix.Translate(0, 0, -100);
-	*/	
+				modelViewMatrix.Translate(xPosition, yPosition, zPosition);
+				modelViewMatrix.Rotate(xAngle, 1, 0, 0);
+				modelViewMatrix.Rotate(yAngle, 0, 1, 0);
+				modelViewMatrix.Translate(0, 0, -100);
+			*/
 	}
 	else {
 		/*
@@ -555,7 +555,7 @@ void SpecialKeys(int key, int x, int y)
 		// if camera is moving left then the animation has to move right
 	case GLUT_KEY_LEFT:
 		xPosition++;
-			cameraFrame.MoveRight(1);
+		cameraFrame.MoveRight(1);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_RIGHT:
@@ -624,7 +624,7 @@ void Timer(int value) {
 
 
 	glutPostRedisplay();
-//	glutTimerFunc(20, Timer, 0);
+	//	glutTimerFunc(20, Timer, 0);
 }
 
 
