@@ -43,7 +43,7 @@ bool bDepth = true;
 
 
 //GUI
-TwBar *bar;
+TwBar* bar;
 void InitGUI()
 {
 	bar = TwNewBar("TweakBar");
@@ -56,21 +56,21 @@ void InitGUI()
 }
 void triangele() {
 	const int a = 6;
-	M3DVector3f triaVertices[a*3];
-	M3DVector4f konusColors[a*3];
+	M3DVector3f triaVertices[a * 3];
+	M3DVector4f konusColors[a * 3];
 
 
-	M3DVector3f lineVertices[a*2];
-	M3DVector4f lineColors[a*2];
+	M3DVector3f lineVertices[a * 2];
+	M3DVector4f lineColors[a * 2];
 
 
 	float abc = (2.0f * GL_PI) / a;
 
 	for (int i = 0; i < a; i++) {
-		float x = 10*cos(abc* i);
-		float y = 10*sin(abc * i);
-		float x1 = 10*cos(abc * (i+1));
-		float y1 = 10*sin(abc * (i+1));
+		float x = 10 * cos(abc * i);
+		float y = 10 * sin(abc * i);
+		float x1 = 10 * cos(abc * (i + 1));
+		float y1 = 10 * sin(abc * (i + 1));
 
 
 		m3dLoadVector4(konusColors[i * 3 + 0], 1, 0.8, 0.2, 1);
@@ -83,31 +83,24 @@ void triangele() {
 		m3dLoadVector3(triaVertices[i * 3 + 2], x1, y1, 0);
 
 
-		m3dLoadVector3(lineVertices[i*2+0], x, y, 0);
+		m3dLoadVector3(lineVertices[i * 2 + 0], x, y, 0);
 		m3dLoadVector4(lineColors[i * 2 + 0], 0, 0.6, 1, 1);
 
-		m3dLoadVector3(lineVertices[i * 2 + 1], x+x, y+y, 0);
+		m3dLoadVector3(lineVertices[i * 2 + 1], x + x, y + y, 0);
 		m3dLoadVector4(lineColors[i * 2 + 1], 0, 0.6, 1, 1);
 
 
 	}
 
-	tria.Begin(GL_TRIANGLES, a*3);
+	tria.Begin(GL_TRIANGLES, a * 3);
 	tria.CopyVertexData3f(triaVertices);
 	tria.CopyColorData4f(konusColors);
 	tria.End();
-	
-	line.Begin(GL_LINES, a*2);
+
+	line.Begin(GL_LINES, a * 2);
 	line.CopyVertexData3f(lineVertices);
 	line.CopyColorData4f(lineColors);
 	line.End();
-
-	//b
-
-
-	//C
-//	m3dLoadVector4(konusColors[2], 1, 0.8, 0.2, 1);
-//	m3dLoadVector3(triaVertices[2], 075.68024953, 075.68024953, 0);
 
 
 	/*
@@ -116,39 +109,14 @@ void triangele() {
 	M3DVector3f ac;
 	m3dSubtractVectors3(ac, triaVertices[2], triaVertices[0]);
 
-	
+
 	M3DVector3f cross;
 	m3dCrossProduct3(cross, ab, ac);
 
 	M3DVector3f norm;
 	m3dNormalizeVector3( cross);
 	*/
-	//tria.Normal3fv(cross);
 
-	//18
-
-	
-	/*
-	M3DVector3f lineVertices[2];
-	M3DVector4f lineColors[2];
-	//A
-	m3dLoadVector3(lineVertices[0], 0, 0, 0);
-	m3dLoadVector4(lineColors[0], 0, 0.6, 1, 1);
-
-	//b
-//	m3dLoadVector3(lineVertices[1], 10 *cross[0], 10*cross[1], 10*cross[2]);
-	m3dLoadVector3(lineVertices[1], 10 * 10, 10 * 10, 10 * 10);
-	m3dLoadVector4(lineColors[1], 0, 0.6, 1, 1);
-
-
-	line.Begin(GL_LINES, 2);
-	line.CopyVertexData3f(lineVertices);
-	line.CopyColorData4f(lineColors);
-	line.End();
-
-
-	
-	*/
 }
 
 void CreateGeometry()
@@ -164,11 +132,11 @@ void CreateGeometry()
 	// um einen Triangle_Fan zu erzeugen
 	int iPivot = 1;
 	int i = 1;
-	for (float angle = 0.0f; angle < (2.0f*GL_PI); angle += (GL_PI / 8.0f))
+	for (float angle = 0.0f; angle < (2.0f * GL_PI); angle += (GL_PI / 8.0f))
 	{
 		// Berechne x und y Positionen des naechsten Vertex
-		float x = 50.0f*sin(angle);
-		float y = 50.0f*cos(angle);
+		float x = 50.0f * sin(angle);
+		float y = 50.0f * cos(angle);
 
 		// Alterniere die Farbe zwischen Rot und Gruen
 		if ((iPivot % 2) == 0)
@@ -198,11 +166,11 @@ void CreateGeometry()
 	m3dLoadVector3(bodenVertices[0], 0, 0, 0);
 	m3dLoadVector4(bodenColors[0], 1, 0, 0, 1);
 	i = 1;
-	for (float angle = 0.0f; angle < (2.0f*GL_PI); angle += (GL_PI / 8.0f))
+	for (float angle = 0.0f; angle < (2.0f * GL_PI); angle += (GL_PI / 8.0f))
 	{
 		// Berechne x und y Positionen des naechsten Vertex
-		float x = 50.0f*sin(angle);
-		float y = 50.0f*cos(angle);
+		float x = 50.0f * sin(angle);
+		float y = 50.0f * cos(angle);
 
 		// Alterniere die Farbe zwischen Rot und Gruen
 		if ((iPivot % 2) == 0)
