@@ -466,28 +466,32 @@ void RenderScene(void)
 	m3dQuatToRotationMatrix(rot, rotation);
 	M3DMatrix44f M;
 
-	//cameraFrame.GetCameraMatrix(M);
-	//cameraFrame.SetOrigin(0, 0, 0);
-//	modelViewMatrix.MultMatrix(M);
+	cameraFrame.GetCameraMatrix(M);
+	modelViewMatrix.MultMatrix(M);
 
 	// Speichere den matrix state und führe die Rotation durch
 	if (bOrth) {
-
+/*
 		modelViewMatrix.Translate(0, 0, 100);
+		//modelViewMatrix.MultMatrix(M);
+
 		modelViewMatrix.Translate(xPosition, yPosition, zPosition);
 		modelViewMatrix.Rotate(xAngle, 1, 0, 0);
 		modelViewMatrix.Rotate(yAngle, 0, 1, 0);
 		modelViewMatrix.Translate(0, 0, -100);
+	*/	
 	}
 	else {
-
-		//modelViewMatrix.Translate(0, 0, 100);
+		/*
+		modelViewMatrix.Translate(0, 0, 100);
 		modelViewMatrix.Translate(xPosition, yPosition, zPosition);
 		modelViewMatrix.Rotate(xAngle, 1, 0, 0);
 		modelViewMatrix.Rotate(yAngle, 0, 1, 0);
 		//	modelViewMatrix.Translate(0, 0, -100);
 
 
+		modelViewMatrix.Translate(0, 0, -150);
+		*/
 		modelViewMatrix.Translate(0, 0, -150);
 
 	}
@@ -551,22 +555,22 @@ void SpecialKeys(int key, int x, int y)
 		// if camera is moving left then the animation has to move right
 	case GLUT_KEY_LEFT:
 		xPosition++;
-		//	cameraFrame.MoveRight(1);
+			cameraFrame.MoveRight(1);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_RIGHT:
 		xPosition--;
-		//cameraFrame.MoveRight(-1);
+		cameraFrame.MoveRight(-1);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_UP:
-		//cameraFrame.MoveUp(1);
+		cameraFrame.MoveUp(1);
 		yPosition--;
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_DOWN:
 		yPosition++;
-		//cameraFrame.MoveUp(-1);
+		cameraFrame.MoveUp(-1);
 		glutPostRedisplay();
 		break;
 	}
@@ -577,25 +581,33 @@ void Keyboard(unsigned char key, int x, int y) {
 	switch (key)
 	{
 	case 'n':
+		cameraFrame.MoveForward(1);
 		zPosition++;
 		break;
 	case 'm':
 		zPosition--;
+		cameraFrame.MoveForward(-1);
 		glutPostRedisplay();
 		break;
 	case 'h':
 		xAngle++;
+		cameraFrame.RotateLocal(0.1, 1, 0, 0);
 		glutPostRedisplay();
 		break;
 	case 'j':
 		xAngle--;
+		cameraFrame.RotateLocal(-0.1, 1, 0, 0);
 		glutPostRedisplay();
 		break;
 	case 'k':
 		yAngle++;
+		cameraFrame.RotateLocal(0.1, 0, 1, 0);
+
 		glutPostRedisplay();
 		break;
 	case 'l':
+		cameraFrame.RotateLocal(-0.1, 0, 1, 0);
+
 		yAngle--;
 		glutPostRedisplay();
 		break;
@@ -612,7 +624,7 @@ void Timer(int value) {
 
 
 	glutPostRedisplay();
-	glutTimerFunc(20, Timer, 0);
+//	glutTimerFunc(20, Timer, 0);
 }
 
 
