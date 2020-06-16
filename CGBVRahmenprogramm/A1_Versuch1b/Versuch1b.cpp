@@ -24,7 +24,6 @@ GLMatrixStack modelViewMatrix;
 GLMatrixStack projectionMatrix;
 GLGeometryTransform transformPipeline;
 GLFrustum viewFrustum;
-GLFrustum viewFrustumPers;
 GLBatch konus;
 GLBatch boden;
 GLBatch kreis_t;
@@ -44,12 +43,11 @@ static float xPosition = 0;
 static float yPosition = 0;
 static float zPosition = 0;
 
-// CameraPostion[0] -> Right and left. Camerapostion[1] -> up and down
-static float CameraPosition[] = { 0, 0, 0 };
+static float xAngle = 0;
+static float yAngle = 0;
 
-//0 um X. 1 um Y
-static float ViewAngle[] = { 0.0, 0.0 };
-
+static float wGlobal = 0;
+static float hGlobal = 0;
 
 
 // Flags fuer Schalter
@@ -64,6 +62,43 @@ unsigned int tesselation = 10;
 
 unsigned int dimension = 0;
 
+
+
+
+void ChangeSize(int w, int h)
+{
+	GLfloat nRange = 100.0f;
+	wGlobal = w;
+	hGlobal = h;
+	// Verhindere eine Division durch Null
+	if (h == 0)
+		h = 1;
+	// Setze den Viewport gemaess der Window-Groesse
+	glViewport(0, 0, w, h);
+	// Ruecksetzung des Projection matrix stack
+	projectionMatrix.LoadIdentity();
+
+	// Definiere das viewing volume (left, right, bottom, top, near, far)
+	if (bOrth) {
+		if (w <= h) {
+			viewFrustum.SetOrthographic(-nRange, nRange, -nRange * h / w, nRange * h / w, -nRange, nRange);
+
+		}
+		else
+			viewFrustum.SetOrthographic(-nRange * w / h, nRange * w / h, -nRange, nRange, -nRange, nRange);
+		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
+	}
+	else {
+
+		viewFrustum.SetPerspective(100.0f, 1.0f, 5.0f, 200.0f);
+
+	}
+
+	// Ruecksetzung des Model view matrix stack
+	modelViewMatrix.LoadIdentity();
+
+	TwWindowSize(w, h);
+}
 
 M3DVector3f* calculateQuarder(float x, float y, float z, unsigned int* step) {
 	M3DVector3f* Vertices = new M3DVector3f[14];
@@ -173,23 +208,23 @@ void drawCube() {
 	unsigned int size = dimension;
 
 	M3DVector3f* a = calculateQuarder(3 + dimension, 3 + dimension, 2 + dimension, &number);
-	
+
 
 	quarder_t.Begin(GL_TRIANGLE_STRIP, number);
 	for (int i = 0; i < number; i++) {
 		switch (i % 4) {
 		case 0:
 			quarder_t.Color4f(1, 0.8, 0.2, 1);
-			
+
 			break;
 		case 1:
 			quarder_t.Color4f(1, 0.8, 0.2, 1);
-			
-			
+
+
 			break;
 		case 2:
 			quarder_t.Color4f(0, 0.8, 0, 1);
-		
+
 
 
 			break;
@@ -217,7 +252,7 @@ void drawCylinder() {
 		switch (i % 4) {
 		case 0:
 			cylinder_t.Color4f(1, 0.8, 0.2, 1);
-			
+
 			break;
 		case 1:
 			cylinder_t.Color4f(1, 0.8, 0.2, 1);
@@ -293,6 +328,8 @@ void TW_CALL SetOrth(const void* value, void* clientData) {
 	const bool* boolptr = static_cast<const bool*>(value);
 	bOrth = *boolptr;
 	bPers = !*boolptr;
+	ChangeSize(wGlobal, hGlobal);
+
 }
 
 //Get function for orth projection
@@ -306,6 +343,7 @@ void TW_CALL SetPers(const void* value, void* clientData) {
 	const bool* boolptr = static_cast<const bool*>(value);
 	bOrth = !*boolptr;
 	bPers = *boolptr;
+	ChangeSize(wGlobal, hGlobal);
 }
 
 //Get function for pers projection
@@ -324,7 +362,6 @@ void InitGUI()
 	TwAddVarRW(bar, "Depth Test?", TW_TYPE_BOOLCPP, &bDepth, "");
 	TwAddVarRW(bar, "Culling?", TW_TYPE_BOOLCPP, &bCull, "");
 	TwAddVarRW(bar, "Backface Wireframe?", TW_TYPE_BOOLCPP, &bOutline, "");
-	TwAddVarRW(bar, "Use Mouse for Movement?", TW_TYPE_BOOLCPP, &bMouseUsage, "");
 
 	//Hier weitere GUI Variablen anlegen. Für Farbe z.B. den Typ TW_TYPE_COLOR4F benutzen
 
@@ -407,28 +444,44 @@ void RenderScene(void)
 	modelViewMatrix.LoadIdentity();
 
 
-	// Speichere den matrix state und führe die Rotation durch
-	if (bOrth) {
-		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
-	}
-	else {
-		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
-		modelViewMatrix.Translate(0, 0, 0);
-	}
-	M3DMatrix44f M;
-
-	
-	cameraFrame.GetCameraMatrix(M);
-	modelViewMatrix.MultMatrix(M);
-	
+	projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 	modelViewMatrix.PushMatrix();
 	m3dQuatToRotationMatrix(rot, rotation);
+	M3DMatrix44f M;
+
+	//cameraFrame.GetCameraMatrix(M);
+	//cameraFrame.SetOrigin(0, 0, 0);
+//	modelViewMatrix.MultMatrix(M);
+
+	// Speichere den matrix state und führe die Rotation durch
+	if (bOrth) {
+
+		modelViewMatrix.Translate(0, 0, 100);
+		modelViewMatrix.Translate(xPosition, yPosition, zPosition);
+		modelViewMatrix.Rotate(xAngle, 1, 0, 0);
+		modelViewMatrix.Rotate(yAngle, 0, 1, 0);
+		modelViewMatrix.Translate(0, 0, -100);
+	}
+	else {
+
+		modelViewMatrix.Translate(0, 0, 40);
+		modelViewMatrix.Translate(xPosition, yPosition, zPosition);
+		modelViewMatrix.Rotate(xAngle, 1, 0, 0);
+		modelViewMatrix.Rotate(yAngle, 0, 1, 0);
+		modelViewMatrix.Translate(0, 0, -40);
+
+
+		modelViewMatrix.Translate(0, 0, -150);
+
+	}
+	GLfloat nRange = 100.0f;
+
 	modelViewMatrix.MultMatrix(rot);
 
 
 	//setze den Shader für das Rendern und übergebe die Model-View-Projection Matrix
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
-	
+
 
 	move();
 
@@ -473,102 +526,58 @@ void SpecialKeys(int key, int x, int y)
 	{
 		// if camera is moving left then the animation has to move right
 	case GLUT_KEY_LEFT:
-		cameraFrame.MoveRight(1);
+		xPosition++;
+		//	cameraFrame.MoveRight(1);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_RIGHT:
-		cameraFrame.MoveRight(-1);
+		xPosition--;
+		//cameraFrame.MoveRight(-1);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_UP:
-		cameraFrame.MoveUp(1);
+		//cameraFrame.MoveUp(1);
+		yPosition--;
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_DOWN:
-		cameraFrame.MoveUp(-1);
+		yPosition++;
+		//cameraFrame.MoveUp(-1);
 		glutPostRedisplay();
 		break;
 	}
 }
 
-void MouseButtons(int button, int state, int x, int y) {
-	if (bMouseUsage)
-		if (state == GLUT_DOWN)
-			switch (button) {
-			case GLUT_LEFT_BUTTON:
-				CameraPosition[1]++;
-				break;
-			case GLUT_RIGHT_BUTTON:
-				CameraPosition[1]--;
-				break;
-			}
-	TwEventMouseButtonGLUT(button, state, x, y);
-	glutPostRedisplay();
-}
 
 void Keyboard(unsigned char key, int x, int y) {
 	switch (key)
 	{
-		//n for near
 	case 'n':
-		cameraFrame.MoveForward(1);
+		zPosition++;
+		break;
+	case 'm':
+		zPosition--;
 		glutPostRedisplay();
 		break;
-		//f for far
-	case 'f':
-		cameraFrame.MoveForward(-1);
+	case 'h':
+		xAngle++;
 		glutPostRedisplay();
 		break;
-	case 'w' :
-		cameraFrame.RotateWorld(0.1, 1, 0, 0);
+	case 'j':
+		xAngle--;
 		glutPostRedisplay();
-
 		break;
-
+	case 'k':
+		yAngle++;
+		glutPostRedisplay();
+		break;
+	case 'l':
+		yAngle--;
+		glutPostRedisplay();
+		break;
 	}
 }
 
-void ChangeSize(int w, int h)
-{
-	GLfloat nRange = 100.0f;
-
-	// Verhindere eine Division durch Null
-	if (h == 0)
-		h = 1;
-	// Setze den Viewport gemaess der Window-Groesse
-	glViewport(0, 0, w, h);
-	// Ruecksetzung des Projection matrix stack
-	projectionMatrix.LoadIdentity();
-
-	// Definiere das viewing volume (left, right, bottom, top, near, far)
-	if (bOrth) {
-		if (w <= h) {
-			viewFrustum.SetOrthographic(-nRange, nRange, -nRange * h / w, nRange * h / w, -nRange, nRange);
-	
-		}
-		else
-			viewFrustum.SetOrthographic(-nRange * w / h, nRange * w / h, -nRange, nRange, -nRange, nRange);
-		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
-	}
-	else {
-	
-		viewFrustum.SetPerspective(100.0f, 1.0f, 5.0f, 200.0f);
-		/*
-		if (w <= h) {
-			viewFrustum.SetFrustum(-nRange, nRange, -nRange * h / w, nRange * h / w, -nRange, nRange);
-		
-		}
-		else{
-			viewFrustum.SetFrustum(-nRange * w / h, nRange * w / h, -nRange, nRange, -nRange, nRange);
-		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
-	}*/
-  }
-	
-	// Ruecksetzung des Model view matrix stack
-	modelViewMatrix.LoadIdentity();
-
-	TwWindowSize(w, h);
-}
 
 void ShutDownRC()
 {
@@ -579,7 +588,7 @@ void Timer(int value) {
 
 
 	glutPostRedisplay();
-//	glutTimerFunc(20, Timer, 0);
+	glutTimerFunc(20, Timer, 0);
 }
 
 
