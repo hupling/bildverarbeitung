@@ -48,7 +48,7 @@ float specular_power = 10;
 // Rotationsgroessen
 float rotation[] = { 0, 0, 0, 0 };
 //GUI
-TwBar *bar;
+TwBar* bar;
 
 void InitGUI()
 {
@@ -71,10 +71,10 @@ void createCircle(boolean direction, float z) {
 	float abc = M3D_2PI / a;
 
 	for (int i = 0; i < a; i++) {
-		float x =  cos(abc * i);
-		float x1 =  cos(abc * (i + 1));
-		float y= sin(abc * i);
-		float y1 =  sin(abc * (i + 1));
+		float x = cos(abc * i);
+		float x1 = cos(abc * (i + 1));
+		float y = sin(abc * i);
+		float y1 = sin(abc * (i + 1));
 		if (!direction) {
 			y = -y;
 			y1 = -y1;
@@ -172,22 +172,22 @@ void createMantel(float h) {
 	float abc = M3D_2PI / a;
 
 	for (int i = 0; i < a; i++) {
-		float x =  cos(abc * i);
-		float x1 =  cos(abc * (i + 1));
-		float y =  sin(abc * i);
-		float  y1 =  sin(abc * (i + 1));
+		float x = cos(abc * i);
+		float x1 = cos(abc * (i + 1));
+		float y = sin(abc * i);
+		float  y1 = sin(abc * (i + 1));
 
 
 
 		m3dLoadVector4(triaColors[i * 6 + 0], 1, 0.8, 0.2, 1);
-		m3dLoadVector3(triaVertices[i * 6 + 0], x, y, 0);
+		m3dLoadVector3(triaVertices[i * 6 + 0], x, y, -h);
 
 
 		m3dLoadVector4(triaColors[i * 6 + 1], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 1], x, y, h);
 
 		m3dLoadVector4(triaColors[i * 6 + 2], 1, 0.8, 0.2, 1);
-		m3dLoadVector3(triaVertices[i * 6 + 2], x1, y1, 0);
+		m3dLoadVector3(triaVertices[i * 6 + 2], x1, y1, -h);
 
 
 		m3dLoadVector4(triaColors[i * 6 + 3], 1, 0.8, 0.2, 1);
@@ -197,7 +197,7 @@ void createMantel(float h) {
 		m3dLoadVector3(triaVertices[i * 6 + 4], x1, y1, h);
 
 		m3dLoadVector4(triaColors[i * 6 + 5], 1, 0.8, 0.2, 1);
-		m3dLoadVector3(triaVertices[i * 6 + 5], x1, y1, 0);
+		m3dLoadVector3(triaVertices[i * 6 + 5], x1, y1, -h);
 
 
 		//calc norm
@@ -335,9 +335,9 @@ void SetupRC()
 	//erzeuge die geometrie
 	CreateGeometry();
 
-	createCircle(true, 0);
-	createCircle(false, 2);
-	createMantel(2);
+	createCircle(true, -1);
+	createCircle(false, 1);
+	createMantel(1);
 	InitGUI();
 }
 
