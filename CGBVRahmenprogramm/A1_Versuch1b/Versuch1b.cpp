@@ -24,10 +24,14 @@ GLFrustum viewFrustum;
 
 GLBatch konus;
 GLBatch boden;
-GLBatch tria;
-GLBatch line;
+GLBatch zylinderBoden;
+GLBatch normBoden;
 
+GLBatch zylinderMantel;
+GLBatch normMantel;
 
+GLBatch zylinderDeckel;
+GLBatch normDeckel;
 
 
 // Definition der Kreiszahl 
@@ -54,34 +58,71 @@ void InitGUI()
 	TwAddVarRW(bar, "Backface Wireframe?", TW_TYPE_BOOLCPP, &bOutline, "");
 	//Hier weitere GUI Variablen anlegen. Für Farbe z.B. den Typ TW_TYPE_COLOR4F benutzen
 }
-void triangele() {
-	const int a = 6;
+void createCircle(boolean direction, float z) {
+	const int a = 8;
 	M3DVector3f triaVertices[a * 3];
-	M3DVector4f konusColors[a * 3];
+	M3DVector4f triaColors[a * 3];
+	M3DVector3f triaNorm[a * 3];
 
-
-	M3DVector3f lineVertices[a * 2];
-	M3DVector4f lineColors[a * 2];
-
+	M3DVector3f normLineVertices[a * 2 * 3];
+	M3DVector4f normLineColors[a * 2 * 3];
 
 	float abc = (2.0f * GL_PI) / a;
 
 	for (int i = 0; i < a; i++) {
 		float x = 10 * cos(abc * i);
-		float y = 10 * sin(abc * i);
 		float x1 = 10 * cos(abc * (i + 1));
-		float y1 = 10 * sin(abc * (i + 1));
+		float y;
+		float y1;
+		if (direction) {
+			y = 10 * sin(abc * i);
+			y1 = 10 * sin(abc * (i + 1));
+		}
+		else {
+			y = -10 * sin(abc * i);
+			y1 = -10 * sin(abc * (i + 1));
+		}
 
 
-		m3dLoadVector4(konusColors[i * 3 + 0], 1, 0.8, 0.2, 1);
-		m3dLoadVector3(triaVertices[i * 3 + 0], 0, 0, 0);
+		m3dLoadVector4(triaColors[i * 3 + 0], 1, 0.8, 0.2, 1);
+		m3dLoadVector3(triaVertices[i * 3 + 0], 0, 0, z);
 
-		m3dLoadVector4(konusColors[i * 3 + 1], 1, 0.8, 0.2, 1);
-		m3dLoadVector3(triaVertices[i * 3 + 1], x, y, 0);
 
-		m3dLoadVector4(konusColors[i * 3 + 2], 1, 0.8, 0.2, 1);
-		m3dLoadVector3(triaVertices[i * 3 + 2], x1, y1, 0);
+		m3dLoadVector4(triaColors[i * 3 + 1], 1, 0.8, 0.2, 1);
+		m3dLoadVector3(triaVertices[i * 3 + 1], x, y, z);
 
+		m3dLoadVector4(triaColors[i * 3 + 2], 1, 0.8, 0.2, 1);
+		m3dLoadVector3(triaVertices[i * 3 + 2], x1, y1, z);
+		//eigentlich muss das Cross nur einmal berechnet werden
+
+		//calc norm
+		M3DVector3f ab;
+		m3dSubtractVectors3(ab, triaVertices[i * 3 + 2], triaVertices[i * 3 + 0]);
+
+		M3DVector3f ac;
+		m3dSubtractVectors3(ac, triaVertices[i * 3 + 1], triaVertices[i * 3 + 0]);
+
+
+		M3DVector3f cross;
+		m3dCrossProduct3(cross, ab, ac);
+		m3dNormalizeVector3(cross);
+		m3dScaleVector3(cross, 10);
+
+		for (int j = 0; j < 3; j++) {
+			int normPostition = i * 3 + j;
+
+			m3dCopyVector3(triaNorm[normPostition], cross);
+
+			m3dCopyVector3(normLineVertices[2 * normPostition + 0], triaVertices[normPostition]);
+			m3dLoadVector4(normLineColors[2 * normPostition + 0], 0, 0.6, 1, 1);
+
+			M3DVector3f res;
+			m3dAddVectors3(res, triaVertices[normPostition], cross);
+
+			m3dCopyVector3(normLineVertices[2 * normPostition + 1], res);
+			m3dLoadVector4(normLineColors[2 * normPostition + 1], 0, 0.6, 1, 1);
+		}
+		/*
 
 		m3dLoadVector3(lineVertices[i * 2 + 0], x, y, 0);
 		m3dLoadVector4(lineColors[i * 2 + 0], 0, 0.6, 1, 1);
@@ -89,35 +130,122 @@ void triangele() {
 		m3dLoadVector3(lineVertices[i * 2 + 1], x + x, y + y, 0);
 		m3dLoadVector4(lineColors[i * 2 + 1], 0, 0.6, 1, 1);
 
+		*/
+	}
+	if (direction) {
+		zylinderBoden.Begin(GL_TRIANGLES, a * 3);
+		zylinderBoden.CopyVertexData3f(triaVertices);
+		zylinderBoden.CopyColorData4f(triaColors);
+		zylinderBoden.CopyNormalDataf(triaNorm);
+		zylinderBoden.End();
 
+		normBoden.Begin(GL_LINES, a * 6);
+		normBoden.CopyVertexData3f(normLineVertices);
+		normBoden.CopyColorData4f(normLineColors);
+		normBoden.End();
+	}
+	else {
+		zylinderDeckel.Begin(GL_TRIANGLES, a * 3);
+		zylinderDeckel.CopyVertexData3f(triaVertices);
+		zylinderDeckel.CopyColorData4f(triaColors);
+		zylinderDeckel.CopyNormalDataf(triaNorm);
+		zylinderDeckel.End();
+
+		normDeckel.Begin(GL_LINES, a * 6);
+		normDeckel.CopyVertexData3f(normLineVertices);
+		normDeckel.CopyColorData4f(normLineColors);
+		normDeckel.End();
 	}
 
-	tria.Begin(GL_TRIANGLES, a * 3);
-	tria.CopyVertexData3f(triaVertices);
-	tria.CopyColorData4f(konusColors);
-	tria.End();
-
-	line.Begin(GL_LINES, a * 2);
-	line.CopyVertexData3f(lineVertices);
-	line.CopyColorData4f(lineColors);
-	line.End();
-
-
-	/*
-	M3DVector3f ab;
-	m3dSubtractVectors3(ab, triaVertices[1], triaVertices[0]);
-	M3DVector3f ac;
-	m3dSubtractVectors3(ac, triaVertices[2], triaVertices[0]);
-
-
-	M3DVector3f cross;
-	m3dCrossProduct3(cross, ab, ac);
-
-	M3DVector3f norm;
-	m3dNormalizeVector3( cross);
-	*/
-
 }
+
+void createMantel() {
+
+
+	const float h = 50;
+	const int a = 8;
+	M3DVector3f triaVertices[a * 6];
+	M3DVector4f triaColors[a * 6];
+	M3DVector3f triaNorm[a * 6];
+
+
+	M3DVector3f normLineVertices[a * 2 * 6];
+	M3DVector4f normLineColors[a * 2 * 6];
+
+
+	float abc = (2.0f * GL_PI) / a;
+
+	for (int i = 0; i < a; i++) {
+		float x = 10 * cos(abc * i);
+		float x1 = 10 * cos(abc * (i + 1));
+		float y = 10 * sin(abc * i);
+		float  y1 = 10 * sin(abc * (i + 1));
+
+
+
+		m3dLoadVector4(triaColors[i * 6 + 0], 1, 0.8, 0.2, 1);
+		m3dLoadVector3(triaVertices[i * 6 + 0], x, y, 0);
+
+
+		m3dLoadVector4(triaColors[i * 6 + 1], 1, 0.8, 0.2, 1);
+		m3dLoadVector3(triaVertices[i * 6 + 1], x, y, h);
+
+		m3dLoadVector4(triaColors[i * 6 + 2], 1, 0.8, 0.2, 1);
+		m3dLoadVector3(triaVertices[i * 6 + 2], x1, y1, 0);
+
+
+		m3dLoadVector4(triaColors[i * 6 + 3], 1, 0.8, 0.2, 1);
+		m3dLoadVector3(triaVertices[i * 6 + 3], x, y, h);
+
+		m3dLoadVector4(triaColors[i * 6 + 4], 1, 0.8, 0.2, 1);
+		m3dLoadVector3(triaVertices[i * 6 + 4], x1, y1, h);
+
+		m3dLoadVector4(triaColors[i * 6 + 5], 1, 0.8, 0.2, 1);
+		m3dLoadVector3(triaVertices[i * 6 + 5], x1, y1, 0);
+
+
+		//calc norm
+		M3DVector3f ab;
+		m3dSubtractVectors3(ab, triaVertices[i * 6 + 1], triaVertices[i * 6 + 0]);
+		M3DVector3f ac;
+		m3dSubtractVectors3(ac, triaVertices[i * 6 + 5], triaVertices[i * 6 + 0]);
+
+		M3DVector3f cross;
+		m3dCrossProduct3(cross, ac, ab);
+		m3dNormalizeVector3(cross);
+		m3dScaleVector3(cross, 10);
+
+
+		for (int j = 0; j < 6; j++) {
+			int normPostition = i * 6 + j;
+			m3dCopyVector3(triaNorm[normPostition], cross);
+
+			m3dCopyVector3(normLineVertices[2 * normPostition + 0], triaVertices[normPostition]);
+			m3dLoadVector4(normLineColors[2 * normPostition + 0], 0, 0.6, 1, 1);
+
+			M3DVector3f res;
+			m3dAddVectors3(res, triaVertices[normPostition], cross);
+
+			m3dCopyVector3(normLineVertices[2 * normPostition + 1], res);
+			m3dLoadVector4(normLineColors[2 * normPostition + 1], 0, 0.6, 1, 1);
+
+
+		}
+
+	}
+	zylinderMantel.Begin(GL_TRIANGLES, a * 6);
+	zylinderMantel.CopyVertexData3f(triaVertices);
+	zylinderMantel.CopyColorData4f(triaColors);
+	zylinderMantel.CopyNormalDataf(triaNorm);
+	zylinderMantel.End();
+
+	normMantel.Begin(GL_LINES, a * 12);
+	normMantel.CopyVertexData3f(normLineVertices);
+	normMantel.CopyColorData4f(normLineColors);
+	normMantel.End();
+}
+
+
 
 void CreateGeometry()
 {
@@ -225,8 +353,16 @@ void RenderScene(void)
 	//setze den Shader für das Rendern
 	shaderManager.UseStockShader(GLT_SHADER_FLAT_ATTRIBUTES, transformPipeline.GetModelViewProjectionMatrix());
 	//Zeichne Konus
-	line.Draw();
-	tria.Draw();
+	glShadeModel(GL_FLAT);
+	normBoden.Draw();
+	zylinderBoden.Draw();
+
+	normDeckel.Draw();
+	zylinderDeckel.Draw();
+
+
+	zylinderMantel.Draw();
+	normMantel.Draw();
 	//	konus.Draw();
 //	boden.Draw();
 	//Auf fehler überprüfen
@@ -253,7 +389,10 @@ void SetupRC()
 	shaderManager.InitializeStockShaders();
 	transformPipeline.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	//erzeuge die geometrie
-	triangele();
+	createCircle(true, 0);
+	createCircle(false, 50);
+	createMantel();
+
 	CreateGeometry();
 	InitGUI();
 }
