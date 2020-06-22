@@ -42,13 +42,35 @@ float light_specular[4] = { 1.0f,1.0f,1.0f,1.0f };
 //Materialeigenschaften
 float mat_emissive[4] = { 0.0, 0.0, 0.0, 1.0 };
 float mat_ambient[4] = { 0.1, 0.1, 0.0, 1.0 };
-float mat_diffuse[4] = { 0.6, 0.0, 0.0, 1.0 };
+float mat_diffuse[4] = { 0.0, 0.6, 0.0, 1.0 };
 float mat_specular[4] = { 0.8, 0.8, 0.8, 1.0 };
-float specular_power = 10;
+unsigned int specular_power = 10;
 // Rotationsgroessen
 float rotation[] = { 0, 0, 0, 0 };
 //GUI
 TwBar* bar;
+
+//Set Funktion für GUI, wird aufgerufen wenn Variable im GUI geändert wird
+void TW_CALL SetSpecPower(const void* value, void* clientData)
+{
+	//Pointer auf gesetzten Typ casten (der Typ der bei TwAddVarCB angegeben wurde)
+	const unsigned int* uintptr = static_cast<const unsigned int*>(value);
+
+	//Setzen der Variable auf neuen Wert
+	specular_power = *uintptr;
+
+
+}
+
+//Get Funktion für GUI, damit GUI Variablen Wert zum anzeigen erhält
+void TW_CALL GetSpecPower(void* value, void* clientData)
+{
+	//Pointer auf gesetzten Typ casten (der Typ der bei TwAddVarCB angegeben wurde)
+	unsigned int* uintptr = static_cast<unsigned int*>(value);
+
+	//Variablen Wert and GUI weiterreichen
+	*uintptr = specular_power;
+}
 
 void InitGUI()
 {
@@ -57,10 +79,20 @@ void InitGUI()
 	TwAddVarRW(bar, "Model Rotation", TW_TYPE_QUAT4F, &rotation, "");
 	TwAddVarRW(bar, "Light Position", TW_TYPE_DIR3F, &light_pos, "group=Light axisx=-x axisy=-y axisz=-z");
 	//Hier weitere GUI Variablen anlegen. Für Farbe z.B. den Typ TW_TYPE_COLOR4F benutzen
+	//Materialeingenschaften
+	TwAddVarRW(bar, "Emissive", TW_TYPE_COLOR4F, &mat_emissive, "");
+	TwAddVarRW(bar, "Ambient", TW_TYPE_COLOR4F, &mat_ambient, "");
+	TwAddVarRW(bar, "Diffuse", TW_TYPE_COLOR4F, &mat_diffuse, "");
+	TwAddVarRW(bar, "Specular", TW_TYPE_COLOR4F, &mat_specular, "");
+	TwAddVarCB(bar, "Specular Power", TW_TYPE_UINT32, SetSpecPower, GetSpecPower, NULL, "");
 }
 
+
+
+
+
 void createCircle(boolean direction, float z) {
-	const int a = 8;
+	const int a = 10;
 	M3DVector3f triaVertices[a * 3];
 	M3DVector4f triaColors[a * 3];
 	M3DVector3f triaNorm[a * 3];
@@ -159,7 +191,7 @@ void createCircle(boolean direction, float z) {
 void createMantel(float h) {
 
 
-	const int a = 8;
+	const int a = 10;
 	M3DVector3f triaVertices[a * 6];
 	M3DVector4f triaColors[a * 6];
 	M3DVector3f triaNorm[a * 6];
@@ -181,25 +213,38 @@ void createMantel(float h) {
 
 		m3dLoadVector4(triaColors[i * 6 + 0], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 0], x, y, -h);
+		m3dLoadVector3(triaNorm[i * 6 + 0], x,y,0);
+
 
 
 		m3dLoadVector4(triaColors[i * 6 + 1], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 1], x, y, h);
+		m3dLoadVector3(triaNorm[i * 6 + 1], x, y, 0);
+
 
 		m3dLoadVector4(triaColors[i * 6 + 2], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 2], x1, y1, -h);
+		m3dLoadVector3(triaNorm[i * 6 + 2], x1, y1, 0);
+
 
 
 		m3dLoadVector4(triaColors[i * 6 + 3], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 3], x, y, h);
+		m3dLoadVector3(triaNorm[i * 6 + 3], x, y, 0);
+
 
 		m3dLoadVector4(triaColors[i * 6 + 4], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 4], x1, y1, h);
+		m3dLoadVector3(triaNorm[i * 6 + 4], x1, y1, 0);
+
 
 		m3dLoadVector4(triaColors[i * 6 + 5], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 5], x1, y1, -h);
+		m3dLoadVector3(triaNorm[i * 6 + 5], x1, y1, 0);
 
 
+
+		/*
 		//calc norm
 		M3DVector3f ab;
 		m3dSubtractVectors3(ab, triaVertices[i * 6 + 1], triaVertices[i * 6 + 0]);
@@ -227,8 +272,19 @@ void createMantel(float h) {
 
 
 		}
+		*/
 
 	}
+	for (int j = 0; j < a * 6; j++) {
+
+		m3dCopyVector3(normLineVertices[2 * j + 0],triaVertices[j] );
+		M3DVector3f res;
+
+		m3dAddVectors3(res, triaVertices[j], triaNorm[j]);
+		m3dCopyVector3(normLineVertices[2 * j + 1], res);
+	}
+
+
 	zylinderMantel.Begin(GL_TRIANGLES, a * 6);
 	zylinderMantel.CopyVertexData3f(triaVertices);
 	zylinderMantel.CopyColorData4f(triaColors);

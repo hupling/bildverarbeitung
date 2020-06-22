@@ -24,7 +24,6 @@ GLMatrixStack modelViewMatrix;
 GLMatrixStack projectionMatrix;
 GLGeometryTransform transformPipeline;
 GLFrustum viewFrustum;
-GLFrustum viewFrustumPers;
 GLBatch konus;
 GLBatch boden;
 GLBatch kreis_t;
@@ -49,12 +48,6 @@ static float yAngle = 0;
 
 static float wGlobal = 0;
 static float hGlobal = 0;
-// CameraPostion[0] -> Right and left. Camerapostion[1] -> up and down
-static float CameraPosition[] = { 0, 0, 0 };
-
-//0 um X. 1 um Y
-static float ViewAngle[] = { 0.0, 0.0 };
-
 
 
 // Flags fuer Schalter
@@ -98,16 +91,7 @@ void ChangeSize(int w, int h)
 	else {
 
 		viewFrustum.SetPerspective(100.0f, 1.0f, 5.0f, 200.0f);
-		/*
-		if (w <= h) {
-			viewFrustum.SetFrustum(-nRange, nRange, -nRange * h / w, nRange * h / w, -nRange, nRange);
 
-
-		}
-		else{
-			viewFrustum.SetFrustum(-nRange * w / h, nRange * w / h, -nRange, nRange, -nRange, nRange);
-		projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
-	}*/
 	}
 
 	// Ruecksetzung des Model view matrix stack
@@ -378,7 +362,6 @@ void InitGUI()
 	TwAddVarRW(bar, "Depth Test?", TW_TYPE_BOOLCPP, &bDepth, "");
 	TwAddVarRW(bar, "Culling?", TW_TYPE_BOOLCPP, &bCull, "");
 	TwAddVarRW(bar, "Backface Wireframe?", TW_TYPE_BOOLCPP, &bOutline, "");
-	TwAddVarRW(bar, "Use Mouse for Movement?", TW_TYPE_BOOLCPP, &bMouseUsage, "");
 
 	//Hier weitere GUI Variablen anlegen. Für Farbe z.B. den Typ TW_TYPE_COLOR4F benutzen
 
@@ -466,27 +449,14 @@ void RenderScene(void)
 	m3dQuatToRotationMatrix(rot, rotation);
 	M3DMatrix44f M;
 
-	//cameraFrame.GetCameraMatrix(M);
-	//cameraFrame.SetOrigin(0, 0, 0);
-//	modelViewMatrix.MultMatrix(M);
+	cameraFrame.GetCameraMatrix(M);
+	modelViewMatrix.MultMatrix(M);
 
 	// Speichere den matrix state und führe die Rotation durch
 	if (bOrth) {
 
-		modelViewMatrix.Translate(0, 0, 100);
-		modelViewMatrix.Translate(xPosition, yPosition, zPosition);
-		modelViewMatrix.Rotate(xAngle, 1, 0, 0);
-		modelViewMatrix.Rotate(yAngle, 0, 1, 0);
-		modelViewMatrix.Translate(0, 0, -100);
 	}
 	else {
-
-		modelViewMatrix.Translate(0, 0, 40);
-		modelViewMatrix.Translate(xPosition, yPosition, zPosition);
-		modelViewMatrix.Rotate(xAngle, 1, 0, 0);
-		modelViewMatrix.Rotate(yAngle, 0, 1, 0);
-		modelViewMatrix.Translate(0, 0, -40);
-
 
 		modelViewMatrix.Translate(0, 0, -150);
 
@@ -544,22 +514,22 @@ void SpecialKeys(int key, int x, int y)
 		// if camera is moving left then the animation has to move right
 	case GLUT_KEY_LEFT:
 		xPosition++;
-		//	cameraFrame.MoveRight(1);
+		cameraFrame.MoveRight(1);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_RIGHT:
 		xPosition--;
-		//cameraFrame.MoveRight(-1);
+		cameraFrame.MoveRight(-1);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_UP:
-		//cameraFrame.MoveUp(1);
+		cameraFrame.MoveUp(1);
 		yPosition--;
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_DOWN:
 		yPosition++;
-		//cameraFrame.MoveUp(-1);
+		cameraFrame.MoveUp(-1);
 		glutPostRedisplay();
 		break;
 	}
@@ -570,25 +540,33 @@ void Keyboard(unsigned char key, int x, int y) {
 	switch (key)
 	{
 	case 'n':
+		cameraFrame.MoveForward(1);
 		zPosition++;
 		break;
 	case 'm':
 		zPosition--;
+		cameraFrame.MoveForward(-1);
 		glutPostRedisplay();
 		break;
 	case 'h':
 		xAngle++;
+		cameraFrame.RotateLocal(0.1, 1, 0, 0);
 		glutPostRedisplay();
 		break;
 	case 'j':
 		xAngle--;
+		cameraFrame.RotateLocal(-0.1, 1, 0, 0);
 		glutPostRedisplay();
 		break;
 	case 'k':
 		yAngle++;
+		cameraFrame.RotateLocal(0.1, 0, 1, 0);
+
 		glutPostRedisplay();
 		break;
 	case 'l':
+		cameraFrame.RotateLocal(-0.1, 0, 1, 0);
+
 		yAngle--;
 		glutPostRedisplay();
 		break;
@@ -605,7 +583,7 @@ void Timer(int value) {
 
 
 	glutPostRedisplay();
-	//glutTimerFunc(20, Timer, 0);
+		glutTimerFunc(20, Timer, 0);
 }
 
 
