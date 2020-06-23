@@ -213,38 +213,41 @@ void createMantel(float h) {
 
 		m3dLoadVector4(triaColors[i * 6 + 0], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 0], x, y, -h);
-		m3dLoadVector3(triaNorm[i * 6 + 0], x,y,0);
 
 
 
 		m3dLoadVector4(triaColors[i * 6 + 1], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 1], x, y, h);
-		m3dLoadVector3(triaNorm[i * 6 + 1], x, y, 0);
 
 
 		m3dLoadVector4(triaColors[i * 6 + 2], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 2], x1, y1, -h);
-		m3dLoadVector3(triaNorm[i * 6 + 2], x1, y1, 0);
 
 
 
 		m3dLoadVector4(triaColors[i * 6 + 3], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 3], x, y, h);
-		m3dLoadVector3(triaNorm[i * 6 + 3], x, y, 0);
 
 
 		m3dLoadVector4(triaColors[i * 6 + 4], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 4], x1, y1, h);
-		m3dLoadVector3(triaNorm[i * 6 + 4], x1, y1, 0);
 
 
 		m3dLoadVector4(triaColors[i * 6 + 5], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 5], x1, y1, -h);
+
+
+		m3dLoadVector3(triaNorm[i * 6 + 0], x, y, 0);
+		m3dLoadVector3(triaNorm[i * 6 + 1], x, y, 0);
+		m3dLoadVector3(triaNorm[i * 6 + 2], x1, y1, 0);
+		m3dLoadVector3(triaNorm[i * 6 + 3], x, y, 0);
+		m3dLoadVector3(triaNorm[i * 6 + 4], x1, y1, 0);
+		m3dLoadVector3(triaNorm[i * 6 + 4], x1, y1, 0);
 		m3dLoadVector3(triaNorm[i * 6 + 5], x1, y1, 0);
 
 
 
-		/*
+	
 		//calc norm
 		M3DVector3f ab;
 		m3dSubtractVectors3(ab, triaVertices[i * 6 + 1], triaVertices[i * 6 + 0]);
@@ -260,7 +263,7 @@ void createMantel(float h) {
 		for (int j = 0; j < 6; j++) {
 			int normPostition = i * 6 + j;
 			m3dCopyVector3(triaNorm[normPostition], cross);
-
+			/*
 			m3dCopyVector3(normLineVertices[2 * normPostition + 0], triaVertices[normPostition]);
 			m3dLoadVector4(normLineColors[2 * normPostition + 0], 0, 0.6, 1, 1);
 
@@ -269,19 +272,23 @@ void createMantel(float h) {
 
 			m3dCopyVector3(normLineVertices[2 * normPostition + 1], res);
 			m3dLoadVector4(normLineColors[2 * normPostition + 1], 0, 0.6, 1, 1);
-
+			*/
 
 		}
-		*/
+		
 
 	}
 	for (int j = 0; j < a * 6; j++) {
 
 		m3dCopyVector3(normLineVertices[2 * j + 0],triaVertices[j] );
+		m3dLoadVector4(normLineColors[2 * j + 0], 0, 0.6, 1, 1);
+
 		M3DVector3f res;
 
 		m3dAddVectors3(res, triaVertices[j], triaNorm[j]);
 		m3dCopyVector3(normLineVertices[2 * j + 1], res);
+		m3dLoadVector4(normLineColors[2 * j + 1], 0, 0.6, 1, 1);
+
 	}
 
 
