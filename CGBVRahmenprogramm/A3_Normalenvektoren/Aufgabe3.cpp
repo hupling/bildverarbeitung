@@ -366,7 +366,7 @@ void RenderScene(void)
 
 
 	zylinderMantel.Draw();
-	//normMantel.Draw();
+	normMantel.Draw();
 
 
 	// Hole die im Stack gespeicherten Transformationsmatrizen wieder zurück
