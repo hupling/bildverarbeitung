@@ -93,12 +93,12 @@ void InitGUI()
 
 void createCircle(boolean direction, float z) {
 	const int a = 10;
-	M3DVector3f triaVertices[a * 3];
-	M3DVector4f triaColors[a * 3];
-	M3DVector3f triaNorm[a * 3];
+	M3DVector3f triaVertices[a ];
+	M3DVector4f triaColors[a ];
+	M3DVector3f triaNorm[a ];
 
-	M3DVector3f normLineVertices[a * 2 * 3];
-	M3DVector4f normLineColors[a * 2 * 3];
+	M3DVector3f normLineVertices[a * 2 ];
+	M3DVector4f normLineColors[a * 2];
 
 	float abc = M3D_2PI / a;
 
@@ -113,74 +113,58 @@ void createCircle(boolean direction, float z) {
 		}
 
 
-		m3dLoadVector4(triaColors[i * 3 + 0], 1, 0.8, 0.2, 1);
-		m3dLoadVector3(triaVertices[i * 3 + 0], 0, 0, z);
-
-
-		m3dLoadVector4(triaColors[i * 3 + 1], 1, 0.8, 0.2, 1);
-		m3dLoadVector3(triaVertices[i * 3 + 1], x, y, z);
-
-		m3dLoadVector4(triaColors[i * 3 + 2], 1, 0.8, 0.2, 1);
-		m3dLoadVector3(triaVertices[i * 3 + 2], x1, y1, z);
-		//eigentlich muss das Cross nur einmal berechnet werden
-
-		//calc norm
-		M3DVector3f ab;
-		m3dSubtractVectors3(ab, triaVertices[i * 3 + 2], triaVertices[i * 3 + 0]);
-
-		M3DVector3f ac;
-		m3dSubtractVectors3(ac, triaVertices[i * 3 + 1], triaVertices[i * 3 + 0]);
-
-
-		M3DVector3f cross;
-		m3dCrossProduct3(cross, ab, ac);
-		m3dNormalizeVector3(cross);
-		//m3dScaleVector3(cross, 10);
-
-		for (int j = 0; j < 3; j++) {
-			int normPostition = i * 3 + j;
-
-			m3dCopyVector3(triaNorm[normPostition], cross);
-
-			m3dCopyVector3(normLineVertices[2 * normPostition + 0], triaVertices[normPostition]);
-			m3dLoadVector4(normLineColors[2 * normPostition + 0], 0, 0.6, 1, 1);
-
-			M3DVector3f res;
-			m3dAddVectors3(res, triaVertices[normPostition], cross);
-
-			m3dCopyVector3(normLineVertices[2 * normPostition + 1], res);
-			m3dLoadVector4(normLineColors[2 * normPostition + 1], 0, 0.6, 1, 1);
+		m3dLoadVector4(triaColors[i  + 0], 1, 0.8, 0.2, 1);
+		m3dLoadVector3(triaVertices[i  + 0], x, y, z);
+		M3DVector3f res1;
+		//fall 1+ 2
+		//	m3dLoadVector3(res1, 0,0,z );
+		//fall 3
+		if (z < 0) {
+			m3dLoadVector3(res1, x,y,-0.5 );
 		}
-		/*
+		else {
+			m3dLoadVector3(res1, x,y,0.5 );
+		}
+		//ende
+		m3dNormalizeVector3(res1);
+		m3dCopyVector3(triaNorm[i], res1);
 
-		m3dLoadVector3(lineVertices[i * 2 + 0], x, y, 0);
-		m3dLoadVector4(lineColors[i * 2 + 0], 0, 0.6, 1, 1);
-
-		m3dLoadVector3(lineVertices[i * 2 + 1], x + x, y + y, 0);
-		m3dLoadVector4(lineColors[i * 2 + 1], 0, 0.6, 1, 1);
-
-		*/
 	}
+
+
+	for (int j = 0; j < a ; j++) {
+
+		m3dCopyVector3(normLineVertices[2 * j + 0], triaVertices[j]);
+		m3dLoadVector4(normLineColors[2 * j + 0], 0, 0.6, 1, 1);
+
+		M3DVector3f res;
+
+		m3dAddVectors3(res, triaVertices[j], triaNorm[j]);
+		m3dCopyVector3(normLineVertices[2 * j + 1], res);
+		m3dLoadVector4(normLineColors[2 * j + 1], 0, 0.6, 1, 1);
+
+	}
+
 	if (direction) {
-		zylinderBoden.Begin(GL_TRIANGLES, a * 3);
+		zylinderBoden.Begin(GL_TRIANGLE_FAN, a );
 		zylinderBoden.CopyVertexData3f(triaVertices);
 		zylinderBoden.CopyColorData4f(triaColors);
 		zylinderBoden.CopyNormalDataf(triaNorm);
 		zylinderBoden.End();
 
-		normBoden.Begin(GL_LINES, a * 6);
+		normBoden.Begin(GL_LINES, a * 2);
 		normBoden.CopyVertexData3f(normLineVertices);
 		normBoden.CopyColorData4f(normLineColors);
 		normBoden.End();
 	}
 	else {
-		zylinderDeckel.Begin(GL_TRIANGLES, a * 3);
+		zylinderDeckel.Begin(GL_TRIANGLE_FAN, a );
 		zylinderDeckel.CopyVertexData3f(triaVertices);
 		zylinderDeckel.CopyColorData4f(triaColors);
 		zylinderDeckel.CopyNormalDataf(triaNorm);
 		zylinderDeckel.End();
 
-		normDeckel.Begin(GL_LINES, a * 6);
+		normDeckel.Begin(GL_LINES, a * 2);
 		normDeckel.CopyVertexData3f(normLineVertices);
 		normDeckel.CopyColorData4f(normLineColors);
 		normDeckel.End();
@@ -209,44 +193,61 @@ void createMantel(float h) {
 		float y = sin(abc * i);
 		float  y1 = sin(abc * (i + 1));
 
-
-
 		m3dLoadVector4(triaColors[i * 6 + 0], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 0], x, y, -h);
-
-
 
 		m3dLoadVector4(triaColors[i * 6 + 1], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 1], x, y, h);
 
-
 		m3dLoadVector4(triaColors[i * 6 + 2], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 2], x1, y1, -h);
-
-
 
 		m3dLoadVector4(triaColors[i * 6 + 3], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 3], x, y, h);
 
-
 		m3dLoadVector4(triaColors[i * 6 + 4], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 4], x1, y1, h);
-
 
 		m3dLoadVector4(triaColors[i * 6 + 5], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 5], x1, y1, -h);
 
+		
+		//Fall 3
+		M3DVector3f res1 = { x,y,-.5 };
+		m3dNormalizeVector3(res1);
+		m3dCopyVector3(triaNorm[i * 6 + 0], res1);
 
+		M3DVector3f res2 = { x,y,+.5 };
+		m3dNormalizeVector3(res2);
+		m3dCopyVector3(triaNorm[i * 6 + 1], res2);
+
+		M3DVector3f res3 = { x1,y1,-.5 };
+		m3dNormalizeVector3(res3);
+		m3dCopyVector3(triaNorm[i * 6 + 2], res3);
+		
+		M3DVector3f res4 = { x,y,+.5 };
+		m3dNormalizeVector3(res4);
+		m3dCopyVector3(triaNorm[i * 6 + 3], res4);
+
+		M3DVector3f res5 = { x1,y1,+.5 };
+		m3dNormalizeVector3(res5);
+		m3dCopyVector3(triaNorm[i * 6 + 4], res5);
+
+		M3DVector3f res6 = { x1,y1,-.5 };
+		m3dNormalizeVector3(res6);
+		m3dCopyVector3(triaNorm[i * 6 + 5], res6);
+/*
+		
+		//Fall 1
 		m3dLoadVector3(triaNorm[i * 6 + 0], x, y, 0);
 		m3dLoadVector3(triaNorm[i * 6 + 1], x, y, 0);
 		m3dLoadVector3(triaNorm[i * 6 + 2], x1, y1, 0);
 		m3dLoadVector3(triaNorm[i * 6 + 3], x, y, 0);
 		m3dLoadVector3(triaNorm[i * 6 + 4], x1, y1, 0);
-		m3dLoadVector3(triaNorm[i * 6 + 4], x1, y1, 0);
 		m3dLoadVector3(triaNorm[i * 6 + 5], x1, y1, 0);
 
-
-
+		
+       //Fall 2
 	
 		//calc norm
 		M3DVector3f ab;
@@ -263,21 +264,11 @@ void createMantel(float h) {
 		for (int j = 0; j < 6; j++) {
 			int normPostition = i * 6 + j;
 			m3dCopyVector3(triaNorm[normPostition], cross);
-			/*
-			m3dCopyVector3(normLineVertices[2 * normPostition + 0], triaVertices[normPostition]);
-			m3dLoadVector4(normLineColors[2 * normPostition + 0], 0, 0.6, 1, 1);
-
-			M3DVector3f res;
-			m3dAddVectors3(res, triaVertices[normPostition], cross);
-
-			m3dCopyVector3(normLineVertices[2 * normPostition + 1], res);
-			m3dLoadVector4(normLineColors[2 * normPostition + 1], 0, 0.6, 1, 1);
-			*/
-
 		}
 		
-
+		*/
 	}
+
 	for (int j = 0; j < a * 6; j++) {
 
 		m3dCopyVector3(normLineVertices[2 * j + 0],triaVertices[j] );
@@ -290,6 +281,10 @@ void createMantel(float h) {
 		m3dLoadVector4(normLineColors[2 * j + 1], 0, 0.6, 1, 1);
 
 	}
+	
+	
+
+
 
 
 	zylinderMantel.Begin(GL_TRIANGLES, a * 6);
@@ -371,7 +366,7 @@ void RenderScene(void)
 
 
 	zylinderMantel.Draw();
-	normMantel.Draw();
+	//normMantel.Draw();
 
 
 	// Hole die im Stack gespeicherten Transformationsmatrizen wieder zurück
