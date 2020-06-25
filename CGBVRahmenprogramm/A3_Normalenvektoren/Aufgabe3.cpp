@@ -25,7 +25,6 @@ GLuint shaders;
 
 GLBatch zylinderBoden;
 GLBatch normBoden;
-
 GLBatch zylinderMantel;
 GLBatch normMantel;
 
@@ -52,6 +51,10 @@ float rotation[] = { 0, 0, 0, 0 };
 bool bFall1 = true;
 bool bFall2 = false;
 bool bFall3 = false;
+
+void createCircle(boolean direction, float z);
+void createMantel(float h);
+
 
 //GUI
 TwBar* bar;
@@ -85,20 +88,9 @@ void TW_CALL SetFall1(const void* value, void* clientData) {
 	bFall2 = !*boolptr;
 	bFall3 = !*boolptr;
 
-	normBoden.Free();
-	normBoden.Draw();
-	zylinderBoden.Free();
-	zylinderBoden.Draw();
-
-	normDeckel.Free();
-	normDeckel.Draw();
-	zylinderDeckel.Free();
-	zylinderDeckel.Draw();
-
-	zylinderMantel.Free();
-	zylinderMantel.Draw();
-	normMantel.Free();
-	normMantel.Draw();
+	createCircle(true, -1);
+	createCircle(false, 1);
+	createMantel(1);
 	
 }
 
@@ -115,20 +107,9 @@ void TW_CALL SetFall2(const void* value, void* clientData) {
 	bFall2 = *boolptr;
 	bFall3 = !*boolptr;
 
-	normBoden.Free();
-	normBoden.Draw();
-	zylinderBoden.Free();
-	zylinderBoden.Draw();
-
-	normDeckel.Free();
-	normDeckel.Draw();
-	zylinderDeckel.Free();
-	zylinderDeckel.Draw();
-
-	zylinderMantel.Free();
-	zylinderMantel.Draw();
-	normMantel.Free();
-	normMantel.Draw();
+	createCircle(true, -1);
+	createCircle(false, 1);
+	createMantel(1);
 
 }
 
@@ -145,20 +126,14 @@ void TW_CALL SetFall3(const void* value, void* clientData) {
 	bFall2 = !*boolptr;
 	bFall3 = *boolptr;
 
-	normBoden.Free();
-	normBoden.Draw();
-	zylinderBoden.Free();
-	zylinderBoden.Draw();
 
-	normDeckel.Free();
-	normDeckel.Draw();
-	zylinderDeckel.Free();
-	zylinderDeckel.Draw();
 
-	zylinderMantel.Free();
-	zylinderMantel.Draw();
-	normMantel.Free();
-	normMantel.Draw();
+	createCircle(true, -1);
+	createCircle(false, 1);
+	createMantel(1);
+
+
+
 
 }
 
@@ -252,24 +227,28 @@ void createCircle(boolean direction, float z) {
 	}
 
 	if (direction) {
+		zylinderBoden.Free();
 		zylinderBoden.Begin(GL_TRIANGLE_FAN, a );
 		zylinderBoden.CopyVertexData3f(triaVertices);
 		zylinderBoden.CopyColorData4f(triaColors);
 		zylinderBoden.CopyNormalDataf(triaNorm);
 		zylinderBoden.End();
-
+		
+		normBoden.Free();
 		normBoden.Begin(GL_LINES, a * 2);
 		normBoden.CopyVertexData3f(normLineVertices);
 		normBoden.CopyColorData4f(normLineColors);
 		normBoden.End();
 	}
 	else {
+		zylinderDeckel.Free();
 		zylinderDeckel.Begin(GL_TRIANGLE_FAN, a );
 		zylinderDeckel.CopyVertexData3f(triaVertices);
 		zylinderDeckel.CopyColorData4f(triaColors);
 		zylinderDeckel.CopyNormalDataf(triaNorm);
 		zylinderDeckel.End();
 
+		normDeckel.Free();
 		normDeckel.Begin(GL_LINES, a * 2);
 		normDeckel.CopyVertexData3f(normLineVertices);
 		normDeckel.CopyColorData4f(normLineColors);
@@ -401,13 +380,14 @@ void createMantel(float h) {
 
 
 
-
+	zylinderMantel.Free();
 	zylinderMantel.Begin(GL_TRIANGLES, a * 6);
 	zylinderMantel.CopyVertexData3f(triaVertices);
 	zylinderMantel.CopyColorData4f(triaColors);
 	zylinderMantel.CopyNormalDataf(triaNorm);
 	zylinderMantel.End();
 
+	normMantel.Free();
 	normMantel.Begin(GL_LINES, a * 12);
 	normMantel.CopyVertexData3f(normLineVertices);
 	normMantel.CopyColorData4f(normLineColors);
