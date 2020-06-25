@@ -47,6 +47,12 @@ float mat_specular[4] = { 0.8, 0.8, 0.8, 1.0 };
 unsigned int specular_power = 10;
 // Rotationsgroessen
 float rotation[] = { 0, 0, 0, 0 };
+
+//Fall Unterscheidungen
+bool bFall1 = true;
+bool bFall2 = false;
+bool bFall3 = false;
+
 //GUI
 TwBar* bar;
 
@@ -72,6 +78,96 @@ void TW_CALL GetSpecPower(void* value, void* clientData)
 	*uintptr = specular_power;
 }
 
+//Set function for < 45
+void TW_CALL SetFall1(const void* value, void* clientData) {
+	const bool* boolptr = static_cast<const bool*>(value);
+	bFall1 = *boolptr;
+	bFall2 = !*boolptr;
+	bFall3 = !*boolptr;
+
+	normBoden.Free();
+	normBoden.Draw();
+	zylinderBoden.Free();
+	zylinderBoden.Draw();
+
+	normDeckel.Free();
+	normDeckel.Draw();
+	zylinderDeckel.Free();
+	zylinderDeckel.Draw();
+
+	zylinderMantel.Free();
+	zylinderMantel.Draw();
+	normMantel.Free();
+	normMantel.Draw();
+	
+}
+
+//Get function for < 45
+void TW_CALL GetFall1(void* value, void* clientData) {
+	bool* boolptr = static_cast<bool*>(value);
+	*boolptr = bFall1;
+}
+
+//Set function for  > 45 and < 90
+void TW_CALL SetFall2(const void* value, void* clientData) {
+	const bool* boolptr = static_cast<const bool*>(value);
+	bFall1 = !*boolptr;
+	bFall2 = *boolptr;
+	bFall3 = !*boolptr;
+
+	normBoden.Free();
+	normBoden.Draw();
+	zylinderBoden.Free();
+	zylinderBoden.Draw();
+
+	normDeckel.Free();
+	normDeckel.Draw();
+	zylinderDeckel.Free();
+	zylinderDeckel.Draw();
+
+	zylinderMantel.Free();
+	zylinderMantel.Draw();
+	normMantel.Free();
+	normMantel.Draw();
+
+}
+
+//Get function for > 45 and < 90
+void TW_CALL GetFall2(void* value, void* clientData) {
+	bool* boolptr = static_cast<bool*>(value);
+	*boolptr = bFall2;
+}
+
+//Set function for  > 90
+void TW_CALL SetFall3(const void* value, void* clientData) {
+	const bool* boolptr = static_cast<const bool*>(value);
+	bFall1 = !*boolptr;
+	bFall2 = !*boolptr;
+	bFall3 = *boolptr;
+
+	normBoden.Free();
+	normBoden.Draw();
+	zylinderBoden.Free();
+	zylinderBoden.Draw();
+
+	normDeckel.Free();
+	normDeckel.Draw();
+	zylinderDeckel.Free();
+	zylinderDeckel.Draw();
+
+	zylinderMantel.Free();
+	zylinderMantel.Draw();
+	normMantel.Free();
+	normMantel.Draw();
+
+}
+
+//Get function for > 90
+void TW_CALL GetFall3(void* value, void* clientData) {
+	bool* boolptr = static_cast<bool*>(value);
+	*boolptr = bFall3;
+}
+
 void InitGUI()
 {
 	bar = TwNewBar("TweakBar");
@@ -85,6 +181,10 @@ void InitGUI()
 	TwAddVarRW(bar, "Diffuse", TW_TYPE_COLOR4F, &mat_diffuse, "");
 	TwAddVarRW(bar, "Specular", TW_TYPE_COLOR4F, &mat_specular, "");
 	TwAddVarCB(bar, "Specular Power", TW_TYPE_UINT32, SetSpecPower, GetSpecPower, NULL, "");
+	//Fall Unterscheidungen
+	TwAddVarCB(bar, "Grenzwinkel < 45", TW_TYPE_BOOLCPP, SetFall1, GetFall1, NULL, "");
+	TwAddVarCB(bar, "Grenzwinkel > 45 and < 90", TW_TYPE_BOOLCPP, SetFall2, GetFall2, NULL, "");
+	TwAddVarCB(bar, "Grenzwinkel > 90", TW_TYPE_BOOLCPP, SetFall3, GetFall3, NULL, "");
 }
 
 
@@ -113,23 +213,29 @@ void createCircle(boolean direction, float z) {
 		}
 
 
-		m3dLoadVector4(triaColors[i  + 0], 1, 0.8, 0.2, 1);
-		m3dLoadVector3(triaVertices[i  + 0], x, y, z);
+		m3dLoadVector4(triaColors[i + 0], 1, 0.8, 0.2, 1);
+		m3dLoadVector3(triaVertices[i + 0], x, y, z);
 		M3DVector3f res1;
 		//fall 1+ 2
-		//	m3dLoadVector3(res1, 0,0,z );
+		if (bFall1 || bFall2) {
+			m3dLoadVector3(res1, 0,0,z );
+		}
 		//fall 3
-		if (z < 0) {
-			m3dLoadVector3(res1, x,y,-0.5 );
+		if (bFall3) {
+			if (z < 0) {
+				m3dLoadVector3(res1, x, y, -0.5);
+			}
+			else {
+				m3dLoadVector3(res1, x, y, 0.5);
+			}
 		}
-		else {
-			m3dLoadVector3(res1, x,y,0.5 );
-		}
-		//ende
-		m3dNormalizeVector3(res1);
-		m3dCopyVector3(triaNorm[i], res1);
+			//ende
+			m3dNormalizeVector3(res1);
+			m3dCopyVector3(triaNorm[i], res1);
+		
 
-	}
+		}
+	
 
 
 	for (int j = 0; j < a ; j++) {
@@ -211,62 +317,71 @@ void createMantel(float h) {
 		m3dLoadVector4(triaColors[i * 6 + 5], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 5], x1, y1, -h);
 
+		//Fall 1
+		if (bFall1) {
+			m3dLoadVector3(triaNorm[i * 6 + 0], x, y, 0);
+			m3dLoadVector3(triaNorm[i * 6 + 1], x, y, 0);
+			m3dLoadVector3(triaNorm[i * 6 + 2], x1, y1, 0);
+			m3dLoadVector3(triaNorm[i * 6 + 3], x, y, 0);
+			m3dLoadVector3(triaNorm[i * 6 + 4], x1, y1, 0);
+			m3dLoadVector3(triaNorm[i * 6 + 5], x1, y1, 0);
+		}
+
+		//Fall 2
+		if (bFall2) {
+			//calc norm
+			M3DVector3f ab;
+			m3dSubtractVectors3(ab, triaVertices[i * 6 + 1], triaVertices[i * 6 + 0]);
+			M3DVector3f ac;
+			m3dSubtractVectors3(ac, triaVertices[i * 6 + 5], triaVertices[i * 6 + 0]);
+
+			M3DVector3f cross;
+			m3dCrossProduct3(cross, ac, ab);
+			m3dNormalizeVector3(cross);
+			//m3dScaleVector3(cross, 10);
+
+
+			for (int j = 0; j < 6; j++) {
+				int normPostition = i * 6 + j;
+				m3dCopyVector3(triaNorm[normPostition], cross);
+			}
+		}
+
+		
+
 		
 		//Fall 3
-		M3DVector3f res1 = { x,y,-.5 };
-		m3dNormalizeVector3(res1);
-		m3dCopyVector3(triaNorm[i * 6 + 0], res1);
+		if (bFall3) {
+			M3DVector3f res1 = { x,y,-.5 };
+			m3dNormalizeVector3(res1);
+			m3dCopyVector3(triaNorm[i * 6 + 0], res1);
 
-		M3DVector3f res2 = { x,y,+.5 };
-		m3dNormalizeVector3(res2);
-		m3dCopyVector3(triaNorm[i * 6 + 1], res2);
+			M3DVector3f res2 = { x,y,+.5 };
+			m3dNormalizeVector3(res2);
+			m3dCopyVector3(triaNorm[i * 6 + 1], res2);
 
-		M3DVector3f res3 = { x1,y1,-.5 };
-		m3dNormalizeVector3(res3);
-		m3dCopyVector3(triaNorm[i * 6 + 2], res3);
-		
-		M3DVector3f res4 = { x,y,+.5 };
-		m3dNormalizeVector3(res4);
-		m3dCopyVector3(triaNorm[i * 6 + 3], res4);
+			M3DVector3f res3 = { x1,y1,-.5 };
+			m3dNormalizeVector3(res3);
+			m3dCopyVector3(triaNorm[i * 6 + 2], res3);
 
-		M3DVector3f res5 = { x1,y1,+.5 };
-		m3dNormalizeVector3(res5);
-		m3dCopyVector3(triaNorm[i * 6 + 4], res5);
+			M3DVector3f res4 = { x,y,+.5 };
+			m3dNormalizeVector3(res4);
+			m3dCopyVector3(triaNorm[i * 6 + 3], res4);
 
-		M3DVector3f res6 = { x1,y1,-.5 };
-		m3dNormalizeVector3(res6);
-		m3dCopyVector3(triaNorm[i * 6 + 5], res6);
-/*
-		
-		//Fall 1
-		m3dLoadVector3(triaNorm[i * 6 + 0], x, y, 0);
-		m3dLoadVector3(triaNorm[i * 6 + 1], x, y, 0);
-		m3dLoadVector3(triaNorm[i * 6 + 2], x1, y1, 0);
-		m3dLoadVector3(triaNorm[i * 6 + 3], x, y, 0);
-		m3dLoadVector3(triaNorm[i * 6 + 4], x1, y1, 0);
-		m3dLoadVector3(triaNorm[i * 6 + 5], x1, y1, 0);
+			M3DVector3f res5 = { x1,y1,+.5 };
+			m3dNormalizeVector3(res5);
+			m3dCopyVector3(triaNorm[i * 6 + 4], res5);
 
-		
-       //Fall 2
-	
-		//calc norm
-		M3DVector3f ab;
-		m3dSubtractVectors3(ab, triaVertices[i * 6 + 1], triaVertices[i * 6 + 0]);
-		M3DVector3f ac;
-		m3dSubtractVectors3(ac, triaVertices[i * 6 + 5], triaVertices[i * 6 + 0]);
-
-		M3DVector3f cross;
-		m3dCrossProduct3(cross, ac, ab);
-		m3dNormalizeVector3(cross);
-		//m3dScaleVector3(cross, 10);
-
-
-		for (int j = 0; j < 6; j++) {
-			int normPostition = i * 6 + j;
-			m3dCopyVector3(triaNorm[normPostition], cross);
+			M3DVector3f res6 = { x1,y1,-.5 };
+			m3dNormalizeVector3(res6);
+			m3dCopyVector3(triaNorm[i * 6 + 5], res6);
 		}
+
 		
-		*/
+	
+
+		
+
 	}
 
 	for (int j = 0; j < a * 6; j++) {
