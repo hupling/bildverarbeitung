@@ -84,9 +84,9 @@ void TW_CALL GetSpecPower(void* value, void* clientData)
 //Set function for < 45
 void TW_CALL SetFall1(const void* value, void* clientData) {
 	const bool* boolptr = static_cast<const bool*>(value);
-	bFall1 = *boolptr;
-	bFall2 = !*boolptr;
-	bFall3 = !*boolptr;
+	bFall1 = true;
+	bFall2 = false;
+	bFall3 = false;
 
 	createCircle(true, -1);
 	createCircle(false, 1);
@@ -103,9 +103,9 @@ void TW_CALL GetFall1(void* value, void* clientData) {
 //Set function for  > 45 and < 90
 void TW_CALL SetFall2(const void* value, void* clientData) {
 	const bool* boolptr = static_cast<const bool*>(value);
-	bFall1 = !*boolptr;
-	bFall2 = *boolptr;
-	bFall3 = !*boolptr;
+	bFall1 = false;
+	bFall2 = true;
+	bFall3 = false;
 
 	createCircle(true, -1);
 	createCircle(false, 1);
@@ -113,7 +113,7 @@ void TW_CALL SetFall2(const void* value, void* clientData) {
 
 }
 
-//Get function for > 45 and < 90
+
 void TW_CALL GetFall2(void* value, void* clientData) {
 	bool* boolptr = static_cast<bool*>(value);
 	*boolptr = bFall2;
@@ -122,9 +122,9 @@ void TW_CALL GetFall2(void* value, void* clientData) {
 //Set function for  > 90
 void TW_CALL SetFall3(const void* value, void* clientData) {
 	const bool* boolptr = static_cast<const bool*>(value);
-	bFall1 = !*boolptr;
-	bFall2 = !*boolptr;
-	bFall3 = *boolptr;
+	bFall1 = false;
+	bFall2 = false;
+	bFall3 = true;
 
 
 
@@ -198,10 +198,10 @@ void createCircle(boolean direction, float z) {
 		//fall 3
 		if (bFall3) {
 			if (z < 0) {
-				m3dLoadVector3(res1, x, y, -0.5);
+				m3dLoadVector3(res1, x, y, -tan(M3D_2PI/6));
 			}
 			else {
-				m3dLoadVector3(res1, x, y, 0.5);
+				m3dLoadVector3(res1, x, y, tan(M3D_2PI / 6));
 			}
 		}
 			//ende
@@ -296,8 +296,8 @@ void createMantel(float h) {
 		m3dLoadVector4(triaColors[i * 6 + 5], 1, 0.8, 0.2, 1);
 		m3dLoadVector3(triaVertices[i * 6 + 5], x1, y1, -h);
 
-		//Fall 1
-		if (bFall1) {
+		//Fall 2
+		if (bFall2) {
 			m3dLoadVector3(triaNorm[i * 6 + 0], x, y, 0);
 			m3dLoadVector3(triaNorm[i * 6 + 1], x, y, 0);
 			m3dLoadVector3(triaNorm[i * 6 + 2], x1, y1, 0);
@@ -306,8 +306,8 @@ void createMantel(float h) {
 			m3dLoadVector3(triaNorm[i * 6 + 5], x1, y1, 0);
 		}
 
-		//Fall 2
-		if (bFall2) {
+		//Fall 1
+		if (bFall1) {
 			//calc norm
 			M3DVector3f ab;
 			m3dSubtractVectors3(ab, triaVertices[i * 6 + 1], triaVertices[i * 6 + 0]);
@@ -331,27 +331,27 @@ void createMantel(float h) {
 		
 		//Fall 3
 		if (bFall3) {
-			M3DVector3f res1 = { x,y,-.5 };
+			M3DVector3f res1 = { x,y,-tan(M3D_2PI / 6) };
 			m3dNormalizeVector3(res1);
 			m3dCopyVector3(triaNorm[i * 6 + 0], res1);
 
-			M3DVector3f res2 = { x,y,+.5 };
+			M3DVector3f res2 = { x,y,tan(M3D_2PI / 6) };
 			m3dNormalizeVector3(res2);
 			m3dCopyVector3(triaNorm[i * 6 + 1], res2);
 
-			M3DVector3f res3 = { x1,y1,-.5 };
+			M3DVector3f res3 = { x1,y1,-tan(M3D_2PI / 6) };
 			m3dNormalizeVector3(res3);
 			m3dCopyVector3(triaNorm[i * 6 + 2], res3);
 
-			M3DVector3f res4 = { x,y,+.5 };
+			M3DVector3f res4 = { x,y,tan(M3D_2PI / 6) };
 			m3dNormalizeVector3(res4);
 			m3dCopyVector3(triaNorm[i * 6 + 3], res4);
 
-			M3DVector3f res5 = { x1,y1,+.5 };
+			M3DVector3f res5 = { x1,y1,tan(M3D_2PI / 6) };
 			m3dNormalizeVector3(res5);
 			m3dCopyVector3(triaNorm[i * 6 + 4], res5);
 
-			M3DVector3f res6 = { x1,y1,-.5 };
+			M3DVector3f res6 = { x1,y1,-tan(M3D_2PI / 6) };
 			m3dNormalizeVector3(res6);
 			m3dCopyVector3(triaNorm[i * 6 + 5], res6);
 		}
